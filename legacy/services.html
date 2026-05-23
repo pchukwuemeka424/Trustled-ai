@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — TrustLed AI</title>
+<meta name="description" content="AI Governance Advisory, Shadow AI Detection, and AI Automation Services, each scoped to your organisation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>/* INLINE-CSS-START */
+:root{
+  --ink:#0f1d2e;--ink-soft:#1b2d42;--slate:#34465c;--paper:#f6f3ec;--paper-2:#efe9dd;
+  --line:#d8d0c2;--line-dark:#2a3b50;--brass:#b3823f;--brass-deep:#936a2f;
+  --text:#1c2733;--muted:#5d6b7a;--muted-ink:#9fb0c2;--white:#fff;
+  --display:"Fraunces",Georgia,serif;--body:"Spline Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+  --wrap:1180px;--gap:clamp(1.25rem,4vw,2.5rem);--section-y:clamp(4rem,9vw,7.5rem);--radius:4px;
+  --shadow-card:0 1px 2px rgba(15,29,46,.04),0 8px 30px rgba(15,29,46,.07);
+  --shadow-lift:0 6px 14px rgba(15,29,46,.08),0 22px 50px rgba(15,29,46,.12);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--body);color:var(--text);background:var(--paper);line-height:1.65;font-size:1.0625rem;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+ul{margin:0;padding:0}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 var(--gap)}
+.visually-hidden,.skip-link:not(:focus){position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:1rem;top:1rem;z-index:999;background:var(--ink);color:var(--paper);padding:.6rem 1rem;border-radius:var(--radius);text-decoration:none}
+h1,h2,h3,h4{font-family:var(--display);font-weight:500;line-height:1.1;color:var(--ink);margin:0}
+h1{font-size:clamp(2.4rem,5.4vw,4.1rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.9rem,3.6vw,2.85rem);letter-spacing:-.005em}
+h3{font-size:clamp(1.25rem,2.1vw,1.55rem)}
+h4{font-size:1.02rem;font-family:var(--body);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+p{margin:0 0 1.1rem}
+strong{font-weight:600;color:var(--ink)}
+.eyebrow{font-family:var(--body);font-weight:600;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin:0 0 1.1rem}
+.lede{font-size:clamp(1.1rem,1.7vw,1.32rem);color:var(--slate);line-height:1.55}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--body);font-weight:600;font-size:.98rem;background:var(--ink);color:var(--paper);padding:.85rem 1.5rem;border-radius:var(--radius);text-decoration:none;border:1px solid var(--ink);cursor:pointer;transition:transform .25s,background .25s,box-shadow .25s}
+.btn:hover{background:var(--ink-soft);transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+.btn .arrow{transition:transform .25s}
+.btn:hover .arrow{transform:translateX(4px)}
+.btn-sm{padding:.6rem 1.1rem;font-size:.9rem;white-space:nowrap}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn-on-ink{background:var(--brass);border-color:var(--brass);color:#1a1206}
+.btn-on-ink:hover{background:var(--brass-deep);border-color:var(--brass-deep)}
+.text-link{display:inline-flex;align-items:center;gap:.45rem;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--brass);padding-bottom:2px;transition:gap .25s,color .25s}
+.text-link .arrow{transition:transform .25s}
+.text-link:hover{color:var(--brass-deep)}
+.text-link:hover .arrow{transform:translateX(4px)}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(246,243,236,.85);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.site-header.scrolled{border-bottom-color:var(--line);box-shadow:0 4px 24px rgba(15,29,46,.06)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink)}
+.brand-mark{color:var(--brass);display:inline-flex}
+.brand-text{font-family:var(--display);font-weight:600;font-size:1.4rem;letter-spacing:-.01em}
+.brand-ai{color:var(--brass)}
+.main-nav{display:flex;align-items:center}
+.nav-list{list-style:none;display:flex;align-items:center;gap:clamp(1rem,2.2vw,2rem)}
+.nav-list a{text-decoration:none;color:var(--slate);font-weight:500;font-size:.98rem;position:relative;padding:.3rem 0;transition:color .2s}
+.nav-list a:hover,.nav-list a[aria-current=page]{color:var(--ink)}
+.nav-list a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:0;background:var(--brass);transition:width .28s}
+.nav-list a:not(.btn):hover::after,.nav-list a[aria-current=page]::after{width:100%}
+.nav-cta-item{margin-left:.25rem}
+.nav-cta-item a::after{display:none}
+.nav-toggle{display:none}
+section{padding:var(--section-y) 0}
+.section-ink{background:var(--ink);color:var(--paper)}
+.section-ink h1,.section-ink h2,.section-ink h3{color:var(--white)}
+.section-ink .lede{color:var(--muted-ink)}
+.section-paper-2{background:var(--paper-2)}
+.section-head{max-width:760px;margin-bottom:clamp(2.5rem,5vw,3.75rem)}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.hero{position:relative;overflow:hidden;background:radial-gradient(1200px 600px at 78% -8%,rgba(179,130,63,.16),transparent 60%),radial-gradient(900px 500px at 8% 110%,rgba(52,70,92,.5),transparent 60%),var(--ink);color:var(--paper);padding-top:clamp(4.5rem,9vw,7rem);padding-bottom:clamp(4.5rem,9vw,7rem)}
+.hero::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(1000px 600px at 70% 20%,#000,transparent 75%);mask-image:radial-gradient(1000px 600px at 70% 20%,#000,transparent 75%)}
+.hero-inner{position:relative;z-index:1;max-width:880px}
+.hero h1{color:var(--white);margin-bottom:1.5rem}
+.hero .lede{color:#d9dde3;max-width:640px}
+.hero-tagline{display:inline-flex;align-items:center;gap:.65rem;font-family:var(--body);font-weight:600;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin-bottom:1.5rem}
+.hero-tagline::before{content:"";width:34px;height:1.5px;background:var(--brass)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.25rem}
+.prose{max-width:760px}
+.prose p{font-size:1.12rem;color:var(--slate)}
+.prose .closing{font-family:var(--display);font-size:1.4rem;color:var(--ink);font-style:italic;margin-top:1.75rem}
+.card-grid{display:grid;gap:1.5rem;grid-template-columns:repeat(3,1fr)}
+.card-grid.two{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1.6rem,3vw,2.2rem);box-shadow:var(--shadow-card);transition:transform .3s,box-shadow .3s,border-color .3s;position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:var(--brass);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.card:hover::after{transform:scaleX(1)}
+.card .num{font-family:var(--display);font-size:1rem;color:var(--brass);font-weight:600;margin-bottom:.9rem}
+.card h3{margin-bottom:.7rem}
+.card p{color:var(--muted);margin-bottom:0;font-size:1rem}
+.card .card-link{margin-top:1.25rem;display:inline-flex}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:0}
+.stat{border-left:2px solid var(--brass);padding:.25rem 0 .25rem 1.25rem}
+.stat .figure{font-family:var(--display);font-size:clamp(2.2rem,4vw,3rem);font-weight:600;line-height:1;color:var(--ink);display:block}
+.section-ink .stat .figure{color:var(--white)}
+.stat .desc{font-size:.98rem;color:var(--muted);margin:.6rem 0 .4rem}
+.section-ink .stat .desc{color:var(--muted-ink)}
+.stat .src{font-size:.76rem;letter-spacing:.03em;color:var(--muted);font-style:italic}
+.section-ink .stat .src{color:#7d8da3}
+.cite{font-size:.8rem;font-style:italic;color:var(--muted)}
+.service-block{padding:var(--section-y) 0;border-top:1px solid var(--line);scroll-margin-top:90px}
+.service-block:first-of-type{border-top:none}
+.service-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.service-lead h2{margin-bottom:1.25rem}
+.service-index{font-family:var(--display);font-size:.95rem;color:var(--brass);font-weight:600;letter-spacing:.05em;margin-bottom:1rem}
+.service-body p{color:var(--slate)}
+.service-body p:first-child{font-size:1.1rem}
+.deliverables{margin-top:2rem;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow-card)}
+.deliverables h4{color:var(--ink);margin-bottom:1.1rem}
+.deliverables ul{list-style:none;display:grid;gap:.85rem}
+.deliverables li{position:relative;padding-left:1.7rem;color:var(--slate);font-size:1rem;line-height:1.5}
+.deliverables li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:9px;border:1.5px solid var(--brass);transform:rotate(45deg)}
+.bucket-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.bucket{border-radius:var(--radius);padding:1.75rem;border:1px solid var(--line);background:var(--white);position:relative}
+.bucket-tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .7rem;border-radius:100px;margin-bottom:1rem}
+.bucket--full{border-top:3px solid #2f7d56}
+.bucket--full .bucket-tag{background:#e3f1e9;color:#2f7d56}
+.bucket--loop{border-top:3px solid var(--brass)}
+.bucket--loop .bucket-tag{background:#f5ebda;color:var(--brass-deep)}
+.bucket--only{border-top:3px solid #b5453a}
+.bucket--only .bucket-tag{background:#f6e3e1;color:#b5453a}
+.bucket h3{font-size:1.3rem;margin-bottom:.6rem}
+.bucket p{color:var(--muted);font-size:.98rem;margin-bottom:0}
+/* Governance flow diagram */
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1.25rem;align-items:center;margin-top:3rem}
+.flow-col{display:grid;gap:.7rem}
+.flow-col h4{color:var(--brass);font-size:.74rem;margin-bottom:.3rem}
+.flow-node{background:rgba(255,255,255,.05);border:1px solid var(--line-dark);border-radius:var(--radius);padding:.7rem .9rem;font-size:.92rem;color:#d9dde3}
+.flow-core{background:var(--brass);color:#1a1206;border:none;text-align:center;padding:1.25rem 1rem;border-radius:var(--radius);font-weight:600}
+.flow-core small{display:block;font-weight:400;font-size:.78rem;margin-top:.3rem;color:#3a2a10}
+.flow-arrow{color:var(--brass);font-size:1.5rem;text-align:center}
+/* Problem columns */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem}
+.problem-col{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1.6rem,3vw,2rem);box-shadow:var(--shadow-card)}
+.problem-col h3{font-size:1.25rem;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.problem-col h3 .ic{width:30px;height:30px;flex:none;border:1.5px solid var(--brass);border-radius:50%;display:grid;place-items:center;color:var(--brass);font-size:.9rem}
+.problem-col ul{list-style:none;display:grid;gap:.7rem}
+.problem-col li{position:relative;padding-left:1.4rem;color:var(--muted);font-size:.97rem}
+.problem-col li::before{content:"–";position:absolute;left:0;color:var(--brass);font-weight:700}
+/* Team */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.team-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow-card);transition:transform .3s,box-shadow .3s}
+.team-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.team-photo{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--ink),var(--slate));color:var(--brass);display:grid;place-items:center;font-family:var(--display);font-size:1.6rem;font-weight:600;margin-bottom:1.1rem}
+.team-card h3{font-size:1.25rem;margin-bottom:.2rem}
+.team-role{color:var(--brass-deep);font-weight:600;font-size:.9rem;margin-bottom:.7rem}
+.team-card p{color:var(--muted);font-size:.95rem;margin-bottom:0}
+/* Pull quote */
+.pullquote{max-width:840px;margin:0 auto;text-align:center}
+.pullquote blockquote{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.3;color:var(--white);margin:0 0 1.5rem;font-weight:400}
+.pullquote .src{color:var(--brass);font-weight:600;letter-spacing:.04em;font-size:.95rem}
+/* FAQ accordion */
+.faq{max-width:820px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:var(--display);font-size:1.2rem;color:var(--ink);padding:1.4rem 2.5rem 1.4rem 0;position:relative;display:block}
+.faq-q::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:1.5rem;color:var(--brass);transition:transform .3s;font-family:var(--body)}
+.faq-item.open .faq-q::after{content:"–"}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--slate)}
+.faq-a-inner{padding:0 0 1.4rem}
+.split{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.programme{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1.8rem,3.5vw,2.5rem);box-shadow:var(--shadow-card);display:flex;flex-direction:column}
+.programme .tag{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:1rem}
+.programme h3{font-size:1.5rem;margin-bottom:1rem}
+.programme p{color:var(--muted)}
+.programme .strap{font-family:var(--display);font-style:italic;font-size:1.15rem;color:var(--ink);margin-bottom:1.25rem}
+.about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.about-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1.8rem,3vw,2.4rem);box-shadow:var(--shadow-card);transition:transform .3s,box-shadow .3s}
+.about-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.about-card h3{display:flex;align-items:baseline;gap:.6rem;margin-bottom:1rem}
+.about-card h3 .dot{width:8px;height:8px;background:var(--brass);border-radius:50%;display:inline-block;flex:none}
+.about-card p{color:var(--muted);margin-bottom:0}
+.asat-hero{background:radial-gradient(800px 500px at 90% 0%,rgba(179,130,63,.18),transparent 55%),var(--ink);color:var(--paper);border-radius:6px;padding:clamp(2.5rem,6vw,4.5rem);position:relative;overflow:hidden}
+.asat-hero h2{color:var(--white);max-width:620px;margin-bottom:1.5rem}
+.asat-hero p{color:#d9dde3;max-width:640px}
+.asat-tag{display:inline-block;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:1.25rem}
+.cta-band{background:var(--ink);color:var(--paper);text-align:center}
+.cta-band .wrap{max-width:720px}
+.cta-band h2{color:var(--white);margin-bottom:1rem}
+.cta-band p{color:var(--muted-ink);font-size:1.1rem;margin-bottom:2rem}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
+.contact-aside .lede{margin-bottom:2rem}
+.contact-detail{border-top:1px solid var(--line);padding-top:1.5rem;margin-top:1.5rem}
+.contact-detail h4{color:var(--ink);margin-bottom:.6rem}
+.contact-detail p{color:var(--muted);margin-bottom:.3rem}
+.contact-detail a{color:var(--brass-deep);text-decoration:none;font-weight:500}
+.contact-detail a:hover{text-decoration:underline}
+.form-card{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:clamp(1.8rem,3.5vw,2.6rem);box-shadow:var(--shadow-card)}
+.field{margin-bottom:1.25rem}
+.field label{display:block;font-weight:600;font-size:.92rem;color:var(--ink);margin-bottom:.45rem}
+.field input,.field select,.field textarea{width:100%;font-family:var(--body);font-size:1rem;color:var(--text);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:.8rem .9rem;transition:border-color .2s,box-shadow .2s}
+.field textarea{resize:vertical;min-height:130px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brass);box-shadow:0 0 0 3px rgba(179,130,63,.16)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.form-note{font-size:.88rem;color:var(--muted);margin-top:1rem}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-delay="1"]{transition-delay:.08s}
+.reveal[data-delay="2"]{transition-delay:.16s}
+.reveal[data-delay="3"]{transition-delay:.24s}
+.site-footer{background:var(--ink);color:var(--muted-ink);padding-top:clamp(3.5rem,6vw,5rem)}
+.footer-inner{display:grid;grid-template-columns:1.3fr 2fr;gap:clamp(2rem,5vw,4rem);padding-bottom:3rem}
+.brand-footer .brand-text{color:var(--white)}
+.footer-line{font-family:var(--display);font-style:italic;color:var(--brass);margin:1rem 0 .75rem}
+.footer-reg{font-size:.9rem;color:var(--muted-ink);max-width:320px}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.footer-col h4{color:var(--white);font-size:.8rem;margin-bottom:1.1rem;letter-spacing:.12em}
+.footer-col ul{list-style:none;display:grid;gap:.65rem}
+.footer-col a{color:var(--muted-ink);text-decoration:none;font-size:.95rem;transition:color .2s}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid var(--line-dark);padding:1.5rem var(--gap)}
+.footer-bottom p{margin:0;font-size:.85rem;color:var(--muted-ink)}
+.footer-disclaimer{font-size:.82rem;color:var(--muted-ink);max-width:520px}
+@media(max-width:920px){.service-grid,.contact-layout,.footer-inner,.flow{grid-template-columns:1fr}.flow-arrow{transform:rotate(90deg)}}
+@media(max-width:760px){
+  .nav-toggle{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;z-index:110}
+  .nav-toggle-bar{width:24px;height:2px;background:var(--ink);transition:transform .3s,opacity .3s}
+  .nav-toggle[aria-expanded=true] .nav-toggle-bar:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle[aria-expanded=true] .nav-toggle-bar:nth-child(2){transform:rotate(-45deg)}
+  .nav-list{position:fixed;inset:76px 0 auto 0;flex-direction:column;align-items:flex-start;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:.5rem var(--gap) 1.5rem;box-shadow:var(--shadow-lift);transform:translateY(-12px);opacity:0;pointer-events:none;transition:transform .3s,opacity .3s}
+  .nav-list.open{transform:none;opacity:1;pointer-events:auto}
+  .nav-list li{width:100%;border-bottom:1px solid var(--line)}
+  .nav-list li:last-child{border-bottom:none;padding-top:1rem}
+  .nav-list a{display:block;padding:.9rem 0;font-size:1.05rem}
+  .nav-cta-item a{display:inline-flex}
+  .card-grid,.card-grid.two,.bucket-grid,.split,.about-grid,.stat-row,.problem-grid,.team-grid{grid-template-columns:1fr}
+  .field-row{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+/* INLINE-CSS-END */
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" id="siteHeader">
+<div class="wrap header-inner">
+<a class="brand" href="index.html" aria-label="TrustLed AI home">
+<span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M16 2 L28 7 V16 C28 23 22.5 28 16 30.5 C9.5 28 4 23 4 16 V7 Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 16.2 L14.3 20 L21.5 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span class="brand-text">TrustLed<span class="brand-ai">AI</span></span></a>
+<nav class="main-nav" aria-label="Primary">
+<button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="visually-hidden">Menu</span></button>
+<ul class="nav-list" id="navList">
+<li><a href="index.html">Home</a></li>
+<li><a href="services.html" aria-current="page">Services</a></li>
+<li><a href="solutions.html">Solutions</a></li>
+<li><a href="education.html">Education &amp; Training</a></li>
+<li><a href="about.html">About</a></li>
+<li class="nav-cta-item"><a class="btn btn-sm" href="contact.html">Talk to us</a></li>
+</ul></nav></div></header>
+<main id="main">
+
+<section class="hero" style="padding-top:clamp(3.5rem,7vw,5rem);padding-bottom:clamp(3rem,6vw,4.5rem)">
+<div class="wrap hero-inner">
+<p class="hero-tagline reveal">Services</p>
+<h1 class="reveal" data-delay="1">Three engagements, scoped to your situation.</h1>
+<p class="lede reveal" data-delay="2">Each engagement is sized to your organisation rather than packaged into tiers. We work out what proportionate compliance looks like for you, then we build it.</p>
+</div></section>
+
+<div class="service-block" id="advisory"><div class="wrap"><div class="service-grid">
+<div class="service-lead reveal"><p class="service-index">01 — AI Governance Advisory</p><h2>The governance work your auditor, your governing body, or your regulator wants to see, sized to your organisation.</h2></div>
+<div class="service-body reveal" data-delay="1">
+<p>31% of UK organisations have no AI governance policy in place <span class="cite">(CyXcel/Censuswide, 2025)</span>. Only 3.5% of compliance professionals describe their firm as fully prepared for AI regulation <span class="cite">(VinciWorks, 2026)</span>. In education, nearly half of UK teachers reported using generative AI in 2024, often in schools that have not formally implemented AI use, and may not have strong AI literacy or a policy in place. The questions are already arriving, from inspectors, auditors, insurers, enterprise customers, and regulators, and most organisations cannot answer them yet.</p>
+<p>We help you change that. We work out which rules apply to your specific use of AI, what proportionate compliance looks like for an organisation your size, and what evidence you need to produce. Then we build it.</p>
+<p>Most governance work fails in one of two directions. It is either too generic to be useful, a downloaded policy template that nobody reads and no auditor respects, or it is so heavy that the organisation abandons it halfway through. We aim for the middle. The governance we build is specific to the AI you actually run, proportionate to your size and risk, and written so the people responsible for it can understand and maintain it after we leave.</p>
+<p>The engagement usually begins with discovery. We map your AI estate, including the systems you know about and the ones you do not, then classify each against the frameworks that apply to your sector. From there, we build the policies, controls, and documentation that turn a vague sense of exposure into a defensible position you can show to anyone who asks.</p>
+<div class="deliverables"><h4>Typical deliverables</h4><ul>
+<li>AI inventory for your organisation, including embedded AI in tools you may not have classified as AI.</li>
+<li>Risk classification against the EU AI Act, NIST AI Risk Management Framework, ISO 42001 controls, and where relevant the DfE's generative AI product safety expectations, with proportionality applied.</li>
+<li>Governance policies, control documentation, and the audit trail that goes with them, including alignment with Keeping Children Safe in Education for schools and trusts.</li>
+<li>A prioritised remediation roadmap that sequences the work by risk and effort, so you know what to fix first and what can wait.</li>
+<li>An evidence pack you can put in front of an auditor, an inspector, a governing body, an insurer, or an enterprise buyer.</li>
+</ul></div></div></div></div></div>
+
+<div class="service-block section-paper-2" id="shadow"><div class="wrap"><div class="service-grid">
+<div class="service-lead reveal"><p class="service-index">02 — Shadow AI Detection</p><h2>Find the AI running in your organisation that nobody approved.</h2></div>
+<div class="service-body reveal" data-delay="1">
+<p>Most organisations are running far more AI than they have accounted for. Staff sign up for tools independently because they make the work easier. Departments adopt AI-enabled software without telling IT. Vendors quietly embed AI features into platforms you have licensed for years, switching them on by default. The result is a growing layer of AI that sits outside your governance entirely, processing your data and shaping your decisions without anyone having assessed the risk.</p>
+<p>This is shadow AI, and it is where most of the real exposure lives. A governance policy that covers only the AI you formally approved is a policy with a hole in the middle of it. When an auditor, a regulator, or an enterprise customer asks what AI you operate, the honest answer for most organisations is that they do not fully know.</p>
+<p>Shadow AI Detection closes that gap. We systematically uncover the AI operating across your organisation, the tools staff adopted on their own, the AI features embedded in your existing software, and the integrations quietly passing your data to third-party models. We tell you what is there, what data it touches, what risk it carries, and what to do about each finding.</p>
+<p>The work is practical rather than intrusive. We combine a review of your software estate, your contracts, and your data flows with structured conversations across departments, because the people doing the work usually know exactly which tools they are using even when the organisation does not. The output is a complete and honest picture of your true AI footprint, and a clear plan to bring the parts that matter under proper control.</p>
+<div class="deliverables"><h4>Typical deliverables</h4><ul>
+<li>A complete register of the AI operating in your organisation, including unapproved tools and embedded AI features in licensed software.</li>
+<li>A data exposure assessment showing what information each system touches and where that data goes.</li>
+<li>Risk classification of each discovered system against the EU AI Act and other relevant frameworks.</li>
+<li>A prioritised action plan covering what to retire, what to bring under governance, and what to approve formally.</li>
+<li>Recommendations for the controls and processes that stop new shadow AI from accumulating after the engagement ends.</li>
+</ul></div></div></div></div></div>
+
+<div class="service-block" id="automation"><div class="wrap"><div class="service-grid">
+<div class="service-lead reveal"><p class="service-index">03 — AI Automation Services</p><h2>Efficiency without exposure.</h2></div>
+<div class="service-body reveal" data-delay="1">
+<p>42% of UK companies abandoned AI initiatives in 2025, with 46% of proof-of-concept projects never reaching production <span class="cite">(Resultsense, 2025)</span>. In education, schools and trusts are under pressure to deploy AI for marking, reporting, communications, and administrative workflows, often without the governance work to back it up. Most automation efforts fail not because the technology is wrong, but because the workflow, oversight, and accountability around it were not designed in from the start.</p>
+<p>We believe a successful AI automation strategy starts with task mapping. We help you move beyond the hype by auditing your operations and sorting your tasks into three buckets.</p>
+</div></div>
+<div class="bucket-grid">
+<div class="bucket bucket--full reveal"><span class="bucket-tag">Full automation</span><h3>Low-risk, high-frequency</h3><p>AI handles the heavy lifting to deliver immediate time savings. For schools, this often looks like routine correspondence drafting, timetabling support, or data extraction from standard documents.</p></div>
+<div class="bucket bucket--loop reveal" data-delay="1"><span class="bucket-tag">Human-in-the-loop</span><h3>AI assists, a human owns it</h3><p>Complex processes where AI assists but a human maintains oversight and accountability. Marking and feedback workflows, report generation, financial workflow automation in academy trusts, and admissions support all sit here.</p></div>
+<div class="bucket bucket--only reveal" data-delay="2"><span class="bucket-tag">Human-only</span><h3>Judgement, not automation</h3><p>Critical work where AI cannot, and should not, replace human judgement. Safeguarding decisions, pastoral conversations, formal assessment outcomes, and any decision with significant consequences for a pupil, student, or staff member.</p></div>
+</div>
+<div class="service-body reveal" style="max-width:760px;margin-top:2.5rem">
+<p>We design and implement automation systems that reduce operational friction, improve consistency, and create space for higher-value work. Our focus is on systems that are integrated, maintainable, and aligned with how your organisation actually operates. Crucially, we build the governance in from the start rather than bolting it on later. Every automation we implement comes with clear accountability, documented decision points, and a record of what the system does and why, so the efficiency you gain does not come at the cost of a new compliance problem six months down the line.</p>
+<div class="deliverables"><h4>What this includes</h4><ul>
+<li>Workflow automation using AI tools and integrations.</li>
+<li>Process redesign for AI-enabled operations.</li>
+<li>Secure deployment of AI within school, university, or business environments.</li>
+<li>Governance and documentation built into each automation from the outset.</li>
+<li>Ongoing optimisation and performance monitoring.</li>
+</ul></div></div></div></div>
+
+<section class="cta-band"><div class="wrap"><h2>Not sure which engagement fits?</h2><p>A 30-minute conversation, no pitch deck. We will tell you whether we can help and which engagement makes sense.</p><a class="btn btn-on-ink" href="contact.html">Talk to us about your situation <span class="arrow">&rarr;</span></a></div></section>
+</main>
+<footer class="site-footer">
+<div class="wrap footer-inner">
+<div class="footer-brand">
+<a class="brand brand-footer" href="index.html"><span class="brand-text">TrustLed<span class="brand-ai">AI</span></span></a>
+<p class="footer-line">Assess. Automate. Advance.</p>
+<p class="footer-reg">TrustLed AI Ltd is registered in England and Wales. Liverpool, United Kingdom.</p>
+<p class="footer-disclaimer">TrustLed AI is an advisory firm and does not provide legal advice.</p>
+</div>
+<div class="footer-cols">
+<div class="footer-col"><h4>Services</h4><ul>
+<li><a href="services.html#advisory">AI Governance Advisory</a></li>
+<li><a href="services.html#shadow">Shadow AI Detection</a></li>
+<li><a href="services.html#automation">AI Automation Services</a></li></ul></div>
+<div class="footer-col"><h4>More</h4><ul>
+<li><a href="solutions.html">ASAT</a></li>
+<li><a href="education.html">Education &amp; Training</a></li>
+<li><a href="about.html">About</a></li></ul></div>
+<div class="footer-col"><h4>Contact</h4><ul>
+<li><a href="mailto:hello@trustledai.com">hello@trustledai.com</a></li>
+<li><a href="mailto:partner@trustledai.com">partner@trustledai.com</a></li>
+<li><a href="contact.html">Start a conversation</a></li></ul></div>
+</div></div>
+<div class="wrap footer-bottom"><p>&copy; 2026 TrustLed AI Ltd. All rights reserved.</p></div>
+</footer>
+<script>
+(function(){
+  "use strict";
+  var toggle=document.getElementById("navToggle"),list=document.getElementById("navList");
+  if(toggle&&list){
+    toggle.addEventListener("click",function(){var o=list.classList.toggle("open");toggle.setAttribute("aria-expanded",o?"true":"false");});
+    list.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){list.classList.remove("open");toggle.setAttribute("aria-expanded","false");});});
+  }
+  var header=document.getElementById("siteHeader");
+  if(header){var s=function(){header.classList.toggle("scrolled",window.scrollY>12);};window.addEventListener("scroll",s,{passive:true});s();}
+  var reveals=document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window&&reveals.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12,rootMargin:"0px 0px -8% 0px"});
+    reveals.forEach(function(el){io.observe(el);});
+  }else{reveals.forEach(function(el){el.classList.add("in");});}
+  // FAQ accordion
+  document.querySelectorAll(".faq-q").forEach(function(q){
+    q.addEventListener("click",function(){
+      var item=q.closest(".faq-item"),ans=item.querySelector(".faq-a"),open=item.classList.toggle("open");
+      q.setAttribute("aria-expanded",open?"true":"false");
+      ans.style.maxHeight=open?ans.scrollHeight+"px":null;
+    });
+  });
+})();
+</script>
+</body></html>

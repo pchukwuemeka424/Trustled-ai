@@ -1,0 +1,38 @@
+HOW TO OPEN THE TRUSTLED AI WEBSITE
+====================================
+
+FIRST: unzip this folder. Do not open files from inside the zip — the page
+links will not work until the files are extracted to a real folder.
+  - Windows: right-click the zip -> "Extract All"
+  - Mac: double-click the zip
+
+THEN, pick ONE of these:
+
+--- OPTION 1: Just look at it (simplest) ---
+Double-click "index.html". The site opens in your browser. Click around the
+navigation (Services, Solutions, About, etc.) — every page is included.
+
+If links seem not to work this way, use Option 2 instead.
+
+--- OPTION 2: Run it like a real website (most reliable) ---
+This starts a small local web server so every link and page behaves exactly
+as it will once deployed. You need Python installed (most Macs already have it).
+  - Windows: double-click "start-windows.bat"
+  - Mac:     double-click "start-mac-linux.command"
+A browser tab opens at http://localhost:8000 showing the site. Keep the little
+black window open while you browse; close it when you are done.
+
+--- OPTION 3: Put it live on the internet (for real use) ---
+1. Go to https://app.netlify.com/drop
+2. Drag the WHOLE unzipped folder onto the page.
+3. You get a live web address in under a minute. Every link works.
+   The contact form starts capturing messages once it is live here.
+
+WHICH PAGES ARE INCLUDED
+  index.html ............ Home
+  services.html ......... Services (Advisory, Shadow AI, Automation)
+  solutions.html ........ ASAT
+  education.html ........ Education & Training
+  about.html ............ About + team
+  contact.html .......... Contact form
+  thank-you.html ........ Shown after the form is submitted
