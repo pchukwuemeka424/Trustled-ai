@@ -5,7 +5,7 @@ import { AdminLogoutButton } from "@/components/admin-logout-button";
 const sections = [
   {
     label: "Site",
-    pages: [{ name: "Header logo", href: "/admin/settings" }],
+    pages: [{ name: "Header logo and footer", href: "/admin/settings" }],
   },
   {
     label: "Marketing",

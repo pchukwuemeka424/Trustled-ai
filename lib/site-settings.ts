@@ -14,8 +14,11 @@ type SiteContentDoc = {
   updatedAt: Date;
 };
 
-function normalizeSettings(content?: Partial<SiteSettings> | null): SiteSettings {
-  const merged = { ...defaultSiteSettings };
+function normalizeSettings(
+  content?: Partial<SiteSettings> | null,
+  base: SiteSettings = defaultSiteSettings,
+): SiteSettings {
+  const merged = { ...base };
   if (content) {
     for (const key of getSiteSettingsFieldKeys()) {
       const value = content[key];
@@ -50,11 +53,13 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 }
 
 export async function updateSiteSettings(
-  settings: SiteSettings,
+  settings: Partial<SiteSettings>,
 ): Promise<SiteSettings> {
   const db = await getDatabase();
   const collection = db.collection<SiteContentDoc>("site_content");
-  const normalized = normalizeSettings(settings);
+  const existing = await collection.findOne({ _id: SITE_SETTINGS_DOC_ID });
+  const current = normalizeSettings(existing?.content);
+  const normalized = normalizeSettings(settings, current);
 
   await collection.updateOne(
     { _id: SITE_SETTINGS_DOC_ID },

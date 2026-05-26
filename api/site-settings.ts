@@ -6,11 +6,12 @@ import {
   type SiteSettings,
 } from "@/lib/site-settings-schema";
 
-function isValidSiteSettings(body: unknown): body is SiteSettings {
-  if (!body || typeof body !== "object") return false;
+function isValidSiteSettings(body: unknown): body is Partial<SiteSettings> {
+  if (!body || typeof body !== "object" || Array.isArray(body)) return false;
 
-  return getSiteSettingsFieldKeys().every(
-    (key) => typeof (body as SiteSettings)[key] === "string",
+  const validKeys = new Set(getSiteSettingsFieldKeys());
+  return Object.entries(body).every(
+    ([key, value]) => validKeys.has(key) && typeof value === "string",
   );
 }
 

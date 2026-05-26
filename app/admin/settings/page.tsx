@@ -26,9 +26,8 @@ export default async function AdminSettingsPage() {
             <p className="eyebrow">Admin</p>
             <h1 style={{ marginTop: "0.5rem" }}>Site settings</h1>
             <p className="lede" style={{ marginTop: "0.75rem", maxWidth: "42rem" }}>
-              Upload or change the logo shown in the site header on every page.
-              When logged in, you can also use &ldquo;Upload logo&rdquo; next to the
-              brand in the header.
+              Upload or change the logo shown in the site header and manage the
+              footer content used on every page.
             </p>
           </div>
           <AdminLogoutButton />
@@ -42,18 +41,15 @@ export default async function AdminSettingsPage() {
 
         <div
           style={{
-            maxWidth: "32rem",
+            maxWidth: "48rem",
             padding: "1.5rem",
             border: "1px solid var(--line)",
             borderRadius: "var(--radius)",
             background: "var(--white)",
           }}
         >
-          <h2 className="eyebrow">Header logo</h2>
-          <SiteSettingsForm
-            initialLogoUrl={settings.logoUrl}
-            initialLogoAlt={settings.logoAlt}
-          />
+          <h2 className="eyebrow">Header and footer</h2>
+          <SiteSettingsForm initialSettings={settings} />
         </div>
       </Container>
     </section>

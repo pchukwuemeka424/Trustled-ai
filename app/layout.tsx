@@ -58,7 +58,7 @@ export default async function RootLayout({
           isAdmin={isAdmin}
         />
         <main id="main">{children}</main>
-        <Footer />
+        <Footer settings={settings} />
         <SiteEffects />
       </body>
     </html>

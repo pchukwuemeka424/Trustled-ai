@@ -1,7 +1,54 @@
 import Link from "next/link";
+import {
+  defaultSiteSettings,
+  type SiteSettings,
+} from "@/lib/site-settings-schema";
 import { BrandText } from "./ui";
 
-export function Footer() {
+type FooterProps = {
+  settings: SiteSettings;
+};
+
+function FooterLink({ href, label }: { href: string; label: string }) {
+  if (!href) return <span>{label}</span>;
+
+  if (href.startsWith("/")) {
+    return <Link href={href}>{label}</Link>;
+  }
+
+  return <a href={href}>{label}</a>;
+}
+
+export function Footer({ settings }: FooterProps) {
+  const content = { ...defaultSiteSettings, ...settings };
+  const columns = [
+    {
+      heading: content.footerServicesHeading,
+      links: [
+        [content.footerService1Href, content.footerService1Label],
+        [content.footerService2Href, content.footerService2Label],
+        [content.footerService3Href, content.footerService3Label],
+      ],
+    },
+    {
+      heading: content.footerMoreHeading,
+      links: [
+        [content.footerMore1Href, content.footerMore1Label],
+        [content.footerMore2Href, content.footerMore2Label],
+        [content.footerMore3Href, content.footerMore3Label],
+        [content.footerMore4Href, content.footerMore4Label],
+      ],
+    },
+    {
+      heading: content.footerContactHeading,
+      links: [
+        [content.footerContact1Href, content.footerContact1Label],
+        [content.footerContact2Href, content.footerContact2Label],
+        [content.footerContact3Href, content.footerContact3Label],
+      ],
+    },
+  ];
+
   return (
     <footer className="site-footer">
       <div className="wrap footer-inner">
@@ -9,67 +56,27 @@ export function Footer() {
           <Link className="brand brand-footer" href="/">
             <BrandText />
           </Link>
-          <p className="footer-line">Assess. Automate. Advance.</p>
-          <p className="footer-reg">
-            TrustLed AI Ltd is registered in England and Wales. Liverpool,
-            United Kingdom.
-          </p>
-          <p className="footer-disclaimer">
-            TrustLed AI is an advisory firm and does not provide legal advice.
-          </p>
+          <p className="footer-line">{content.footerTagline}</p>
+          <p className="footer-reg">{content.footerRegistration}</p>
+          <p className="footer-disclaimer">{content.footerDisclaimer}</p>
         </div>
         <div className="footer-cols">
-          <div className="footer-col">
-            <h4>Services</h4>
-            <ul>
-              <li>
-                <Link href="/services#advisory">AI Governance Advisory</Link>
-              </li>
-              <li>
-                <Link href="/services#shadow">Shadow AI Detection</Link>
-              </li>
-              <li>
-                <Link href="/services#automation">AI Automation Services</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h4>More</h4>
-            <ul>
-              <li>
-                <Link href="/solutions">ASAT</Link>
-              </li>
-              <li>
-                <Link href="/education">Education &amp; Training</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/blog">Blog</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h4>Contact</h4>
-            <ul>
-              <li>
-                <a href="mailto:hello@trustledai.com">hello@trustledai.com</a>
-              </li>
-              <li>
-                <a href="mailto:partner@trustledai.com">
-                  partner@trustledai.com
-                </a>
-              </li>
-              <li>
-                <Link href="/contact">Start a conversation</Link>
-              </li>
-            </ul>
-          </div>
+          {columns.map((column) => (
+            <div className="footer-col" key={column.heading}>
+              <h4>{column.heading}</h4>
+              <ul>
+                {column.links.map(([href, label]) => (
+                  <li key={`${href}:${label}`}>
+                    <FooterLink href={href} label={label} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
       <div className="wrap footer-bottom">
-        <p>&copy; 2026 TrustLed AI Ltd. All rights reserved.</p>
+        <p>{content.footerCopyright}</p>
       </div>
     </footer>
   );
