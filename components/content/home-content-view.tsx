@@ -270,7 +270,7 @@ export function HomeContentView() {
 
       <section>
         <div className="wrap">
-          <div className="section-head center reveal">
+          <div className="section-head center">
             <EditableText
               field="faqEyebrow"
               defaultValue={d.faqEyebrow}

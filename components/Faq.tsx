@@ -12,29 +12,31 @@ type FaqProps = {
 };
 
 export function Faq({ items }: FaqProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <div className="faq">
       {items.map((item, index) => {
         const isOpen = openIndex === index;
+        const answerId = `faq-answer-${index}`;
+
         return (
           <div
             key={item.question}
-            className={`faq-item reveal${isOpen ? " open" : ""}`}
+            className={`faq-item${isOpen ? " open" : ""}`}
           >
-            <button
-              className="faq-q"
-              type="button"
-              aria-expanded={isOpen}
-              onClick={() => setOpenIndex(isOpen ? null : index)}
-            >
-              {item.question}
-            </button>
-            <div
-              className="faq-a"
-              style={{ maxHeight: isOpen ? "500px" : undefined }}
-            >
+            <h3>
+              <button
+                className="faq-q"
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={answerId}
+                onClick={() => setOpenIndex(isOpen ? null : index)}
+              >
+                {item.question}
+              </button>
+            </h3>
+            <div id={answerId} className="faq-a" hidden={!isOpen}>
               <div className="faq-a-inner">
                 <p>{item.answer}</p>
               </div>
