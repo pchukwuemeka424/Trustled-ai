@@ -40,22 +40,43 @@ export function EducationContentView() {
 
       <section>
         <div className="wrap">
-          <div className="split">
-            <article className="programme reveal">
-              <EditableText field="p1Tag" defaultValue={d.p1Tag} as="span" className="tag" />
-              <EditableText field="p1Title" defaultValue={d.p1Title} as="h3" />
-              <EditableText field="p1Strap" defaultValue={d.p1Strap} as="p" className="strap" />
-              <EditableText field="p1Body1" defaultValue={d.p1Body1} as="p" multiline />
-              <EditableText field="p1Body2" defaultValue={d.p1Body2} as="p" multiline />
-            </article>
-            <article className="programme reveal" data-delay="1">
-              <EditableText field="p2Tag" defaultValue={d.p2Tag} as="span" className="tag" />
-              <EditableText field="p2Title" defaultValue={d.p2Title} as="h3" />
-              <EditableText field="p2Strap" defaultValue={d.p2Strap} as="p" className="strap" />
-              <EditableText field="p2Body1" defaultValue={d.p2Body1} as="p" multiline />
-              <EditableText field="p2Body2" defaultValue={d.p2Body2} as="p" multiline />
-              <EditableText field="p2Body3" defaultValue={d.p2Body3} as="p" multiline />
-            </article>
+          <div className="card-grid">
+            {(
+              [
+                ["p1Tag", "p1Title", "p1Strap", "p1Body1", "p1Body2"],
+                ["p2Tag", "p2Title", "p2Strap", "p2Body1"],
+                ["p3Tag", "p3Title", "p3Strap", "p3Body1"],
+              ] as const
+            ).map(([tag, title, strap, ...bodies], index) => (
+              <article
+                key={tag}
+                className="programme reveal"
+                data-delay={index || undefined}
+              >
+                <EditableText
+                  field={tag}
+                  defaultValue={d[tag]}
+                  as="span"
+                  className="tag"
+                />
+                <EditableText field={title} defaultValue={d[title]} as="h3" />
+                <EditableText
+                  field={strap}
+                  defaultValue={d[strap]}
+                  as="p"
+                  className="strap"
+                />
+                {bodies.map((field) => (
+                  <EditableText
+                    key={field}
+                    field={field}
+                    defaultValue={d[field]}
+                    as="p"
+                    multiline
+                  />
+                ))}
+              </article>
+            ))}
           </div>
         </div>
       </section>

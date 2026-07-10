@@ -126,23 +126,26 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
     heroTagline: "Education & Training",
     heroTitle: "Make your people effective with AI, fast.",
     heroLede:
-      "Two short, applied programmes for organisations that need their people effective with AI quickly, and confident they are not introducing risk in the process. Designed for schools, multi-academy trusts, universities, and the SMEs that work with them.",
+      "Three short, applied programmes for organisations that need their people effective with AI quickly, and confident they are not introducing risk in the process. Designed for schools, multi-academy trusts, universities, public bodies, and the SMEs that work with them.",
     p1Tag: "Programme 01",
-    p1Title: "AI for Work Skills",
-    p1Strap: "Make AI useful in real work.",
+    p1Title: "Understanding AI",
+    p1Strap: "Start with how it actually works.",
     p1Body1:
-      "AI tools are widely available, but consistent, effective use is still uneven across teams and classrooms.",
+      "Most AI training jumps straight to tools and prompts, which leaves people repeating instructions they do not understand.",
     p1Body2:
-      "This coaching focuses on how AI fits into day-to-day work. Not theory, not hype, practical use across communication, analysis, lesson planning, administrative workflow, and reporting tasks. The aim is to help teaching staff, professional services teams, and operational staff use AI in ways that improve output without introducing unnecessary risk.",
+      "We begin with the foundations, what these systems are, how they generate answers, why they get things wrong, and what that means for the work in front of you. Staff, learners, and members of the public leave able to explain AI in plain terms and judge for themselves when it can be trusted.",
     p2Tag: "Programme 02",
-    p2Title: "AI Governance Workshop",
-    p2Strap: "Build governance without guesswork.",
+    p2Title: "Responsible and Critical Use",
+    p2Strap: "Use AI well, and know when to push back.",
     p2Body1:
-      "A focused coaching session for organisations starting to formalise how AI is governed.",
-    p2Body2:
-      "We walk through the key elements that need to be in place, from understanding your AI systems to identifying obligations and putting basic controls in place. For schools and trusts, this covers DfE expectations, Keeping Children Safe in Education obligations, and UK GDPR alignment. For universities and SMEs, we cover the EU AI Act, ISO 42001, and the controls your auditors will look for.",
-    p2Body3:
-      "It is designed for teams that need clarity on what to do next, without committing to a full advisory engagement.",
+      "Real confidence with AI includes knowing what the technology should not be trusted with. This programme covers practical use across communication, analysis, planning, and reporting, alongside the critical skills that let people spot bias, recognise fabricated information, and challenge a result that looks wrong. For schools and trusts we ground this in DfE expectations and Keeping Children Safe in Education, and for public and private sector teams we connect it to UK GDPR and the obligations their regulators are beginning to enforce.",
+    p2Body2: "",
+    p2Body3: "",
+    p3Tag: "Programme 03",
+    p3Title: "Community Workshops and Curricula",
+    p3Strap: "Bring AI knowledge to the people decisions are made about.",
+    p3Body1:
+      "Democratising AI means taking this knowledge beyond the staff room and the boardroom. We design workshops, short curricula, and public sessions for schools, community organisations, and local government, so that the people whose lives are shaped by these systems can take part in the conversation about them. Sessions can be tailored for students, parents, frontline staff, or residents, with the aim of giving each group enough understanding to ask sharper questions and hold the institutions using AI to account.",
     ctaTitle: "Bring AI confidence to your team.",
     ctaDescription:
       "Tell us about your staff, your classrooms, and where AI is creeping in. We will tell you which programme fits.",
