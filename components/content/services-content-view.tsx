@@ -4,11 +4,6 @@ import { EditableCtaBand } from "@/components/editable-cta-band";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { defaultPageContent } from "@/lib/page-content-schema";
 
-const heroStyle = {
-  paddingTop: "clamp(3.5rem,7vw,5rem)",
-  paddingBottom: "clamp(3rem,6vw,4.5rem)",
-};
-
 const d = defaultPageContent.services;
 
 function ServiceBlock({
@@ -57,7 +52,7 @@ function ServiceBlock({
 export function ServicesContentView() {
   return (
     <>
-      <section className="hero" style={heroStyle}>
+      <section className="hero">
         <div className="wrap hero-inner">
           <EditableText
             field="heroTagline"

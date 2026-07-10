@@ -8,11 +8,17 @@ import { EditableCtaBand } from "@/components/editable-cta-band";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { defaultHomeContent } from "@/lib/home-content-schema";
 
+const SERVICE_LINKS = [
+  { href: "/services#advisory", icon: "01" },
+  { href: "/services#shadow", icon: "02" },
+  { href: "/education", icon: "03" },
+] as const;
+
 export function HomeContentView() {
   const d = defaultHomeContent;
 
   return (
-    <>
+    <div className="home">
       <HomeHero
         defaultTagline={d.heroTagline}
         defaultHeadline={d.heroHeadline}
@@ -22,40 +28,46 @@ export function HomeContentView() {
         defaultBackgroundUrl={d.heroBackgroundUrl}
       />
 
-      <section>
+      <section className="home-intro">
         <div className="wrap">
-          <div className="prose reveal">
-            <EditableText
-              field="introEyebrow"
-              defaultValue={d.introEyebrow}
-              as="p"
-              className="eyebrow"
-            />
-            <EditableText
-              field="introP1"
-              defaultValue={d.introP1}
-              as="p"
-              multiline
-            />
-            <EditableText
-              field="introP2"
-              defaultValue={d.introP2}
-              as="p"
-              multiline
-            />
-            <EditableText
-              field="introClosing"
-              defaultValue={d.introClosing}
-              as="p"
-              className="closing"
-            />
+          <div className="home-intro-grid reveal">
+            <div className="home-intro-aside">
+              <EditableText
+                field="introEyebrow"
+                defaultValue={d.introEyebrow}
+                as="p"
+                className="eyebrow"
+              />
+              <div className="home-intro-rule" aria-hidden />
+            </div>
+            <div className="home-intro-body">
+              <EditableText
+                field="introP1"
+                defaultValue={d.introP1}
+                as="p"
+                className="home-intro-lead"
+                multiline
+              />
+              <EditableText
+                field="introP2"
+                defaultValue={d.introP2}
+                as="p"
+                multiline
+              />
+              <EditableText
+                field="introClosing"
+                defaultValue={d.introClosing}
+                as="p"
+                className="home-intro-closing"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section-paper-2">
+      <section className="home-services section-paper-2">
         <div className="wrap">
-          <div className="section-head reveal">
+          <div className="home-section-head reveal">
             <EditableText
               field="whatWeDoEyebrow"
               defaultValue={d.whatWeDoEyebrow}
@@ -68,53 +80,47 @@ export function HomeContentView() {
               as="h2"
             />
           </div>
-          <div className="card-grid">
-            <article className="card reveal">
-              <span className="num">01</span>
-              <EditableText field="card1Title" defaultValue={d.card1Title} as="h3" />
-              <EditableText
-                field="card1Body"
-                defaultValue={d.card1Body}
-                as="p"
-                multiline
-              />
-              <Link className="text-link card-link" href="/services#advisory">
-                Learn more <Arrow />
-              </Link>
-            </article>
-            <article className="card reveal" data-delay="1">
-              <span className="num">02</span>
-              <EditableText field="card2Title" defaultValue={d.card2Title} as="h3" />
-              <EditableText
-                field="card2Body"
-                defaultValue={d.card2Body}
-                as="p"
-                multiline
-              />
-              <Link className="text-link card-link" href="/services#shadow">
-                Learn more <Arrow />
-              </Link>
-            </article>
-            <article className="card reveal" data-delay="2">
-              <span className="num">03</span>
-              <EditableText field="card3Title" defaultValue={d.card3Title} as="h3" />
-              <EditableText
-                field="card3Body"
-                defaultValue={d.card3Body}
-                as="p"
-                multiline
-              />
-              <Link className="text-link card-link" href="/education">
-                Learn more <Arrow />
-              </Link>
-            </article>
+          <div className="home-bento">
+            {(
+              [
+                ["card1Title", "card1Body"],
+                ["card2Title", "card2Body"],
+                ["card3Title", "card3Body"],
+              ] as const
+            ).map(([title, body], i) => (
+              <article
+                key={title}
+                className={`home-bento-card reveal${i === 0 ? " home-bento-card--featured" : ""}`}
+                data-delay={i || undefined}
+              >
+                <div className="home-bento-top">
+                  <span className="home-bento-num">{SERVICE_LINKS[i].icon}</span>
+                  <span className="home-bento-icon" aria-hidden>
+                    {i === 0 ? "◎" : i === 1 ? "◈" : "◇"}
+                  </span>
+                </div>
+                <EditableText field={title} defaultValue={d[title]} as="h3" />
+                <EditableText
+                  field={body}
+                  defaultValue={d[body]}
+                  as="p"
+                  multiline
+                />
+                <Link
+                  className="text-link home-bento-link"
+                  href={SERVICE_LINKS[i].href}
+                >
+                  Learn more <Arrow />
+                </Link>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section-ink">
+      <section className="home-flow section-ink">
         <div className="wrap">
-          <div className="section-head reveal">
+          <div className="home-section-head reveal">
             <EditableText
               field="flowEyebrow"
               defaultValue={d.flowEyebrow}
@@ -130,34 +136,40 @@ export function HomeContentView() {
               multiline
             />
           </div>
-          <div className="flow reveal">
-            <div className="flow-col">
+          <div className="home-pipeline reveal">
+            <div className="home-pipeline-col">
               <EditableText
                 field="flowInputsTitle"
                 defaultValue={d.flowInputsTitle}
                 as="h4"
               />
-              {(["flowInput1", "flowInput2", "flowInput3", "flowInput4"] as const).map(
-                (field) => (
-                  <EditableText
-                    key={field}
-                    field={field}
-                    defaultValue={d[field]}
-                    as="div"
-                    className="flow-node"
-                  />
-                ),
-              )}
+              <div className="home-pipeline-nodes">
+                {(["flowInput1", "flowInput2", "flowInput3", "flowInput4"] as const).map(
+                  (field) => (
+                    <EditableText
+                      key={field}
+                      field={field}
+                      defaultValue={d[field]}
+                      as="div"
+                      className="home-pipeline-node"
+                    />
+                  ),
+                )}
+              </div>
             </div>
-            <div className="flow-arrow" aria-hidden="true">
-              &rarr;
+
+            <div className="home-pipeline-bridge" aria-hidden>
+              <span className="home-pipeline-line" />
+              <span className="home-pipeline-arrow">→</span>
             </div>
-            <div className="flow-col">
-              <div className="flow-core">
+
+            <div className="home-pipeline-core">
+              <div className="home-pipeline-hub">
                 <EditableText
                   field="flowCoreTitle"
                   defaultValue={d.flowCoreTitle}
                   as="span"
+                  className="home-pipeline-hub-title"
                 />
                 <small>
                   <EditableText
@@ -168,34 +180,39 @@ export function HomeContentView() {
                 </small>
               </div>
             </div>
-            <div className="flow-arrow" aria-hidden="true">
-              &rarr;
+
+            <div className="home-pipeline-bridge" aria-hidden>
+              <span className="home-pipeline-line" />
+              <span className="home-pipeline-arrow">→</span>
             </div>
-            <div className="flow-col">
+
+            <div className="home-pipeline-col">
               <EditableText
                 field="flowOutputsTitle"
                 defaultValue={d.flowOutputsTitle}
                 as="h4"
               />
-              {(
-                ["flowOutput1", "flowOutput2", "flowOutput3", "flowOutput4"] as const
-              ).map((field) => (
-                <EditableText
-                  key={field}
-                  field={field}
-                  defaultValue={d[field]}
-                  as="div"
-                  className="flow-node"
-                />
-              ))}
+              <div className="home-pipeline-nodes">
+                {(
+                  ["flowOutput1", "flowOutput2", "flowOutput3", "flowOutput4"] as const
+                ).map((field) => (
+                  <EditableText
+                    key={field}
+                    field={field}
+                    defaultValue={d[field]}
+                    as="div"
+                    className="home-pipeline-node home-pipeline-node--out"
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section>
+      <section className="home-stats">
         <div className="wrap">
-          <div className="section-head reveal">
+          <div className="home-section-head reveal">
             <EditableText
               field="statsEyebrow"
               defaultValue={d.statsEyebrow}
@@ -204,7 +221,7 @@ export function HomeContentView() {
             />
             <EditableText field="statsTitle" defaultValue={d.statsTitle} as="h2" />
           </div>
-          <div className="stat-row">
+          <div className="home-stat-grid">
             {(
               [
                 ["stat1Figure", "stat1Desc", "stat1Src"],
@@ -212,19 +229,39 @@ export function HomeContentView() {
                 ["stat3Figure", "stat3Desc", "stat3Src"],
               ] as const
             ).map(([fig, desc, src], i) => (
-              <div key={fig} className={`stat reveal${i ? ` reveal` : ""}`} data-delay={i || undefined}>
-                <EditableText field={fig} defaultValue={d[fig]} as="span" className="figure" />
-                <EditableText field={desc} defaultValue={d[desc]} as="p" className="desc" multiline />
-                <EditableText field={src} defaultValue={d[src]} as="span" className="src" />
+              <div
+                key={fig}
+                className="home-stat-card reveal"
+                data-delay={i || undefined}
+              >
+                <EditableText
+                  field={fig}
+                  defaultValue={d[fig]}
+                  as="span"
+                  className="home-stat-figure"
+                />
+                <EditableText
+                  field={desc}
+                  defaultValue={d[desc]}
+                  as="p"
+                  className="home-stat-desc"
+                  multiline
+                />
+                <EditableText
+                  field={src}
+                  defaultValue={d[src]}
+                  as="span"
+                  className="home-stat-src"
+                />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-paper-2">
+      <section className="home-problems section-paper-2">
         <div className="wrap">
-          <div className="section-head reveal">
+          <div className="home-section-head reveal">
             <EditableText
               field="problemEyebrow"
               defaultValue={d.problemEyebrow}
@@ -233,7 +270,7 @@ export function HomeContentView() {
             />
             <EditableText field="problemTitle" defaultValue={d.problemTitle} as="h2" />
           </div>
-          <div className="problem-grid">
+          <div className="home-problem-grid">
             {(
               [
                 ["problem1Title", "problem1Li1", "problem1Li2", "problem1Li3"],
@@ -241,11 +278,19 @@ export function HomeContentView() {
                 ["problem3Title", "problem3Li1", "problem3Li2", "problem3Li3"],
               ] as const
             ).map(([title, ...items], i) => (
-              <div key={title} className={`problem-col reveal${i ? ` reveal` : ""}`} data-delay={i || undefined}>
-                <h3>
-                  <span className="ic">!</span>{" "}
-                  <EditableText field={title} defaultValue={d[title]} as="span" />
-                </h3>
+              <div
+                key={title}
+                className="home-problem-card reveal"
+                data-delay={i || undefined}
+              >
+                <div className="home-problem-header">
+                  <span className="home-problem-badge" aria-hidden>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3>
+                    <EditableText field={title} defaultValue={d[title]} as="span" />
+                  </h3>
+                </div>
                 <ul>
                   {items.map((field) => (
                     <li key={field}>
@@ -259,27 +304,44 @@ export function HomeContentView() {
         </div>
       </section>
 
-      <section className="section-ink">
-        <div className="wrap pullquote reveal">
-          <blockquote>
-            <EditableText field="quoteText" defaultValue={d.quoteText} as="span" multiline />
-          </blockquote>
-          <EditableText field="quoteSrc" defaultValue={d.quoteSrc} as="p" className="src" />
+      <section className="home-quote section-ink">
+        <div className="wrap">
+          <div className="home-quote-inner reveal">
+            <span className="home-quote-mark" aria-hidden>&ldquo;</span>
+            <blockquote>
+              <EditableText
+                field="quoteText"
+                defaultValue={d.quoteText}
+                as="span"
+                multiline
+              />
+            </blockquote>
+            <EditableText
+              field="quoteSrc"
+              defaultValue={d.quoteSrc}
+              as="p"
+              className="home-quote-src"
+            />
+          </div>
         </div>
       </section>
 
-      <section>
+      <section className="home-faq">
         <div className="wrap">
-          <div className="section-head center">
-            <EditableText
-              field="faqEyebrow"
-              defaultValue={d.faqEyebrow}
-              as="p"
-              className="eyebrow"
-            />
-            <EditableText field="faqTitle" defaultValue={d.faqTitle} as="h2" />
+          <div className="home-faq-layout">
+            <div className="home-faq-head reveal">
+              <EditableText
+                field="faqEyebrow"
+                defaultValue={d.faqEyebrow}
+                as="p"
+                className="eyebrow"
+              />
+              <EditableText field="faqTitle" defaultValue={d.faqTitle} as="h2" />
+            </div>
+            <div className="home-faq-list reveal" data-delay="1">
+              <Faq items={homeFaqItems} />
+            </div>
           </div>
-          <Faq items={homeFaqItems} />
         </div>
       </section>
 
@@ -291,6 +353,6 @@ export function HomeContentView() {
         buttonText="Start a conversation"
         buttonHref="/contact"
       />
-    </>
+    </div>
   );
 }

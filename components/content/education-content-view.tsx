@@ -4,17 +4,85 @@ import { EditableCtaBand } from "@/components/editable-cta-band";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { defaultPageContent } from "@/lib/page-content-schema";
 
-const heroStyle = {
-  paddingTop: "clamp(3.5rem,7vw,5rem)",
-  paddingBottom: "clamp(3rem,6vw,4.5rem)",
-};
-
 const d = defaultPageContent.education;
 
-export function EducationContentView() {
+const PROGRAMMES = [
+  {
+    title: "p1Title",
+    strap: "p1Strap",
+    bodies: ["p1Body1"] as const,
+    featured: true,
+  },
+  {
+    title: "p2Title",
+    strap: "p2Strap",
+    bodies: ["p2Body1"] as const,
+    featured: false,
+  },
+  {
+    title: "p3Title",
+    strap: "p3Strap",
+    bodies: ["p3Body1"] as const,
+    featured: false,
+  },
+] as const;
+
+function ProgrammeCard({
+  programme,
+  num,
+  heading: Heading,
+  delay,
+}: {
+  programme: (typeof PROGRAMMES)[number];
+  num: string;
+  heading: "h2" | "h3";
+  delay?: number;
+}) {
+  const featured = programme.featured;
+
   return (
-    <>
-      <section className="hero" style={heroStyle}>
+    <article
+      className={`edu-programme${featured ? " edu-programme--featured" : ""} reveal`}
+      data-delay={delay || undefined}
+    >
+      <div className="edu-programme-side">
+        <span className="edu-programme-num">{num}</span>
+      </div>
+      <div className="edu-programme-main">
+        <EditableText
+          field={programme.title}
+          defaultValue={d[programme.title]}
+          as={Heading}
+        />
+        <EditableText
+          field={programme.strap}
+          defaultValue={d[programme.strap]}
+          as="p"
+          className="edu-programme-strap"
+        />
+        <div className="edu-programme-body">
+          {programme.bodies.map((field) => (
+            <EditableText
+              key={field}
+              field={field}
+              defaultValue={d[field]}
+              as="p"
+              multiline
+            />
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function EducationContentView() {
+  const [featured, ...rest] = PROGRAMMES;
+
+  return (
+    <div className="education">
+      <section className="hero hero--page">
+        <div className="hero-overlay" aria-hidden />
         <div className="wrap hero-inner">
           <EditableText
             field="heroTagline"
@@ -38,44 +106,19 @@ export function EducationContentView() {
         </div>
       </section>
 
-      <section>
+      <section className="edu-programmes">
         <div className="wrap">
-          <div className="card-grid">
-            {(
-              [
-                ["p1Tag", "p1Title", "p1Strap", "p1Body1", "p1Body2"],
-                ["p2Tag", "p2Title", "p2Strap", "p2Body1"],
-                ["p3Tag", "p3Title", "p3Strap", "p3Body1"],
-              ] as const
-            ).map(([tag, title, strap, ...bodies], index) => (
-              <article
-                key={tag}
-                className="programme reveal"
-                data-delay={index || undefined}
-              >
-                <EditableText
-                  field={tag}
-                  defaultValue={d[tag]}
-                  as="span"
-                  className="tag"
-                />
-                <EditableText field={title} defaultValue={d[title]} as="h3" />
-                <EditableText
-                  field={strap}
-                  defaultValue={d[strap]}
-                  as="p"
-                  className="strap"
-                />
-                {bodies.map((field) => (
-                  <EditableText
-                    key={field}
-                    field={field}
-                    defaultValue={d[field]}
-                    as="p"
-                    multiline
-                  />
-                ))}
-              </article>
+          <ProgrammeCard programme={featured} num="01" heading="h2" />
+
+          <div className="edu-programme-grid">
+            {rest.map((programme, index) => (
+              <ProgrammeCard
+                key={programme.title}
+                programme={programme}
+                num={String(index + 2).padStart(2, "0")}
+                heading="h3"
+                delay={index + 1}
+              />
             ))}
           </div>
         </div>
@@ -87,6 +130,6 @@ export function EducationContentView() {
         defaultTitle={d.ctaTitle}
         defaultDescription={d.ctaDescription}
       />
-    </>
+    </div>
   );
 }

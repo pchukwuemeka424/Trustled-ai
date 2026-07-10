@@ -128,21 +128,20 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
     heroLede:
       "Three short, applied programmes for organisations that need their people effective with AI quickly, and confident they are not introducing risk in the process. Designed for schools, multi-academy trusts, universities, public bodies, and the SMEs that work with them.",
     p1Tag: "Programme 01",
-    p1Title: "Understanding AI",
+    p1Title: "Programme 01 — Understanding AI",
     p1Strap: "Start with how it actually works.",
     p1Body1:
-      "Most AI training jumps straight to tools and prompts, which leaves people repeating instructions they do not understand.",
-    p1Body2:
-      "We begin with the foundations, what these systems are, how they generate answers, why they get things wrong, and what that means for the work in front of you. Staff, learners, and members of the public leave able to explain AI in plain terms and judge for themselves when it can be trusted.",
+      "Most AI training jumps straight to tools and prompts, which leaves people repeating instructions they do not understand. We begin with the foundations, what these systems are, how they generate answers, why they get things wrong, and what that means for the work in front of you. Staff, learners, and members of the public leave able to explain AI in plain terms and judge for themselves when it can be trusted.",
+    p1Body2: "",
     p2Tag: "Programme 02",
-    p2Title: "Responsible and Critical Use",
+    p2Title: "Programme 02 — Responsible and Critical Use",
     p2Strap: "Use AI well, and know when to push back.",
     p2Body1:
       "Real confidence with AI includes knowing what the technology should not be trusted with. This programme covers practical use across communication, analysis, planning, and reporting, alongside the critical skills that let people spot bias, recognise fabricated information, and challenge a result that looks wrong. For schools and trusts we ground this in DfE expectations and Keeping Children Safe in Education, and for public and private sector teams we connect it to UK GDPR and the obligations their regulators are beginning to enforce.",
     p2Body2: "",
     p2Body3: "",
     p3Tag: "Programme 03",
-    p3Title: "Community Workshops and Curricula",
+    p3Title: "Programme 03 — Community Workshops and Curricula",
     p3Strap: "Bring AI knowledge to the people decisions are made about.",
     p3Body1:
       "Democratising AI means taking this knowledge beyond the staff room and the boardroom. We design workshops, short curricula, and public sessions for schools, community organisations, and local government, so that the people whose lives are shaped by these systems can take part in the conversation about them. Sessions can be tailored for students, parents, frontline staff, or residents, with the aim of giving each group enough understanding to ask sharper questions and hold the institutions using AI to account.",

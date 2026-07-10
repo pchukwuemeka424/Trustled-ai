@@ -7,14 +7,9 @@ export const metadata: Metadata = {
   description: "Your message has been received by TrustLed AI.",
 };
 
-const heroStyle = {
-  paddingTop: "clamp(4rem,8vw,6rem)",
-  paddingBottom: "clamp(4rem,8vw,6rem)",
-};
-
 export default function ThankYouPage() {
   return (
-    <section className="hero" style={heroStyle}>
+    <section className="hero">
       <div className="wrap hero-inner" style={{ maxWidth: "720px" }}>
         <p className="hero-tagline reveal">Message received</p>
         <h1 className="reveal" data-delay="1">

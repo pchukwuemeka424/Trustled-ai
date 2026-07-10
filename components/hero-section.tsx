@@ -68,7 +68,7 @@ export function HomeHero({
             className="lede reveal"
             multiline
           />
-          <div className="hero-actions reveal" data-delay="3">
+          <div className="hero-actions reveal" data-delay="2">
             <Link className="btn btn-on-ink" href="/contact">
               <EditableText
                 field="heroPrimaryCta"
@@ -88,11 +88,6 @@ export function HomeHero({
               />
             </Link>
           </div>
-        </div>
-
-        <div className="hero-accent" aria-hidden>
-          <span className="hero-accent-line" />
-          <span className="hero-accent-label">Governance · Risk · Evidence</span>
         </div>
       </div>
     </section>
