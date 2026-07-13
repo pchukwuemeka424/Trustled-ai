@@ -1,24 +1,27 @@
 import { NextResponse, type NextRequest } from "next/server";
-
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME ?? "admin@trustled.com";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "admin123";
-const ADMIN_COOKIE_NAME = "admin_session";
+import {
+  ADMIN_COOKIE_NAME,
+  getConfiguredSessionHashOverrides,
+  getEnvAdminSessionSeed,
+} from "@/lib/admin-credentials";
 
 const textEncoder = new TextEncoder();
-let sessionValueCache: Promise<string> | undefined;
 
 function bytesToHex(bytes: Uint8Array) {
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
-function sessionValue() {
-  if (!sessionValueCache) {
-    sessionValueCache = crypto.subtle
-      .digest("SHA-256", textEncoder.encode(`${ADMIN_USERNAME}:${ADMIN_PASSWORD}`))
-      .then((hashBuffer) => bytesToHex(new Uint8Array(hashBuffer)));
-  }
+async function getEnvSessionHash() {
+  const hashBuffer = await crypto.subtle.digest(
+    "SHA-256",
+    textEncoder.encode(getEnvAdminSessionSeed()),
+  );
 
-  return sessionValueCache;
+  return bytesToHex(new Uint8Array(hashBuffer));
+}
+
+async function getValidSessionTokens() {
+  return [await getEnvSessionHash(), ...getConfiguredSessionHashOverrides()];
 }
 
 export async function middleware(request: NextRequest) {
@@ -33,7 +36,9 @@ export async function middleware(request: NextRequest) {
   }
 
   const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value ?? "";
-  if (token !== (await sessionValue())) {
+  const validTokens = await getValidSessionTokens();
+
+  if (!validTokens.includes(token)) {
     const loginUrl = new URL("/admin/login", request.url);
     return NextResponse.redirect(loginUrl);
   }

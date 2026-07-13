@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/container";
 
 function safeNextPath(value: string | null) {
@@ -12,7 +12,6 @@ function safeNextPath(value: string | null) {
 }
 
 export function AdminLoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const nextPath = safeNextPath(searchParams.get("next"));
   const [username, setUsername] = useState("");
@@ -31,6 +30,7 @@ export function AdminLoginForm() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "same-origin",
         body: JSON.stringify({ username, password }),
       });
 
@@ -38,8 +38,7 @@ export function AdminLoginForm() {
         throw new Error("invalid");
       }
 
-      router.replace(nextPath);
-      router.refresh();
+      window.location.assign(nextPath);
     } catch {
       setError("Invalid login details.");
     } finally {

@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { setAdminSession, validateAdminCredentials } from "@/lib/admin-auth";
+import {
+  applyAdminSessionCookie,
+  createAdminSessionToken,
+  validateAdminCredentials,
+} from "@/lib/admin-auth";
+
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
@@ -7,12 +13,13 @@ export async function POST(request: Request) {
     const username = body.username?.trim() ?? "";
     const password = body.password ?? "";
 
-    if (!validateAdminCredentials(username, password)) {
+    if (!(await validateAdminCredentials(username, password))) {
       return NextResponse.json({ error: "Invalid username or password" }, { status: 401 });
     }
 
-    await setAdminSession();
-    return NextResponse.json({ ok: true });
+    const response = NextResponse.json({ ok: true });
+    applyAdminSessionCookie(response, await createAdminSessionToken());
+    return response;
   } catch {
     return NextResponse.json({ error: "Unable to login" }, { status: 500 });
   }
