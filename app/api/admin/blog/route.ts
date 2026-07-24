@@ -1,7 +1,7 @@
 import {
   createBlogPostResponse,
   listBlogPostsResponse,
-} from "@/api/blog";
+} from "@/lib/api/blog";
 
 export async function GET() {
   return listBlogPostsResponse();

@@ -1,7 +1,7 @@
 import {
   getSiteSettingsResponse,
   updateSiteSettingsResponse,
-} from "@/api/site-settings";
+} from "@/lib/api/site-settings";
 
 export async function GET() {
   return getSiteSettingsResponse();

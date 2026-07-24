@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/api/admin";
+import { requireAdmin } from "@/lib/api/admin";
 import {
   createBlogPost,
   deleteBlogPost,

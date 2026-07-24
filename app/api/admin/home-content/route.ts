@@ -1,4 +1,4 @@
-import { getHomeContentResponse, updateHomeContentResponse } from "@/api/home-content";
+import { getHomeContentResponse, updateHomeContentResponse } from "@/lib/api/home-content";
 
 export async function GET() {
   return getHomeContentResponse();

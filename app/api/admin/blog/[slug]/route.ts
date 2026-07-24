@@ -2,7 +2,7 @@ import {
   deleteBlogPostResponse,
   getBlogPostResponse,
   updateBlogPostResponse,
-} from "@/api/blog";
+} from "@/lib/api/blog";
 
 type RouteContext = {
   params: Promise<{ slug: string }>;

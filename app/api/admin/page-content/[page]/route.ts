@@ -1,4 +1,4 @@
-import { getPageContentResponse, updatePageContentResponse } from "@/api/page-content";
+import { getPageContentResponse, updatePageContentResponse } from "@/lib/api/page-content";
 import { isManagedPage } from "@/lib/page-content-schema";
 
 type RouteContext = {
