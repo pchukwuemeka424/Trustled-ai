@@ -34,7 +34,7 @@ export function SolutionsContentView() {
         </div>
       </section>
 
-      <section>
+      <section id="asat">
         <div className="wrap">
           <div className="asat-hero reveal">
             <EditableText
@@ -95,6 +95,86 @@ export function SolutionsContentView() {
               />{" "}
               <Arrow />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section id="garil" className="section-paper-2">
+        <div className="wrap">
+          <div className="asat-hero reveal">
+            <EditableText
+              field="garilTag"
+              defaultValue={d.garilTag}
+              as="p"
+              className="asat-tag"
+            />
+            <EditableText
+              field="garilHeadline"
+              defaultValue={d.garilHeadline}
+              as="h2"
+            />
+            <EditableText
+              field="garilIntro"
+              defaultValue={d.garilIntro}
+              as="p"
+              multiline
+            />
+          </div>
+          <div
+            className="prose reveal"
+            style={{ marginTop: "clamp(2.5rem,5vw,3.5rem)" }}
+          >
+            <EditableText
+              field="garilBodyP1"
+              defaultValue={d.garilBodyP1}
+              as="p"
+              multiline
+            />
+            <EditableText
+              field="garilBodyP2"
+              defaultValue={d.garilBodyP2}
+              as="p"
+              multiline
+            />
+          </div>
+          <div
+            className="card-grid"
+            style={{ marginTop: "clamp(2.5rem,5vw,3.5rem)" }}
+          >
+            {(
+              [
+                ["garilCard1Title", "garilCard1Body"],
+                ["garilCard2Title", "garilCard2Body"],
+                ["garilCard3Title", "garilCard3Body"],
+              ] as const
+            ).map(([title, body], i) => (
+              <article key={title} className="card reveal" data-delay={i || undefined}>
+                <span className="num">&#9670;</span>
+                <EditableText field={title} defaultValue={d[title]} as="h3" />
+                <EditableText field={body} defaultValue={d[body]} as="p" multiline />
+              </article>
+            ))}
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: "clamp(2.5rem,5vw,3.5rem)",
+            }}
+            className="reveal"
+          >
+            <a
+              className="btn"
+              href="https://garilai.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <EditableText
+                field="garilCtaButton"
+                defaultValue={d.garilCtaButton}
+                as="span"
+              />{" "}
+              <Arrow />
+            </a>
           </div>
         </div>
       </section>

@@ -57,6 +57,7 @@ export function ContactForm() {
             <option>Shadow AI Detection</option>
             <option>AI Automation Services</option>
             <option>ASAT</option>
+            <option>Garil AI</option>
             <option>AI for Work Skills</option>
             <option>AI Governance Workshop</option>
             <option>Other</option>

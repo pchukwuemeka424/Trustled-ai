@@ -100,9 +100,9 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
   },
   solutions: {
     heroTagline: "Solutions",
-    heroTitle: "ASAT",
+    heroTitle: "Products built for real institutional work.",
     heroLede:
-      "An AI Self-Assessment Toolkit built for regulated SMEs and education providers.",
+      "From AI governance self-assessment to research support for higher education — tools designed for the organisations that need them most.",
     asatTag: "AI Self-Assessment Toolkit",
     asatHeadline: "Compliance should not require a six-figure consultancy retainer.",
     asatIntro:
@@ -121,6 +121,24 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
     card3Body:
       "Thousands of pages of regulation translated into a prioritised plan you can defend to a board, a governing body, or a customer.",
     ctaButton: "Request early access to ASAT",
+    garilTag: "Research platform for higher education",
+    garilHeadline: "Research excellence for Nigeria's universities, colleges, and polytechnics.",
+    garilIntro:
+      "Garil AI helps students and lecturers write research papers and complete academic projects — from undergraduate assignments to postgraduate theses — with structured workflows, verified citations, and source-grounded writing.",
+    garilBodyP1:
+      "Built for NUC-aligned institutions, Garil AI guides Nigerian students and lecturers through literature reviews, research papers, citation audits, study comparisons, research gaps, and thesis proposals. Lecturers can plan lectures and supervise projects while students produce stronger, evidence-based work.",
+    garilBodyP2:
+      "The platform combines deep research across academic sources, AI-synthesised literature reviews with grounded citations, citation verification across APA, MLA, IEEE, and Harvard formats, and multi-agent workflows that keep writing tied to verified evidence — not fabricated references.",
+    garilCard1Title: "Deep research & literature reviews",
+    garilCard1Body:
+      "Search academic sources and generate synthesised reviews with grounded citations your supervisors can trust.",
+    garilCard2Title: "Citation verification",
+    garilCard2Body:
+      "A trust layer that validates every reference and supports APA, MLA, IEEE, and Harvard bibliography generation.",
+    garilCard3Title: "For lecturers and students",
+    garilCard3Body:
+      "Lecture planning, project supervision, and research writing support across universities, colleges of education, and polytechnics.",
+    garilCtaButton: "Visit Garil AI",
   },
   education: {
     heroTagline: "Education & Training",

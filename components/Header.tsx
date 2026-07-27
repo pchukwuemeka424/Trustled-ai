@@ -9,7 +9,23 @@ import { BrandMark, BrandText } from "./ui";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/solutions", label: "Solutions" },
+  {
+    href: "/solutions",
+    label: "Solutions",
+    children: [
+      {
+        href: "/solutions#asat",
+        label: "ASAT",
+        description: "AI Self-Assessment Toolkit",
+      },
+      {
+        href: "https://garilai.com",
+        label: "Garil AI",
+        description: "Research platform for higher education",
+        external: true,
+      },
+    ],
+  },
   { href: "/education", label: "Education & Training" },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
@@ -28,6 +44,7 @@ export function Header({
 }: HeaderProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [logoUrl, setLogoUrl] = useState(initialLogoUrl);
   const [logoAlt, setLogoAlt] = useState(initialLogoAlt);
@@ -46,6 +63,7 @@ export function Header({
 
   useEffect(() => {
     setMenuOpen(false);
+    setSolutionsOpen(false);
   }, [pathname]);
 
   const saveLogo = useCallback(async (nextUrl: string, nextAlt: string) => {
@@ -117,16 +135,81 @@ export function Header({
             <span className="visually-hidden">Menu</span>
           </button>
           <ul className={`nav-list${menuOpen ? " open" : ""}`} id="navList">
-            {navItems.map(({ href, label }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  aria-current={pathname === href ? "page" : undefined}
+            {navItems.map((item) => {
+              if (!item.children) {
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              }
+
+              const isSolutionsActive = pathname.startsWith("/solutions");
+
+              return (
+                <li
+                  key={item.href}
+                  className={`nav-item-dropdown${solutionsOpen ? " open" : ""}`}
+                  onMouseEnter={() => setSolutionsOpen(true)}
+                  onMouseLeave={() => setSolutionsOpen(false)}
                 >
-                  {label}
-                </Link>
-              </li>
-            ))}
+                  <button
+                    type="button"
+                    className="nav-dropdown-trigger"
+                    aria-expanded={solutionsOpen}
+                    aria-haspopup="true"
+                    aria-controls="solutionsDropdown"
+                    aria-current={isSolutionsActive ? "page" : undefined}
+                    onClick={() => setSolutionsOpen((open) => !open)}
+                  >
+                    {item.label}
+                    <span className="nav-dropdown-caret" aria-hidden="true" />
+                  </button>
+                  <ul
+                    className="nav-dropdown"
+                    id="solutionsDropdown"
+                    hidden={!solutionsOpen}
+                  >
+                    {item.children.map((child) => (
+                      <li key={child.href}>
+                        {child.external ? (
+                          <a
+                            href={child.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span className="nav-dropdown-label">
+                              {child.label}
+                            </span>
+                            {child.description ? (
+                              <span className="nav-dropdown-desc">
+                                {child.description}
+                              </span>
+                            ) : null}
+                          </a>
+                        ) : (
+                          <Link href={child.href}>
+                            <span className="nav-dropdown-label">
+                              {child.label}
+                            </span>
+                            {child.description ? (
+                              <span className="nav-dropdown-desc">
+                                {child.description}
+                              </span>
+                            ) : null}
+                          </Link>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>

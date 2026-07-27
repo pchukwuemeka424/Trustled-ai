@@ -18,7 +18,7 @@ const sections = [
     label: "Services & solutions",
     pages: [
       { name: "Services", href: "/services?edit=1" },
-      { name: "Solutions (ASAT)", href: "/solutions?edit=1" },
+      { name: "Solutions (ASAT & Garil AI)", href: "/solutions?edit=1" },
       { name: "Education & Training", href: "/education?edit=1" },
     ],
   },
