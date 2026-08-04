@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Solutions",
   description:
-    "ASAT — An AI Self-Assessment Toolkit built for regulated SMEs and education providers.",
+    "GARIL AI and ASAT — governed AI products that embed accountability, privacy, security and responsible AI into everyday work.",
 };
 
 type SolutionsPageProps = {

@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "AI Governance Advisory, Shadow AI Detection, and AI Automation Services, each scoped to your organisation.",
+    "AI Governance Advisory and AI Solutions & Automation Services that help organisations harness AI securely and meet regulatory obligations.",
 };
 
 type ServicesPageProps = {

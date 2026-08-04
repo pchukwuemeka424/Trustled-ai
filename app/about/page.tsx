@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "TrustLed AI is a UK AI governance advisory firm helping schools, trusts, universities, and SMEs adopt AI responsibly.",
+    "TrustLed AI combines AI governance advisory, AI-powered software and automation, and professional training to help organisations adopt AI responsibly.",
 };
 
 type AboutPageProps = {

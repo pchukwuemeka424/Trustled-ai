@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { SiteEffects } from "@/components/SiteEffects";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { getSiteNav } from "@/lib/site-nav";
 import { getSiteSettings } from "@/lib/site-settings";
 import "./globals.css";
 
@@ -37,8 +38,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [settings, isAdmin] = await Promise.all([
+  const [settings, navItems, isAdmin] = await Promise.all([
     getSiteSettings(),
+    getSiteNav(),
     isAdminAuthenticated(),
   ]);
 
@@ -56,6 +58,7 @@ export default async function RootLayout({
           initialLogoUrl={settings.logoUrl}
           initialLogoAlt={settings.logoAlt}
           isAdmin={isAdmin}
+          navItems={navItems}
         />
         <main id="main">{children}</main>
         <Footer settings={settings} />

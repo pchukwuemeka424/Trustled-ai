@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Arrow } from "@/components/ui";
+import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
 
 type EditableCtaBandProps = {
@@ -22,23 +23,33 @@ export function EditableCtaBand({
   buttonHref = "/contact",
 }: EditableCtaBandProps) {
   return (
-    <section className="cta-band">
+    <EditableSection
+      title="Call to action"
+      className="cta-band"
+      fields={[
+        { key: titleField, label: "Title", kind: "text" },
+        { key: descriptionField, label: "Description", kind: "html" },
+      ]}
+    >
       <div className="wrap">
         <EditableText
           field={titleField}
           defaultValue={defaultTitle}
           as="h2"
+          label="Title"
         />
         <EditableText
           field={descriptionField}
           defaultValue={defaultDescription}
           as="p"
           multiline
+          rich
+          label="Description"
         />
         <Link className="btn btn-on-ink" href={buttonHref}>
           {buttonText} <Arrow />
         </Link>
       </div>
-    </section>
+    </EditableSection>
   );
 }

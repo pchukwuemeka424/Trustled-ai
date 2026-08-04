@@ -12,37 +12,66 @@ export type PageContent = Record<string, string>;
 export const defaultPageContent: Record<ManagedPage, PageContent> = {
   about: {
     heroTagline: "About",
-    heroTitle: "A UK AI governance advisory firm that does the work properly.",
+    heroTitle: "Governing AI. Building What's Next.",
     heroLede:
-      "We help schools, multi-academy trusts, universities, and regulated SMEs adopt AI responsibly by assessing the risk, surfacing the AI nobody formally approved, and producing the evidence that satisfies the inspectors, auditors, insurers, regulators, and enterprise customers who will ask.",
-    about1Title: "Who we are",
+      "TrustLed AI was founded on a simple belief: organisations shouldn't have to choose between innovation and governance.",
+    storyP1:
+      "Too often, governance is treated as something that's added after AI has been deployed. We believe it should be embedded from the beginning, shaping how AI is designed, implemented and managed throughout the AI lifecycle.",
+    storyP2:
+      "That's why TrustLed AI is more than an advisory firm. We combine AI governance expertise, AI engineering and professional training to help organisations build, deploy and govern AI responsibly and at scale.",
+    storyP3:
+      "Our work spans three core areas: AI Governance Advisory, AI-Powered Software & Automation Solutions, and Professional Training. Together, they help organisations establish effective governance, develop AI solutions that deliver measurable business value, and build the skills needed to support responsible AI adoption.",
+    storyP4:
+      "As AI continues to evolve, so will the challenges organisations face. Our role is to help organisations stay ahead by turning governance into a strategic advantage and ensuring AI is deployed with accountability, security and long-term success in mind.",
+    whatWeDoEyebrow: "What we do",
+    whatWeDoTitle:
+      "TrustLed AI brings together governance, technology and capability development to help organisations realise the full value of artificial intelligence.",
+    about1Title: "AI Governance Advisory",
     about1Body:
-      "TrustLed AI brings together direct experience in IT compliance, cybersecurity, software development, and IT auditing, under the vision of helping individuals, education providers, and small to medium enterprises navigate the complexities of AI governance, risk, and compliance.",
-    about2Title: "Our approach",
+      "We help organisations establish governance frameworks, assess AI risks, develop policies, navigate emerging regulations and implement practical governance programmes aligned with recognised standards and industry best practices.",
+    about2Title: "AI-Powered Software & Automation Solutions",
     about2Body:
-      "We translate dense regulation into work that an SME, a school, or a university can actually do. ISO 42001, the EU AI Act, the NIST AI Risk Management Framework, DfE guidance, Keeping Children Safe in Education, sector-specific frameworks: we apply the parts that matter to your situation and leave the rest. Every engagement produces evidence an external party can read. Every recommendation is sized to your risk and your budget. We do not sell the same programme to a single-form-entry primary school that we would sell to a 4,000-pupil multi-academy trust or a 200-person SME.",
-    about3Title: "What drives us",
+      "We design and develop AI-powered software, automation solutions and governed AI platforms that improve productivity while embedding governance, security and transparency into everyday AI use.",
+    about3Title: "Professional Training",
     about3Body:
-      "We have worked inside organisations being asked to adopt AI without proper support. We have seen the cost of governance done late, badly, or for show. We built TrustLed AI to do the work properly the first time, in simple language, with the people doing the work rather than around them. The aim is not to pass an audit. The aim is to use AI well, with controls that work because they were designed to.",
-    about4Title: "Why partner with us",
-    about4Body:
-      "We do the work ourselves, and we do it properly. We are honest about what we do and do not know. We price proportionately. We say so when an engagement is not the right fit, and we recommend alternatives when we cannot help. The clients who stay with us across multiple engagements stay because of how the work feels, not because of how the proposal sounds.",
-    leadershipEyebrow: "Leadership",
+      "We deliver practical learning experiences that help organisations and professionals build the knowledge and skills required to adopt, govern and manage AI effectively through our AI Literacy Workshops and AI GRC Practitioner Training Programme.",
+    approachEyebrow: "Our approach",
+    approachTitle:
+      "Every engagement is guided by a simple principle: governance should enable innovation, not slow it down.",
+    approachP1:
+      "We work closely with our clients to understand their objectives, identify practical opportunities for AI and implement governance that supports long-term success. Rather than applying one-size-fits-all frameworks, we build solutions that reflect each organisation's industry, regulatory environment and level of AI maturity.",
+    approachP2:
+      "Our approach combines internationally recognised standards, practical implementation and modern engineering to help organisations move beyond compliance and build AI systems they can trust.",
+    whyEyebrow: "Why TrustLed AI?",
+    whyTitle:
+      "AI adoption is no longer just a technology initiative. It is a governance, operational and organisational challenge.",
+    whyIntro:
+      "What makes TrustLed AI different is our ability to bring together three disciplines that are often delivered separately.",
+    whyItems:
+      "Governance – Establish the policies, frameworks and oversight needed for responsible AI.\nTechnology – Build AI solutions that are secure, scalable and aligned with governance requirements.\nCapability Building – Equip leaders, employees and governance professionals with the skills needed to use and manage AI effectively.",
+    whyClosing:
+      "By combining these capabilities, we help organisations move from experimentation to sustainable AI adoption.",
+    leadershipEyebrow: "Meet the founders",
     leadershipTitle: "The people behind the work.",
     leadershipLede:
-      "A human-factors specialism rare in UK AI governance consulting, paired with hands-on compliance and engineering experience.",
+      "Practitioners actively working in AI governance and AI engineering.",
     team1Name: "Franklin Okeke",
-    team1Role: "Co-founder & Chief Strategist",
+    team1Role: "Founder & AI Governance Lead",
     team1Bio:
       "CISA and ISO/IEC 42001 Lead Auditor. MSc in Cybersecurity and Human Factors. Technology writer with 400+ published articles across the trade press on AI governance and cybersecurity.",
-    team2Name: "Prince Chukwuemeka",
-    team2Role: "Co-founder & Technical Lead",
+    team2Name: "Prince C.",
+    team2Role: "Co-founder & Engineering Lead",
     team2Bio:
       "Engineering lead behind TrustLed AI's tooling and secure deployments, with a background building ISO 27001 and GDPR risk frameworks.",
-    team3Name: "Our network",
-    team3Role: "Practitioners on call",
+    team3Name: "Dr Arome Solomon Odiba",
+    team3Role: "Research & Scientific Partner",
     team3Bio:
-      "We draw on a network of specialists across compliance, education leadership, data protection, and software engineering, brought in when an engagement needs depth in a specific area.",
+      "Research and scientific partner supporting TrustLed AI's evidence-led approach to responsible AI.",
+    visionEyebrow: "Our vision",
+    visionTitle:
+      "We believe the future of AI belongs to organisations that embed governance into the way AI is designed, deployed and managed—not as an afterthought, but as a foundation for innovation.",
+    visionBody:
+      "TrustLed AI exists to help build that future by creating the governance, technology and capability organisations need to adopt AI responsibly, securely and at scale.",
     ctaTitle: "Talk to us about your situation.",
     ctaDescription:
       "A 30-minute conversation, no pitch deck. We will tell you whether we can help.",
@@ -50,128 +79,191 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
   },
   services: {
     heroTagline: "Services",
-    heroTitle: "Three engagements, scoped to your situation.",
+    heroTitle: "AI built for the real world needs more than good technology.",
     heroLede:
-      "Each engagement is sized to your organisation rather than packaged into tiers. We work out what proportionate compliance looks like for you, then we build it.",
-    s1Index: "01 — AI Governance Advisory",
-    s1Title:
-      "The governance work your auditor, your governing body, or your regulator wants to see, sized to your organisation.",
-    s1P1:
-      "31% of UK organisations have no AI governance policy in place (CyXcel/Censuswide, 2025). Only 3.5% of compliance professionals describe their firm as fully prepared for AI regulation (VinciWorks, 2026). In education, nearly half of UK teachers reported using generative AI in 2024, often in schools that have not formally implemented AI use, and may not have strong AI literacy or a policy in place. The questions are already arriving, from inspectors, auditors, insurers, enterprise customers, and regulators, and most organisations cannot answer them yet.",
-    s1P2:
-      "We help you change that. We work out which rules apply to your specific use of AI, what proportionate compliance looks like for an organisation your size, and what evidence you need to produce. Then we build it.",
-    s1P3:
-      "Most governance work fails in one of two directions. It is either too generic to be useful, a downloaded policy template that nobody reads and no auditor respects, or it is so heavy that the organisation abandons it halfway through. We aim for the middle. The governance we build is specific to the AI you actually run, proportionate to your size and risk, and written so the people responsible for it can understand and maintain it after we leave.",
-    s1P4:
-      "The engagement usually begins with discovery. We map your AI estate, including the systems you know about and the ones you do not, then classify each against the frameworks that apply to your sector. From there, we build the policies, controls, and documentation that turn a vague sense of exposure into a defensible position you can show to anyone who asks.",
-    s2Index: "02 — Shadow AI Detection",
-    s2Title: "Find the AI running in your organisation that nobody approved.",
-    s2P1:
-      "Most organisations are running far more AI than they have accounted for. Staff sign up for tools independently because they make the work easier. Departments adopt AI-enabled software without telling IT. Vendors quietly embed AI features into platforms you have licensed for years, switching them on by default. The result is a growing layer of AI that sits outside your governance entirely, processing your data and shaping your decisions without anyone having assessed the risk.",
-    s2P2:
-      "This is shadow AI, and it is where most of the real exposure lives. A governance policy that covers only the AI you formally approved is a policy with a hole in the middle of it. When an auditor, a regulator, or an enterprise customer asks what AI you operate, the honest answer for most organisations is that they do not fully know.",
-    s2P3:
-      "Shadow AI Detection closes that gap. We systematically uncover the AI operating across your organisation, the tools staff adopted on their own, the AI features embedded in your existing software, and the integrations quietly passing your data to third-party models. We tell you what is there, what data it touches, what risk it carries, and what to do about each finding.",
-    s2P4:
-      "The work is practical rather than intrusive. We combine a review of your software estate, your contracts, and your data flows with structured conversations across departments, because the people doing the work usually know exactly which tools they are using even when the organisation does not. The output is a complete and honest picture of your true AI footprint, and a clear plan to bring the parts that matter under proper control.",
-    s3Index: "03 — AI Automation Services",
-    s3Title: "Efficiency without exposure.",
-    s3P1:
-      "42% of UK companies abandoned AI initiatives in 2025, with 46% of proof-of-concept projects never reaching production (Resultsense, 2025). In education, schools and trusts are under pressure to deploy AI for marking, reporting, communications, and administrative workflows, often without the governance work to back it up. Most automation efforts fail not because the technology is wrong, but because the workflow, oversight, and accountability around it were not designed in from the start.",
-    s3P2:
-      "We believe a successful AI automation strategy starts with task mapping. We help you move beyond the hype by auditing your operations and sorting your tasks into three buckets.",
-    bucket1Tag: "Full automation",
-    bucket1Title: "Low-risk, high-frequency",
-    bucket1Body:
-      "AI handles the heavy lifting to deliver immediate time savings. For schools, this often looks like routine correspondence drafting, timetabling support, or data extraction from standard documents.",
-    bucket2Tag: "Human-in-the-loop",
-    bucket2Title: "AI assists, a human owns it",
-    bucket2Body:
-      "Complex processes where AI assists but a human maintains oversight and accountability. Marking and feedback workflows, report generation, financial workflow automation in academy trusts, and admissions support all sit here.",
-    bucket3Tag: "Human-only",
-    bucket3Title: "Judgement, not automation",
-    bucket3Body:
-      "Critical work where AI cannot, and should not, replace human judgement. Safeguarding decisions, pastoral conversations, formal assessment outcomes, and any decision with significant consequences for a pupil, student, or staff member.",
-    s3P3:
-      "We design and implement automation systems that reduce operational friction, improve consistency, and create space for higher-value work. Our focus is on systems that are integrated, maintainable, and aligned with how your organisation actually operates. Crucially, we build the governance in from the start rather than bolting it on later. Every automation we implement comes with clear accountability, documented decision points, and a record of what the system does and why, so the efficiency you gain does not come at the cost of a new compliance problem six months down the line.",
-    ctaTitle: "Not sure which engagement fits?",
+      "Artificial intelligence is changing how organisations work, make decisions and deliver services. But successful AI initiatives don't happen by chance. They require governance that keeps pace with innovation, technology that solves real problems, and people with the skills to make AI part of everyday work.\n\nAt TrustLed AI, we bring those three elements together. We advise organisations on AI governance, design AI-powered software and automation solutions, and develop AI capability through practical training. Our approach is grounded in recognised frameworks, real business challenges and outcomes that last beyond implementation.",
+    advLabel: "AI Governance Advisory",
+    advTitle: "Put governance at the centre of your AI strategy.",
+    advP1:
+      "AI is becoming part of everyday business, but many organisations are adopting it faster than they can govern it. New tools appear across departments, employees experiment with generative AI, and software vendors continue embedding AI into products organisations already rely on. Before long, AI is influencing business processes without clear oversight or accountability.",
+    advP2:
+      "Good governance creates the structure that allows organisations to adopt AI with clarity. It helps leadership understand where AI is being used, what risks it introduces, which regulations apply and what controls should be in place as adoption grows.",
+    advP3:
+      "At TrustLed AI, we work with organisations to design practical governance programmes that reflect how they actually operate. Instead of delivering generic policy templates, we build governance around your objectives, your AI use cases and the regulatory landscape that applies to your organisation.",
+    advFrameworksIntro:
+      "Our advisory services are aligned with leading international frameworks and regulations, including:",
+    advFrameworksItems:
+      "ISO/IEC 42001 – The international standard for implementing an Artificial Intelligence Management System (AIMS).\nNIST AI Risk Management Framework – A practical framework for identifying, assessing and managing AI risks throughout the AI lifecycle.\nEU AI Act – Compliance guidance for organisations developing, deploying or using AI systems subject to the European Union's risk-based AI regulation.\nUK Pro-Innovation AI Regulatory Principles – Guidance supporting compliance with the UK's evolving AI regulatory landscape.\nNigeria Data Protection Act (NDPA) and National AI Strategy – Governance, privacy and AI guidance for organisations operating within Nigeria.",
+    advServicesIntro: "Our advisory services include",
+    advServicesItems:
+      "AI governance strategy and implementation\nAI governance maturity assessments\nAI inventories and AI register development\nAI risk assessments\nAI policy and standards development\nAI governance operating models\nAI lifecycle governance\nThird-party AI risk assessments\nAI compliance readiness assessments\nGovernance documentation and reporting\nExecutive advisory",
+    advReceiveIntro: "What you'll receive",
+    advReceiveItems:
+      "An AI governance roadmap tailored to your organisation\nA comprehensive inventory of AI systems and use cases\nAI governance policies and supporting documentation\nRisk assessments aligned with recognised frameworks\nPractical recommendations prioritised by business impact\nGovernance documentation to support audits, procurement and regulatory enquiries",
+    autoLabel: "AI Solutions & Automation Services",
+    autoTitle: "AI should make work simpler.",
+    autoP1:
+      "Every organisation has work that slows people down. Routine tasks consume valuable time, information is scattered across different systems, and teams often spend more time managing processes than delivering value.\n\nAI creates an opportunity to redesign the way work gets done.",
+    autoP2:
+      "TrustLed AI develops AI-powered software and intelligent automation solutions that remove repetitive work, improve operational efficiency and support better decision-making. Every solution is designed around your workflows, integrates with your existing systems and incorporates governance, security and privacy from the beginning.",
+    autoP3:
+      "Whether we're building a custom AI application, automating business processes or developing governed platforms like GARIL AI, our focus remains the same: creating solutions that people trust, adopt and continue using long after deployment.",
+    autoServicesIntro: "Our software and automation services include",
+    autoServicesItems:
+      "Custom AI application development\nAI workflow automation\nAI-powered business process optimisation\nInternal AI assistants\nRetrieval-Augmented Generation (RAG) solutions\nKnowledge management systems\nAI integration with existing business applications\nAI solution architecture\nDeployment and implementation support\nOngoing optimisation and enhancement",
+    autoReceiveIntro: "What you'll receive",
+    autoReceiveItems:
+      "AI solutions tailored to your organisation\nAutomated workflows that reduce manual effort\nTechnical documentation and implementation support\nGovernance and security embedded into every solution\nScalable systems designed for future growth",
+    ctaTitle: "Not sure where to start?",
     ctaDescription:
       "A 30-minute conversation, no pitch deck. We will tell you whether we can help and which engagement makes sense.",
   },
   solutions: {
     heroTagline: "Solutions",
-    heroTitle: "Products built for real institutional work.",
+    heroTitle: "Technology built on the principles we recommend.",
     heroLede:
-      "From AI governance self-assessment to research support for higher education — tools designed for the organisations that need them most.",
-    asatTag: "AI Self-Assessment Toolkit",
-    asatHeadline: "Compliance should not require a six-figure consultancy retainer.",
-    asatIntro:
-      "ASAT was developed to help SMEs, multi-academy trusts, and universities answer a fundamental governance question: what AI do you actually operate, which risk and legal tier does it fall into, and what compliance work does that trigger?",
-    bodyP1:
-      "ASAT replaces generic, manual checklists with an AI risk classification engine. It builds a complete register of your AI estate, including the shadow AI often embedded in common tools like Microsoft 365, Google Workspace for Education, or Salesforce, and maps it directly to the EU AI Act risk taxonomy, the NIST AI Risk Management Framework, and other recognised classification systems.",
-    bodyP2:
-      "Whether your system is flagged as high-risk under Annex III or triggers transparency obligations under Article 50, ASAT translates thousands of pages of regulation into a prioritised, actionable roadmap. It provides the precision needed to take a defensible position with your board, your governing body, and your customers.",
-    card1Title: "Complete AI register",
-    card1Body:
-      "A full inventory of your AI estate, including the embedded and shadow AI that manual checklists miss in everyday tools.",
-    card2Title: "Risk classification engine",
-    card2Body:
-      "Direct mapping to the EU AI Act taxonomy, the NIST AI Risk Management Framework, and other recognised classification systems.",
-    card3Title: "Actionable roadmap",
-    card3Body:
-      "Thousands of pages of regulation translated into a prioritised plan you can defend to a board, a governing body, or a customer.",
-    ctaButton: "Request early access to ASAT",
-    garilTag: "Research platform for higher education",
-    garilHeadline: "Research excellence for Nigeria's universities, colleges, and polytechnics.",
+      "Good governance shouldn't stop at advice. It should be reflected in the technology organisations use every day.\n\nOur solutions are designed to solve practical challenges while embedding governance, security and transparency from the start. From higher education to enterprise environments, every platform we build is guided by the same principles we recommend to our clients: accountability, privacy, security and responsible AI.",
+    garilTag: "GARIL AI",
+    garilHeadline: "Governed AI for Research, Instruction and Learning",
     garilIntro:
-      "Garil AI helps students and lecturers write research papers and complete academic projects — from undergraduate assignments to postgraduate theses — with structured workflows, verified citations, and source-grounded writing.",
+      "Universities are embracing AI at an unprecedented pace. Students use generative AI for assignments, researchers rely on AI to analyse information and generate content, while lecturers incorporate AI into teaching and assessment. Yet most institutions still lack a single environment where AI can be used with the governance, oversight and transparency expected in higher education.",
     garilBodyP1:
-      "Built for NUC-aligned institutions, Garil AI guides Nigerian students and lecturers through literature reviews, research papers, citation audits, study comparisons, research gaps, and thesis proposals. Lecturers can plan lectures and supervise projects while students produce stronger, evidence-based work.",
+      "GARIL AI changes that.\n\nGARIL AI is a governed AI workspace designed specifically for universities. It gives institutions a secure environment where staff and students can use AI for research, teaching and learning while supporting institutional governance, academic integrity and responsible AI practices.",
     garilBodyP2:
-      "The platform combines deep research across academic sources, AI-synthesised literature reviews with grounded citations, citation verification across APA, MLA, IEEE, and Harvard formats, and multi-agent workflows that keep writing tied to verified evidence — not fabricated references.",
-    garilCard1Title: "Deep research & literature reviews",
-    garilCard1Body:
-      "Search academic sources and generate synthesised reviews with grounded citations your supervisors can trust.",
-    garilCard2Title: "Citation verification",
-    garilCard2Body:
-      "A trust layer that validates every reference and supports APA, MLA, IEEE, and Harvard bibliography generation.",
-    garilCard3Title: "For lecturers and students",
-    garilCard3Body:
-      "Lecture planning, project supervision, and research writing support across universities, colleges of education, and polytechnics.",
-    garilCtaButton: "Visit Garil AI",
+      "Unlike public AI platforms designed for general use, GARIL AI enables universities to maintain visibility over AI usage, establish institutional guardrails and support emerging governance requirements without limiting innovation.",
+    garilCapabilitiesIntro: "Key capabilities",
+    garilCapabilitiesItems:
+      "Governed AI workspace for research, teaching and learning\nInstitution-managed access and permissions\nAI usage monitoring and reporting\nAI contribution statements\nResearch provenance and transparency\nAudit logging\nPrivacy and security controls\nInstitutional knowledge integration\nSupport for multiple AI models\nGovernance reporting",
+    garilAudienceIntro: "Designed for",
+    garilAudienceItems:
+      "Universities\nColleges\nResearch institutions\nAcademic libraries",
+    garilCtaButton: "Discover GARIL AI",
+    asatTag: "ASAT",
+    asatHeadline: "Your AI Governance Control Centre",
+    asatIntro:
+      "AI is becoming part of every organisation, but governance is often scattered across spreadsheets, policies, emails and disconnected processes.\n\nASAT brings it all together.",
+    asatBodyP1:
+      "Built for organisations adopting AI, ASAT provides a central place to understand AI use, strengthen governance, manage documentation and maintain oversight as AI adoption grows.\n\nWhether you're introducing your first AI system or governing AI across multiple business functions, ASAT helps you establish the structure needed to support responsible AI adoption.",
+    asatDetailTitle: "One Platform. Complete AI Governance.",
+    asatDetailP1:
+      "Managing AI requires more than policies.\n\nIt requires visibility into how AI is being used, governance processes that scale with adoption, documentation that supports accountability and the ability to demonstrate oversight when it matters most.\n\nASAT brings these capabilities together in a single platform, helping organisations build a more structured approach to AI governance.",
+    asatFeaturesIntro: "Everything You Need to Govern AI",
+    asatFeaturesLead: "ASAT helps organisations:",
+    asatFeaturesItems:
+      "Understand AI use across the organisation\nManage AI governance activities from one place\nMaintain governance documentation\nAssess governance readiness\nIdentify governance gaps\nTrack governance progress\nSupport regulatory and standards alignment\nPrepare for internal reviews and external audits",
+    asatSupportTitle: "Supporting Trusted AI Governance",
+    asatSupportP1:
+      "Good AI governance shouldn't require months of interpreting regulations or building governance processes from scratch.\n\nASAT gives organisations a practical way to establish governance, improve oversight and build governance maturity as AI adoption evolves.\n\nWhether you're in financial services, education, healthcare, professional services or the public sector, ASAT helps you create a stronger foundation for responsible AI.",
+    asatGrowthTitle: "Governance That Grows With You",
+    asatGrowthP1:
+      "AI adoption doesn't stand still.\n\nNeither should governance.\n\nASAT is designed to grow with your organisation, providing the visibility, structure and oversight needed to support AI today and as your organisation's AI ambitions evolve.",
+    asatCtaButton: "Request a Demo",
+    whyTitle: "Why organisations choose our solutions",
+    whyBody:
+      "Our products are built from practical experience supporting organisations as they introduce AI into everyday operations. Every solution combines governance, usability and technical capability, helping organisations move beyond experimentation and build AI systems they can manage with confidence.",
   },
   education: {
-    heroTagline: "Education & Training",
-    heroTitle: "Make your people effective with AI, fast.",
+    heroTagline: "Training",
+    heroTitle: "Build the knowledge to use AI with confidence.",
     heroLede:
-      "Three short, applied programmes for organisations that need their people effective with AI quickly, and confident they are not introducing risk in the process. Designed for schools, multi-academy trusts, universities, public bodies, and the SMEs that work with them.",
-    p1Tag: "Programme 01",
-    p1Title: "Programme 01 — Understanding AI",
-    p1Strap: "Start with how it actually works.",
-    p1Body1:
-      "Most AI training jumps straight to tools and prompts, which leaves people repeating instructions they do not understand. We begin with the foundations, what these systems are, how they generate answers, why they get things wrong, and what that means for the work in front of you. Staff, learners, and members of the public leave able to explain AI in plain terms and judge for themselves when it can be trusted.",
-    p1Body2: "",
-    p2Tag: "Programme 02",
-    p2Title: "Programme 02 — Responsible and Critical Use",
-    p2Strap: "Use AI well, and know when to push back.",
-    p2Body1:
-      "Real confidence with AI includes knowing what the technology should not be trusted with. This programme covers practical use across communication, analysis, planning, and reporting, alongside the critical skills that let people spot bias, recognise fabricated information, and challenge a result that looks wrong. For schools and trusts we ground this in DfE expectations and Keeping Children Safe in Education, and for public and private sector teams we connect it to UK GDPR and the obligations their regulators are beginning to enforce.",
-    p2Body2: "",
-    p2Body3: "",
-    p3Tag: "Programme 03",
-    p3Title: "Programme 03 — Community Workshops and Curricula",
-    p3Strap: "Bring AI knowledge to the people decisions are made about.",
-    p3Body1:
-      "Democratising AI means taking this knowledge beyond the staff room and the boardroom. We design workshops, short curricula, and public sessions for schools, community organisations, and local government, so that the people whose lives are shaped by these systems can take part in the conversation about them. Sessions can be tailored for students, parents, frontline staff, or residents, with the aim of giving each group enough understanding to ask sharper questions and hold the institutions using AI to account.",
+      "Technology alone doesn't transform organisations. People do.\n\nOur programmes combine internationally recognised frameworks, real-world implementation and hands-on learning to help organisations and professionals develop skills they can apply immediately.",
+    litTag: "AI Literacy Workshops",
+    litTitle: "Helping organisations build AI-ready teams.",
+    litP1:
+      "AI is changing how people research, communicate, analyse information and make decisions. Yet many organisations still struggle to move beyond occasional experimentation because employees lack the confidence or knowledge to use AI effectively.",
+    litP2:
+      "Our AI Literacy Workshops help universities and businesses build a shared understanding of AI across their workforce. Rather than focusing on technical theory, we show participants how AI can improve day-to-day work while highlighting the governance, privacy and security considerations that support effective organisational use.",
+    litP3:
+      "Each workshop is tailored to the organisation's objectives, helping teams understand both the opportunities AI creates and the responsibilities that come with its use.",
+    litTopicsIntro: "Topics include",
+    litTopicsItems:
+      "Understanding AI and Generative AI\nPractical AI use cases for everyday work\nPrompt writing fundamentals\nAI productivity techniques\nAI risks and limitations\nData privacy and information security\nResponsible AI practices\nOrganisational AI policies\nAI adoption best practices",
+    litAudienceIntro: "Designed for",
+    litAudienceItems:
+      "Universities\nBusinesses\nPublic sector organisations\nLeadership teams\nProfessional services teams\nAcademic staff",
+    litCta: "Enquire about AI Literacy Workshops",
+    grcTag: "AI GRC Practitioner Training Programme",
+    grcTitle: "Build Practical AI Governance Skills for the Next Generation of GRC",
+    grcP1:
+      "The AI GRC Practitioner Training Programme was created to prepare professionals for the new reality of AI governance.\n\nBuilt around practical implementation rather than theory, the programme combines AI governance, international standards, emerging regulations and hands-on projects that reflect the work organisations are doing today.",
+    grcP2:
+      "You'll leave with more than knowledge. You'll graduate with a portfolio of governance artefacts that demonstrate your ability to apply AI Governance, Risk and Compliance in real-world environments.",
+    grcWhyTitle: "Why This Programme?",
+    grcWhyBody:
+      "Throughout this programme you'll create governance frameworks, AI inventories, risk registers, impact assessments and governance documentation that organisations use every day. Professional and Private participants also learn AI GRC Engineering, applying AI-assisted scripting and workflow automation to automate governance activities and reduce manual effort.",
+    grcLearnTitle: "What You'll Learn",
+    grcLearnIntro:
+      "The programme is organised into seven practical modules that take you from AI fundamentals through to implementing a complete AI governance programme.",
+    grcModulesItems:
+      "AI Foundations & AI Governance\nStandards, Frameworks & Regulations\nAI Risk Management\nData Governance for AI\nBuilding an AI Governance Programme\nAI GRC Engineering (Professional & Private)\nCareer Accelerator (Professional & Private)",
+    grcPortfolioTitle: "Build a Portfolio That Sets You Apart",
+    grcPortfolioIntro:
+      "Throughout the programme you'll build a professional portfolio that demonstrates your ability to design governance frameworks, assess AI risks and implement governance processes.\n\nYour portfolio includes practical deliverables such as:",
+    grcPortfolioItems:
+      "AI Governance Framework\nAI Governance Policy Pack\nAI Inventory\nAI Risk Register\nAI Risk Assessment\nAI Impact Assessment\nData Governance Framework\nAI Governance Control Crosswalk",
+    grcPortfolioProIntro: "Professional and Private participants also complete:",
+    grcPortfolioProItems: "AI Governance Dashboard\nAI GRC Automation Project",
+    grcPortfolioClosing:
+      "By the end of the programme, you'll have work you can confidently discuss during interviews and showcase as part of your professional portfolio.",
+    grcAudienceTitle: "Who Should Attend?",
+    grcAudienceIntro:
+      "This programme is designed for professionals who want practical AI Governance, Risk and Compliance skills.\n\nIdeal for:",
+    grcAudienceItems:
+      "Governance, Risk & Compliance professionals\nCybersecurity professionals\nInternal auditors\nPrivacy and data protection professionals\nCompliance professionals\nRisk managers\nData governance professionals\nIT professionals\nProfessionals transitioning into AI Governance",
+    grcAudienceNote: "No previous AI experience or coding background is required.",
+    grcStructureTitle: "Programme Structure",
+    grcTier1Name: "Foundation Practitioner",
+    grcTier1Meta: "5 Weeks · 25 Live Sessions",
+    grcTier1Body:
+      "Perfect for professionals who want a practical introduction to AI Governance, Risk and Compliance.\n\nIncludes:\nModules 1–5\nPractical assignments\nPortfolio projects\nTemplates\nCertificate of Completion\nThree months' access to recordings",
+    grcTier1PriceFounding: "$195",
+    grcTier1PriceStandard: "$295",
+    grcTier2Name: "Professional Practitioner",
+    grcTier2Meta: "6 Weeks · 30 Live Sessions",
+    grcTier2Body:
+      "Our flagship programme for professionals preparing for AI GRC roles.\n\nEverything in Foundation, plus:\nAI GRC Engineering\nCareer Accelerator\nAI automation projects\nTwo CV reviews\nLinkedIn optimisation\nMock interviews\nCareer mentoring\nJob Hunter access\nTwelve months' access",
+    grcTier2PriceFounding: "$250",
+    grcTier2PriceStandard: "$395",
+    grcTier3Name: "Private Practitioner",
+    grcTier3Meta: "One-to-One",
+    grcTier3Body:
+      "Designed for professionals who prefer personalised learning.\n\nIncludes the complete curriculum delivered privately around your schedule, together with mentoring and the full career support package.",
+    grcTier3PriceFounding: "$350",
+    grcTier3PriceStandard: "$450",
+    grcPricingNote:
+      "Payment plans are available.\n\nRegional pricing is available for participants in Nigeria, Ghana and Kenya.",
+    grcDeliveryTitle: "Delivery Format",
+    grcDeliveryItems:
+      "Live online sessions\nOne hour each evening\nMonday to Friday\nDesigned around full-time work\nCohort-based learning\nPractical assignments\nTemplates and downloadable resources\nCertificate of Completion",
+    grcFaqTitle: "Frequently Asked Questions",
+    grcFaq1Q: "Do I need previous AI experience?",
+    grcFaq1A:
+      "No. The programme starts with AI fundamentals before progressing into governance and implementation.",
+    grcFaq2Q: "Do I need to know how to code?",
+    grcFaq2A:
+      "No. The AI GRC Engineering module includes a technical primer and uses AI coding assistants throughout.",
+    grcFaq3Q: "Will I receive a certificate?",
+    grcFaq3A: "Yes. Participants receive a TrustLed AI Certificate of Completion.",
+    grcFaq4Q: "Is this programme delivered online?",
+    grcFaq4A: "Yes. All sessions are delivered live online.",
+    grcFaq5Q: "How long do I keep access?",
+    grcFaq5A:
+      "Foundation participants receive three months' access. Professional and Private participants receive twelve months' access together with alumni community access.",
+    grcFaq6Q: "Can I pay in instalments?",
+    grcFaq6A: "Yes. Payment plans are available across all programme tiers.",
+    grcCtaTitle: "Ready to Build Your AI GRC Career?",
+    grcCtaBody:
+      "The demand for professionals who can govern AI is growing across industries.\n\nIf you're ready to develop practical AI Governance, Risk and Compliance skills, applications for the next cohort are now open.",
+    grcCtaButton: "Apply for the Next Cohort",
     ctaTitle: "Bring AI confidence to your team.",
     ctaDescription:
-      "Tell us about your staff, your classrooms, and where AI is creeping in. We will tell you which programme fits.",
+      "Tell us about your organisation and where AI capability needs to grow. We will tell you which programme fits.",
   },
   contact: {
     heroTagline: "Contact",
     heroTitle: "Tell us what is on your desk.",
     asideLede:
-      "If you are dealing with an inspection question, an audit, a governing body request, an insurance renewal, an enterprise procurement form, an internal AI policy that needs writing, or just the suspicion that your organisation is using more AI than it has accounted for, get in touch. A 30-minute conversation will usually tell us both whether we can help.",
+      "Whether you need AI governance advisory, AI solutions and automation, professional training, or want to learn more about GARIL AI or ASAT, get in touch. A 30-minute conversation will usually tell us both whether we can help.",
     formNote:
       "There is no automated triage on this form. The email reaches a person, and we respond within two working days.",
     directTitle: "Direct contact",
@@ -190,5 +282,9 @@ export function isManagedPage(value: string): value is ManagedPage {
 }
 
 export function getPageContentFieldKeys(page: ManagedPage): string[] {
-  return Object.keys(defaultPageContent[page]);
+  const keys = Object.keys(defaultPageContent[page]);
+  if (!keys.includes("_sectionLayouts")) {
+    return [...keys, "_sectionLayouts"];
+  }
+  return keys;
 }

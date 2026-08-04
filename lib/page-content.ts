@@ -5,6 +5,7 @@ import {
   type ManagedPage,
   type PageContent,
 } from "@/lib/page-content-schema";
+import { SECTION_LAYOUTS_KEY } from "@/lib/section-layouts";
 
 const PAGE_CONTENT_PREFIX = "page:";
 
@@ -22,12 +23,21 @@ function normalizePageContent(
   page: ManagedPage,
   content?: Partial<PageContent> | null,
 ): PageContent {
-  const merged: Record<string, string> = { ...defaultPageContent[page] };
+  const merged: Record<string, string> = {
+    ...defaultPageContent[page],
+    [SECTION_LAYOUTS_KEY]: "{}",
+  };
   if (content) {
-    for (const [key, value] of Object.entries(content)) {
+    for (const key of Object.keys(merged)) {
+      if (key === SECTION_LAYOUTS_KEY) continue;
+      const value = content[key];
       if (typeof value === "string") {
         merged[key] = value;
       }
+    }
+    const layouts = content[SECTION_LAYOUTS_KEY];
+    if (typeof layouts === "string" && layouts.trim()) {
+      merged[SECTION_LAYOUTS_KEY] = layouts;
     }
   }
   return merged;

@@ -5,6 +5,7 @@ import {
   getHomeContentFieldKeys,
   type HomeContent,
 } from "@/lib/home-content-schema";
+import { SECTION_LAYOUTS_KEY } from "@/lib/section-layouts";
 
 const HOME_CONTENT_DOC_ID = "home";
 
@@ -15,13 +16,23 @@ type SiteContentDoc = {
 };
 
 function normalizeContent(content?: Partial<HomeContent> | null): HomeContent {
-  const merged = { ...defaultHomeContent };
+  const merged: HomeContent = {
+    ...defaultHomeContent,
+    [SECTION_LAYOUTS_KEY]: defaultHomeContent[SECTION_LAYOUTS_KEY] ?? "{}",
+  };
   if (content) {
     for (const key of getHomeContentFieldKeys()) {
+      if (key === SECTION_LAYOUTS_KEY) continue;
       const value = content[key];
       if (typeof value === "string") {
+        // Keep default hero image when CMS has an empty background URL.
+        if (key === "heroBackgroundUrl" && !value.trim()) continue;
         merged[key] = value;
       }
+    }
+    const layouts = content[SECTION_LAYOUTS_KEY];
+    if (typeof layouts === "string" && layouts.trim()) {
+      merged[SECTION_LAYOUTS_KEY] = layouts;
     }
   }
   return merged;

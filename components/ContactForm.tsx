@@ -34,10 +34,12 @@ export function ContactForm() {
               <option value="" disabled>
                 Select a sector
               </option>
-              <option>School</option>
-              <option>Multi-Academy Trust</option>
+              <option>Business</option>
               <option>University</option>
-              <option>FE College</option>
+              <option>Public sector</option>
+              <option>Financial services</option>
+              <option>Healthcare</option>
+              <option>Professional services</option>
               <option>SME</option>
               <option>Other</option>
             </select>
@@ -54,12 +56,11 @@ export function ContactForm() {
               Select an option
             </option>
             <option>AI Governance Advisory</option>
-            <option>Shadow AI Detection</option>
-            <option>AI Automation Services</option>
+            <option>AI Solutions & Automation Services</option>
+            <option>GARIL AI</option>
             <option>ASAT</option>
-            <option>Garil AI</option>
-            <option>AI for Work Skills</option>
-            <option>AI Governance Workshop</option>
+            <option>AI Literacy Workshops</option>
+            <option>AI GRC Practitioner Programme</option>
             <option>Other</option>
           </select>
         </div>

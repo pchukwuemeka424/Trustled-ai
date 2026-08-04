@@ -5,14 +5,104 @@ import { Faq, homeFaqItems } from "@/components/Faq";
 import { Arrow } from "@/components/ui";
 import { HomeHero } from "@/components/hero-section";
 import { EditableCtaBand } from "@/components/editable-cta-band";
+import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
+import { useOptionalLiveEdit } from "@/components/live-edit/live-edit-context";
 import { defaultHomeContent } from "@/lib/home-content-schema";
 
-const SERVICE_LINKS = [
-  { href: "/services#advisory", icon: "01" },
-  { href: "/services#shadow", icon: "02" },
-  { href: "/education", icon: "03" },
+const OFFERINGS = [
+  {
+    href: "/services#advisory",
+    title: "card1Title",
+    intro: "card1Intro",
+    listIntro: "card1ListIntro",
+    items: "card1Items",
+    closing: "card1Closing",
+  },
+  {
+    href: "/services#automation",
+    title: "card2Title",
+    intro: "card2Intro",
+    listIntro: "card2ListIntro",
+    items: "card2Items",
+    closing: "card2Closing",
+  },
+  {
+    href: "/education",
+    title: "card3Title",
+    intro: "card3Intro",
+    listIntro: "card3ListIntro",
+    items: "card3Items",
+    closing: "card3Closing",
+  },
 ] as const;
+
+function splitBulletLabel(item: string) {
+  const separators = [" – ", " — ", " - "];
+  for (const separator of separators) {
+    const index = item.indexOf(separator);
+    if (index > 0) {
+      return {
+        label: item.slice(0, index),
+        detail: item.slice(index + separator.length),
+      };
+    }
+  }
+  return { label: item, detail: "" };
+}
+
+function WhatWeDoBullets({
+  field,
+  defaultValue,
+}: {
+  field: string;
+  defaultValue: string;
+}) {
+  const liveEdit = useOptionalLiveEdit();
+  const editable = Boolean(liveEdit?.isAdmin && liveEdit?.isEditing);
+  const text = liveEdit?.values[field] ?? defaultValue;
+
+  if (editable) {
+    return (
+      <EditableText
+        field={field}
+        defaultValue={defaultValue}
+        as="div"
+        multiline
+        rich
+        className="what-we-do-bullets-edit"
+        placeholder="One bullet point per line"
+      />
+    );
+  }
+
+  const items = text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (!items.length) return null;
+
+  return (
+    <ul className="what-we-do-bullets">
+      {items.map((item) => {
+        const { label, detail } = splitBulletLabel(item);
+        return (
+          <li key={item}>
+            {detail ? (
+              <>
+                <strong>{label}</strong>
+                <span>{detail}</span>
+              </>
+            ) : (
+              <span>{label}</span>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 export function HomeContentView() {
   const d = defaultHomeContent;
@@ -28,7 +118,16 @@ export function HomeContentView() {
         defaultBackgroundUrl={d.heroBackgroundUrl}
       />
 
-      <section className="home-intro">
+      <EditableSection
+        title="Intro"
+        className="home-intro"
+        fields={[
+          { key: "introEyebrow", label: "Eyebrow", kind: "text" },
+          { key: "introP1", label: "Paragraph 1", kind: "html" },
+          { key: "introP2", label: "Paragraph 2", kind: "html" },
+          { key: "introClosing", label: "Closing", kind: "text" },
+        ]}
+      >
         <div className="wrap">
           <div className="home-intro-grid reveal">
             <div className="home-intro-aside">
@@ -47,12 +146,14 @@ export function HomeContentView() {
                 as="p"
                 className="home-intro-lead"
                 multiline
+                rich
               />
               <EditableText
                 field="introP2"
                 defaultValue={d.introP2}
                 as="p"
                 multiline
+                rich
               />
               <EditableText
                 field="introClosing"
@@ -63,9 +164,31 @@ export function HomeContentView() {
             </div>
           </div>
         </div>
-      </section>
+      </EditableSection>
 
-      <section className="home-services section-paper-2">
+      <EditableSection
+        title="What we do"
+        className="what-we-do section-paper-2"
+        fields={[
+          { key: "whatWeDoEyebrow", label: "Eyebrow", kind: "text" },
+          { key: "whatWeDoTitle", label: "Title", kind: "text" },
+          { key: "card1Title", label: "Card 1 title", kind: "text" },
+          { key: "card1Intro", label: "Card 1 intro", kind: "html" },
+          { key: "card1ListIntro", label: "Card 1 list intro", kind: "html" },
+          { key: "card1Items", label: "Card 1 bullets", kind: "lines" },
+          { key: "card1Closing", label: "Card 1 closing", kind: "html" },
+          { key: "card2Title", label: "Card 2 title", kind: "text" },
+          { key: "card2Intro", label: "Card 2 intro", kind: "html" },
+          { key: "card2ListIntro", label: "Card 2 list intro", kind: "html" },
+          { key: "card2Items", label: "Card 2 bullets", kind: "lines" },
+          { key: "card2Closing", label: "Card 2 closing", kind: "html" },
+          { key: "card3Title", label: "Card 3 title", kind: "text" },
+          { key: "card3Intro", label: "Card 3 intro", kind: "html" },
+          { key: "card3ListIntro", label: "Card 3 list intro", kind: "html" },
+          { key: "card3Items", label: "Card 3 bullets", kind: "lines" },
+          { key: "card3Closing", label: "Card 3 closing", kind: "html" },
+        ]}
+      >
         <div className="wrap">
           <div className="home-section-head reveal">
             <EditableText
@@ -80,45 +203,79 @@ export function HomeContentView() {
               as="h2"
             />
           </div>
-          <div className="home-bento">
-            {(
-              [
-                ["card1Title", "card1Body"],
-                ["card2Title", "card2Body"],
-                ["card3Title", "card3Body"],
-              ] as const
-            ).map(([title, body], i) => (
+
+          <div className="what-we-do-stack">
+            {OFFERINGS.map((offering, index) => (
               <article
-                key={title}
-                className={`home-bento-card reveal${i === 0 ? " home-bento-card--featured" : ""}`}
-                data-delay={i || undefined}
+                key={offering.title}
+                className="what-we-do-item reveal"
+                data-delay={index || undefined}
               >
-                <div className="home-bento-top">
-                  <span className="home-bento-num">{SERVICE_LINKS[i].icon}</span>
-                  <span className="home-bento-icon" aria-hidden>
-                    {i === 0 ? "◎" : i === 1 ? "◈" : "◇"}
-                  </span>
+                <div className="what-we-do-content">
+                  <EditableText
+                    field={offering.title}
+                    defaultValue={d[offering.title]}
+                    as="h3"
+                  />
+                  <EditableText
+                    field={offering.intro}
+                    defaultValue={d[offering.intro]}
+                    as="p"
+                    className="what-we-do-intro"
+                    multiline
+                    rich
+                  />
+                  <EditableText
+                    field={offering.listIntro}
+                    defaultValue={d[offering.listIntro]}
+                    as="p"
+                    className="what-we-do-list-intro"
+                    multiline
+                    rich
+                  />
+                  <WhatWeDoBullets
+                    field={offering.items}
+                    defaultValue={d[offering.items]}
+                  />
+                  <EditableText
+                    field={offering.closing}
+                    defaultValue={d[offering.closing]}
+                    as="p"
+                    className="what-we-do-closing"
+                    multiline
+                    rich
+                  />
+                  <Link className="text-link what-we-do-link" href={offering.href}>
+                    Learn more <Arrow />
+                  </Link>
                 </div>
-                <EditableText field={title} defaultValue={d[title]} as="h3" />
-                <EditableText
-                  field={body}
-                  defaultValue={d[body]}
-                  as="p"
-                  multiline
-                />
-                <Link
-                  className="text-link home-bento-link"
-                  href={SERVICE_LINKS[i].href}
-                >
-                  Learn more <Arrow />
-                </Link>
               </article>
             ))}
           </div>
         </div>
-      </section>
+      </EditableSection>
 
-      <section className="home-flow section-ink">
+      <EditableSection
+        title="How it works"
+        className="home-flow section-ink"
+        fields={[
+          { key: "flowEyebrow", label: "Eyebrow", kind: "text" },
+          { key: "flowTitle", label: "Title", kind: "text" },
+          { key: "flowLede", label: "Supporting text", kind: "html" },
+          { key: "flowInputsTitle", label: "Inputs title", kind: "text" },
+          { key: "flowInput1", label: "Input 1", kind: "text" },
+          { key: "flowInput2", label: "Input 2", kind: "text" },
+          { key: "flowInput3", label: "Input 3", kind: "text" },
+          { key: "flowInput4", label: "Input 4", kind: "text" },
+          { key: "flowCoreTitle", label: "Core title", kind: "text" },
+          { key: "flowCoreSmall", label: "Core subtitle", kind: "text" },
+          { key: "flowOutputsTitle", label: "Outputs title", kind: "text" },
+          { key: "flowOutput1", label: "Output 1", kind: "text" },
+          { key: "flowOutput2", label: "Output 2", kind: "text" },
+          { key: "flowOutput3", label: "Output 3", kind: "text" },
+          { key: "flowOutput4", label: "Output 4", kind: "text" },
+        ]}
+      >
         <div className="wrap">
           <div className="home-section-head reveal">
             <EditableText
@@ -134,6 +291,7 @@ export function HomeContentView() {
               as="p"
               className="lede"
               multiline
+              rich
             />
           </div>
           <div className="home-pipeline reveal">
@@ -208,9 +366,25 @@ export function HomeContentView() {
             </div>
           </div>
         </div>
-      </section>
+      </EditableSection>
 
-      <section className="home-stats">
+      <EditableSection
+        title="Stats"
+        className="home-stats"
+        fields={[
+          { key: "statsEyebrow", label: "Eyebrow", kind: "text" },
+          { key: "statsTitle", label: "Title", kind: "text" },
+          { key: "stat1Figure", label: "Stat 1 figure", kind: "text" },
+          { key: "stat1Desc", label: "Stat 1 description", kind: "html" },
+          { key: "stat1Src", label: "Stat 1 source", kind: "text" },
+          { key: "stat2Figure", label: "Stat 2 figure", kind: "text" },
+          { key: "stat2Desc", label: "Stat 2 description", kind: "html" },
+          { key: "stat2Src", label: "Stat 2 source", kind: "text" },
+          { key: "stat3Figure", label: "Stat 3 figure", kind: "text" },
+          { key: "stat3Desc", label: "Stat 3 description", kind: "html" },
+          { key: "stat3Src", label: "Stat 3 source", kind: "text" },
+        ]}
+      >
         <div className="wrap">
           <div className="home-section-head reveal">
             <EditableText
@@ -246,6 +420,7 @@ export function HomeContentView() {
                   as="p"
                   className="home-stat-desc"
                   multiline
+                  rich
                 />
                 <EditableText
                   field={src}
@@ -257,9 +432,28 @@ export function HomeContentView() {
             ))}
           </div>
         </div>
-      </section>
+      </EditableSection>
 
-      <section className="home-problems section-paper-2">
+      <EditableSection
+        title="Problems we solve"
+        className="home-problems section-paper-2"
+        fields={[
+          { key: "problemEyebrow", label: "Eyebrow", kind: "text" },
+          { key: "problemTitle", label: "Title", kind: "text" },
+          { key: "problem1Title", label: "Problem 1 title", kind: "text" },
+          { key: "problem1Li1", label: "Problem 1 item 1", kind: "text" },
+          { key: "problem1Li2", label: "Problem 1 item 2", kind: "text" },
+          { key: "problem1Li3", label: "Problem 1 item 3", kind: "text" },
+          { key: "problem2Title", label: "Problem 2 title", kind: "text" },
+          { key: "problem2Li1", label: "Problem 2 item 1", kind: "text" },
+          { key: "problem2Li2", label: "Problem 2 item 2", kind: "text" },
+          { key: "problem2Li3", label: "Problem 2 item 3", kind: "text" },
+          { key: "problem3Title", label: "Problem 3 title", kind: "text" },
+          { key: "problem3Li1", label: "Problem 3 item 1", kind: "text" },
+          { key: "problem3Li2", label: "Problem 3 item 2", kind: "text" },
+          { key: "problem3Li3", label: "Problem 3 item 3", kind: "text" },
+        ]}
+      >
         <div className="wrap">
           <div className="home-section-head reveal">
             <EditableText
@@ -284,9 +478,6 @@ export function HomeContentView() {
                 data-delay={i || undefined}
               >
                 <div className="home-problem-header">
-                  <span className="home-problem-badge" aria-hidden>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
                   <h3>
                     <EditableText field={title} defaultValue={d[title]} as="span" />
                   </h3>
@@ -302,9 +493,16 @@ export function HomeContentView() {
             ))}
           </div>
         </div>
-      </section>
+      </EditableSection>
 
-      <section className="home-quote section-ink">
+      <EditableSection
+        title="Quote"
+        className="home-quote section-ink"
+        fields={[
+          { key: "quoteText", label: "Quote", kind: "html" },
+          { key: "quoteSrc", label: "Source", kind: "text" },
+        ]}
+      >
         <div className="wrap">
           <div className="home-quote-inner reveal">
             <span className="home-quote-mark" aria-hidden>&ldquo;</span>
@@ -314,6 +512,7 @@ export function HomeContentView() {
                 defaultValue={d.quoteText}
                 as="span"
                 multiline
+                rich
               />
             </blockquote>
             <EditableText
@@ -324,9 +523,16 @@ export function HomeContentView() {
             />
           </div>
         </div>
-      </section>
+      </EditableSection>
 
-      <section className="home-faq">
+      <EditableSection
+        title="FAQ"
+        className="home-faq"
+        fields={[
+          { key: "faqEyebrow", label: "Eyebrow", kind: "text" },
+          { key: "faqTitle", label: "Title", kind: "text" },
+        ]}
+      >
         <div className="wrap">
           <div className="home-faq-layout">
             <div className="home-faq-head reveal">
@@ -343,7 +549,7 @@ export function HomeContentView() {
             </div>
           </div>
         </div>
-      </section>
+      </EditableSection>
 
       <EditableCtaBand
         titleField="ctaTitle"

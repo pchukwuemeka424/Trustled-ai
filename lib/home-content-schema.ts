@@ -1,48 +1,66 @@
 export type HomeContent = Record<string, string>;
 
 export const defaultHomeContent: HomeContent = {
-  heroTagline: "Assess. Automate. Advance.",
-  heroHeadline: "AI is moving fast. We help you keep up and prove you have.",
+  heroTagline: "Govern. Automate. Advance.",
+  heroHeadline: "Helping Organisations Govern, Build and Scale AI",
   heroLede:
-    "AI governance assessment, shadow AI detection, and training for schools, universities, and regulated SMEs that need to adopt AI responsibly and prove they have.",
+    "AI governance advisory, AI solutions and automation services, and professional training that help organisations harness AI securely, meet regulatory obligations and build lasting capability.",
   heroPrimaryCta: "Start a conversation",
   heroSecondaryCta: "Explore our services",
-  heroBackgroundUrl: "",
+  heroBackgroundUrl: "/images/hero-ai.jpg",
   introEyebrow: "Why this matters now",
   introP1:
-    "AI is already in your organisation. In the tools your teachers and staff use, in the platforms your IT team deployed for other reasons, in the questions your auditors, governors, regulators, and enterprise customers will ask before the year is out. We help you find it, assess the risk it creates, surface the AI nobody formally approved, and produce the evidence that satisfies the people who ask.",
+    "AI is already reshaping how organisations work, make decisions and deliver services. The organisations that succeed are not the ones that adopt the most tools — they are the ones that govern AI properly, build solutions people trust, and equip their people with lasting capability.",
   introP2:
-    "The organisations who handle this well are not the ones with the biggest budgets. They are the ones who scoped the work properly, did it once, and have something to show for it.",
+    "TrustLed AI brings governance advisory, AI solutions and automation, and professional training together so innovation and accountability move at the same pace.",
   introClosing: "Tell us where you are, and we will tell you what good looks like.",
   whatWeDoEyebrow: "What we do",
-  whatWeDoTitle: "Three engagements, each scoped to your situation.",
-  card1Title: "Governance Assessment",
-  card1Body:
-    "We find every AI system in your organisation, including the embedded AI in tools you did not classify as AI, classify the risk against the EU AI Act, the DfE's product safety expectations, and other relevant frameworks, and produce the governance and documentation that stand up to an auditor's questions.",
-  card2Title: "Shadow AI Detection",
-  card2Body:
-    "We uncover the AI running in your organisation that no one formally approved, from the tools staff signed up for independently to the AI quietly embedded in software you already license. We tell you what is there, what risk it carries, and what to do about it.",
-  card3Title: "Training",
-  card3Body:
-    "Two short, applied programmes for organisations that need their people effective with AI quickly, and confident they are not introducing risk in the process. AI for Work Skills for the day job, the AI Governance Workshop for the leaders and governors setting policy.",
+  whatWeDoTitle:
+    "Governance, technology and capability that help organisations realise the full value of AI.",
+  card1Title: "AI Governance Advisory",
+  card1Intro:
+    "Responsible AI adoption starts with effective governance. We help organisations establish the policies, frameworks and oversight needed to deploy AI with confidence. Whether you're developing AI systems or adopting third-party solutions, we provide expert advisory services covering AI governance, risk management, regulatory compliance and responsible AI.",
+  card1ListIntro:
+    "Our advisory services are aligned with leading international frameworks and regulations, including:",
+  card1Items:
+    "ISO/IEC 42001 – The international standard for implementing an Artificial Intelligence Management System (AIMS).\nNIST AI Risk Management Framework – A practical framework for identifying, assessing and managing AI risks throughout the AI lifecycle.\nEU AI Act – Compliance advisory for organisations developing, deploying or using AI systems subject to the European Union's risk-based AI regulation.\nUK Pro-Innovation AI Regulatory Principles – Guidance that supports compliance with the UK's evolving AI regulatory landscape across sector regulators.\nNigeria Data Protection Act (NDPA) and National AI Strategy – Governance, privacy and responsible AI guidance for organisations operating within Nigeria.",
+  card1Closing:
+    "We work with organisations across the UK, Nigeria and Europe to build practical AI governance programmes that enable innovation while strengthening accountability, regulatory compliance, security and stakeholder trust.",
+  card2Title: "AI Solutions & Automation Services",
+  card2Intro:
+    "We design and develop AI-powered software and intelligent automation solutions that improve efficiency, reduce manual effort and solve real operational challenges. From custom AI applications and workflow automation to governed AI platforms like GARIL AI, every solution is built with governance, security and privacy embedded from the outset.",
+  card2ListIntro:
+    "Our approach begins with understanding how your organisation works, then designing solutions that integrate with your existing systems:",
+  card2Items:
+    "Custom AI application development\nWorkflow automation and business process optimisation\nInternal AI assistants and knowledge management\nRetrieval-Augmented Generation (RAG) solutions\nGoverned AI platforms like GARIL AI\nGovernance, security and privacy embedded by design",
+  card2Closing:
+    "Every solution is designed to remain transparent, secure and maintainable as your organisation grows.",
+  card3Title: "Training & Capacity Building",
+  card3Intro:
+    "Building AI capability requires more than access to technology. It requires people who understand how to use AI effectively, govern it appropriately and apply it confidently in their day-to-day work. We deliver practical training programmes that help organisations improve AI adoption and equip professionals with the skills needed for careers in AI Governance, Risk and Compliance (AI GRC).",
+  card3ListIntro: "Our programmes include:",
+  card3Items:
+    "AI Literacy Workshops – Practical foundations for universities and businesses adopting AI across everyday work.\nAI GRC Practitioner Programme – Hands-on training for governance, risk and compliance professionals building careers in AI GRC.\nIn-person workshops, virtual live training, private corporate programmes and university partnerships.",
+  card3Closing:
+    "Our training combines international frameworks, real-world implementation and hands-on learning to help individuals and organisations build lasting AI capability.",
   flowEyebrow: "Where we sit",
-  flowTitle: "Between the AI you deploy and everyone asking how you govern it.",
+  flowTitle: "Between the AI you deploy and the trust you need to keep.",
   flowLede:
-    "We map your inputs, apply proportionate governance, and produce outputs that satisfy auditors, inspectors, insurers, and enterprise buyers.",
+    "We help organisations govern AI, build governed solutions, and develop the capability to sustain both.",
   flowInputsTitle: "Inputs",
-  flowInput1: "Your AI tools",
-  flowInput2: "Your vendors",
-  flowInput3: "Your data flows",
-  flowInput4: "Your decisions",
-  flowCoreTitle: "Governance, applied",
-  flowCoreSmall: "EU AI Act · ISO 42001 · NIST AI RMF · DfE · KCSIE",
+  flowInput1: "Your AI use cases",
+  flowInput2: "Your systems & vendors",
+  flowInput3: "Your regulatory context",
+  flowInput4: "Your people & processes",
+  flowCoreTitle: "Govern. Automate. Advance.",
+  flowCoreSmall: "ISO 42001 · NIST AI RMF · EU AI Act · UK principles · NDPA",
   flowOutputsTitle: "Outputs",
-  flowOutput1: "Audit-ready evidence",
-  flowOutput2: "Defensible risk position",
-  flowOutput3: "Board & governor confidence",
-  flowOutput4: "Insurable, governed AI",
+  flowOutput1: "Practical AI governance",
+  flowOutput2: "Governed AI solutions",
+  flowOutput3: "Workforce AI capability",
+  flowOutput4: "Lasting organisational trust",
   statsEyebrow: "The state of play",
-  statsTitle: "Most organisations cannot yet answer the questions already arriving.",
+  statsTitle: "Most organisations are adopting AI faster than they can govern it.",
   stat1Figure: "31%",
   stat1Desc: "of UK organisations have no AI governance policy in place.",
   stat1Src: "CyXcel / Censuswide, 2025",
@@ -55,27 +73,28 @@ export const defaultHomeContent: HomeContent = {
     "of UK companies abandoned AI initiatives in 2025, with 46% of proofs-of-concept never reaching production.",
   stat3Src: "Resultsense, 2025",
   problemEyebrow: "The reality",
-  problemTitle: "Your compliance tools were not built for AI.",
-  problem1Title: "Static policies",
-  problem1Li1: "Built for yesterday's systems",
-  problem1Li2: "Cannot keep pace with how fast AI is adopted",
-  problem1Li3: "Checkbox compliance no auditor respects",
-  problem2Title: "Audit theatre",
-  problem2Li1: "Point-in-time snapshots that age instantly",
-  problem2Li2: "Does not cover the decisions AI now makes",
-  problem2Li3: "Inspectors asking questions you cannot answer",
-  problem3Title: "The gap",
-  problem3Li1: "Data governance does not cover AI",
-  problem3Li2: "AI governance does not understand your data",
-  problem3Li3: "Nobody owns the intersection",
+  problemTitle: "AI creates value only when governance, technology and people move together.",
+  problem1Title: "Governance lag",
+  problem1Li1: "Tools arrive faster than policies and oversight",
+  problem1Li2: "Risk ownership stays unclear across teams",
+  problem1Li3: "Leaders cannot demonstrate control when asked",
+  problem2Title: "Disconnected delivery",
+  problem2Li1: "Automation projects stall without clear ownership",
+  problem2Li2: "Security and privacy are bolted on too late",
+  problem2Li3: "Solutions fail to integrate with real workflows",
+  problem3Title: "Capability gaps",
+  problem3Li1: "Staff experiment without shared foundations",
+  problem3Li2: "GRC teams lack practical AI skills",
+  problem3Li3: "Training stays theoretical instead of applied",
   quoteText:
-    "By 2027, a majority of organisations will fail to realise the value of their AI because governance was treated as an afterthought. The ones who build it in now will outpace the rest.",
+    "Organisations shouldn't have to choose between innovation and governance. The ones who embed both from the start will outpace the rest.",
   quoteSrc: "The view that shapes how we work",
   faqEyebrow: "Common questions",
   faqTitle: "What organisations ask before they engage us.",
   ctaTitle: "Start with a conversation.",
   ctaDescription:
     "A 30-minute conversation, no pitch deck. We will tell you whether we can help.",
+  _sectionLayouts: "{}",
 };
 
 export function getHomeContentFieldKeys(): string[] {

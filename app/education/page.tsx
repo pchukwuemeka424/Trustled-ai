@@ -7,9 +7,9 @@ import { getPageContent } from "@/lib/page-content";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Education & Training",
+  title: "Training",
   description:
-    "Two short, applied programmes for organisations that need their people effective with AI quickly.",
+    "AI Literacy Workshops and the AI GRC Practitioner Training Programme for organisations and professionals building practical AI capability.",
 };
 
 type EducationPageProps = {

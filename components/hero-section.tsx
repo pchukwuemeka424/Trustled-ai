@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Arrow } from "@/components/ui";
 import { EditableHeroBackground } from "@/components/live-edit/editable-hero-background";
+import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { useLiveEdit } from "@/components/live-edit/live-edit-context";
 
@@ -29,8 +30,16 @@ export function HomeHero({
   const hasBackground = Boolean(backgroundUrl);
 
   return (
-    <section
+    <EditableSection
+      title="Hero"
       className={`hero hero--home${hasBackground ? " hero--has-bg" : ""}`}
+      fields={[
+        { key: "heroTagline", label: "Tagline", kind: "text" },
+        { key: "heroHeadline", label: "Headline", kind: "text" },
+        { key: "heroLede", label: "Supporting text", kind: "html" },
+        { key: "heroPrimaryCta", label: "Primary button", kind: "text" },
+        { key: "heroSecondaryCta", label: "Secondary button", kind: "text" },
+      ]}
     >
       <div className="hero-background" aria-hidden>
         {hasBackground ? (
@@ -54,12 +63,14 @@ export function HomeHero({
             defaultValue={defaultTagline}
             as="p"
             className="hero-tagline reveal"
+            label="Tagline"
           />
           <EditableText
             field="heroHeadline"
             defaultValue={defaultHeadline}
             as="h1"
             className="reveal"
+            label="Headline"
           />
           <EditableText
             field="heroLede"
@@ -67,6 +78,8 @@ export function HomeHero({
             as="p"
             className="lede reveal"
             multiline
+            rich
+            label="Supporting text"
           />
           <div className="hero-actions reveal" data-delay="2">
             <Link className="btn btn-on-ink" href="/contact">
@@ -74,23 +87,22 @@ export function HomeHero({
                 field="heroPrimaryCta"
                 defaultValue={defaultPrimaryCta}
                 as="span"
+                label="Primary button"
               />{" "}
               <Arrow />
             </Link>
-            <Link
-              className="btn btn-ghost hero-btn-ghost"
-              href="/services"
-            >
+            <Link className="btn btn-ghost hero-btn-ghost" href="/services">
               <EditableText
                 field="heroSecondaryCta"
                 defaultValue={defaultSecondaryCta}
                 as="span"
+                label="Secondary button"
               />
             </Link>
           </div>
         </div>
       </div>
-    </section>
+    </EditableSection>
   );
 }
 
@@ -108,7 +120,15 @@ export function PageHero({
   children,
 }: PageHeroProps) {
   return (
-    <section className="hero hero--page">
+    <EditableSection
+      title="Hero"
+      className="hero hero--page"
+      fields={[
+        { key: "heroTagline", label: "Tagline", kind: "text" },
+        { key: "heroTitle", label: "Title", kind: "text" },
+        { key: "heroLede", label: "Supporting text", kind: "html" },
+      ]}
+    >
       <div className="hero-overlay" aria-hidden />
       <div className="wrap hero-inner">
         <EditableText
@@ -129,9 +149,10 @@ export function PageHero({
           as="p"
           className="lede reveal"
           multiline
+          rich
         />
         {children}
       </div>
-    </section>
+    </EditableSection>
   );
 }

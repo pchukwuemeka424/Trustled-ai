@@ -1,58 +1,29 @@
 "use client";
 
+import Link from "next/link";
+import { EditableBulletList } from "@/components/editable-bullet-list";
 import { EditableCtaBand } from "@/components/editable-cta-band";
+import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
+import { HeroBackdrop } from "@/components/site-image";
+import { Arrow } from "@/components/ui";
 import { defaultPageContent } from "@/lib/page-content-schema";
 
 const d = defaultPageContent.services;
 
-function ServiceBlock({
-  id,
-  sectionClass,
-  indexField,
-  titleField,
-  paragraphs,
-}: {
-  id: string;
-  sectionClass?: string;
-  indexField: keyof typeof d;
-  titleField: keyof typeof d;
-  paragraphs: (keyof typeof d)[];
-}) {
-  return (
-    <div className={`service-block${sectionClass ? ` ${sectionClass}` : ""}`} id={id}>
-      <div className="wrap">
-        <div className="service-grid">
-          <div className="service-lead reveal">
-            <EditableText
-              field={indexField}
-              defaultValue={d[indexField]}
-              as="p"
-              className="service-index"
-            />
-            <EditableText field={titleField} defaultValue={d[titleField]} as="h2" multiline />
-          </div>
-          <div className="service-body reveal" data-delay="1">
-            {paragraphs.map((field) => (
-              <EditableText
-                key={field}
-                field={field}
-                defaultValue={d[field]}
-                as="p"
-                multiline
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function ServicesContentView() {
   return (
     <>
-      <section className="hero">
+      <EditableSection
+        title="Hero"
+        className="hero hero--page hero--has-bg"
+        fields={[
+          { key: "heroTagline", label: "Tagline", kind: "text" },
+          { key: "heroTitle", label: "Title", kind: "text" },
+          { key: "heroLede", label: "Supporting text", kind: "html" },
+        ]}
+      >
+        <HeroBackdrop src="/images/governance-ai.jpg" />
         <div className="wrap hero-inner">
           <EditableText
             field="heroTagline"
@@ -72,67 +43,154 @@ export function ServicesContentView() {
             as="p"
             className="lede reveal"
             multiline
+            rich
           />
         </div>
-      </section>
+      </EditableSection>
 
-      <ServiceBlock
+      <EditableSection
+        title="AI Governance Advisory"
+        className="service-block"
         id="advisory"
-        indexField="s1Index"
-        titleField="s1Title"
-        paragraphs={["s1P1", "s1P2", "s1P3", "s1P4"]}
-      />
-      <ServiceBlock
-        id="shadow"
-        sectionClass="section-paper-2"
-        indexField="s2Index"
-        titleField="s2Title"
-        paragraphs={["s2P1", "s2P2", "s2P3", "s2P4"]}
-      />
-      <div className="service-block" id="automation">
+        fields={[
+          { key: "advLabel", label: "Label", kind: "text" },
+          { key: "advTitle", label: "Title", kind: "html" },
+          { key: "advP1", label: "Paragraph 1", kind: "html" },
+          { key: "advP2", label: "Paragraph 2", kind: "html" },
+          { key: "advP3", label: "Paragraph 3", kind: "html" },
+          { key: "advFrameworksIntro", label: "Frameworks intro", kind: "html" },
+          { key: "advFrameworksItems", label: "Frameworks list", kind: "lines" },
+          { key: "advServicesIntro", label: "Services heading", kind: "text" },
+          { key: "advServicesItems", label: "Services list", kind: "lines" },
+          { key: "advReceiveIntro", label: "Receive heading", kind: "text" },
+          { key: "advReceiveItems", label: "Receive list", kind: "lines" },
+        ]}
+      >
         <div className="wrap">
-          <div className="service-grid">
-            <div className="service-lead reveal">
+          <div className="service-detail reveal">
+            <EditableText
+              field="advLabel"
+              defaultValue={d.advLabel}
+              as="p"
+              className="eyebrow"
+            />
+            <EditableText
+              field="advTitle"
+              defaultValue={d.advTitle}
+              as="h2"
+              multiline
+              rich
+            />
+            <div className="service-detail-body">
+              <EditableText field="advP1" defaultValue={d.advP1} as="p" multiline rich />
+              <EditableText field="advP2" defaultValue={d.advP2} as="p" multiline rich />
+              <EditableText field="advP3" defaultValue={d.advP3} as="p" multiline rich />
               <EditableText
-                field="s3Index"
-                defaultValue={d.s3Index}
+                field="advFrameworksIntro"
+                defaultValue={d.advFrameworksIntro}
                 as="p"
-                className="service-index"
+                className="content-list-intro"
+                multiline
+                rich
               />
-              <EditableText field="s3Title" defaultValue={d.s3Title} as="h2" />
+              <EditableBulletList
+                field="advFrameworksItems"
+                defaultValue={d.advFrameworksItems}
+              />
+              <EditableText
+                field="advServicesIntro"
+                defaultValue={d.advServicesIntro}
+                as="h3"
+                className="content-subhead"
+              />
+              <EditableBulletList
+                field="advServicesItems"
+                defaultValue={d.advServicesItems}
+                splitLabels={false}
+              />
+              <EditableText
+                field="advReceiveIntro"
+                defaultValue={d.advReceiveIntro}
+                as="h3"
+                className="content-subhead"
+              />
+              <EditableBulletList
+                field="advReceiveItems"
+                defaultValue={d.advReceiveItems}
+                splitLabels={false}
+              />
+              <Link className="text-link" href="/contact">
+                Talk to us about your AI governance needs <Arrow />
+              </Link>
             </div>
-            <div className="service-body reveal" data-delay="1">
-              <EditableText field="s3P1" defaultValue={d.s3P1} as="p" multiline />
-              <EditableText field="s3P2" defaultValue={d.s3P2} as="p" multiline />
-            </div>
-          </div>
-          <div className="bucket-grid">
-            {(
-              [
-                ["bucket1Tag", "bucket1Title", "bucket1Body", "bucket--full"],
-                ["bucket2Tag", "bucket2Title", "bucket2Body", "bucket--loop"],
-                ["bucket3Tag", "bucket3Title", "bucket3Body", "bucket--only"],
-              ] as const
-            ).map(([tag, title, body, cls], i) => (
-              <div
-                key={tag}
-                className={`bucket ${cls} reveal`}
-                data-delay={i || undefined}
-              >
-                <EditableText field={tag} defaultValue={d[tag]} as="span" className="bucket-tag" />
-                <EditableText field={title} defaultValue={d[title]} as="h3" />
-                <EditableText field={body} defaultValue={d[body]} as="p" multiline />
-              </div>
-            ))}
-          </div>
-          <div
-            className="service-body reveal"
-            style={{ maxWidth: "760px", marginTop: "2.5rem" }}
-          >
-            <EditableText field="s3P3" defaultValue={d.s3P3} as="p" multiline />
           </div>
         </div>
-      </div>
+      </EditableSection>
+
+      <EditableSection
+        title="AI Solutions & Automation"
+        className="service-block section-paper-2"
+        id="automation"
+        fields={[
+          { key: "autoLabel", label: "Label", kind: "text" },
+          { key: "autoTitle", label: "Title", kind: "html" },
+          { key: "autoP1", label: "Paragraph 1", kind: "html" },
+          { key: "autoP2", label: "Paragraph 2", kind: "html" },
+          { key: "autoP3", label: "Paragraph 3", kind: "html" },
+          { key: "autoServicesIntro", label: "Services heading", kind: "text" },
+          { key: "autoServicesItems", label: "Services list", kind: "lines" },
+          { key: "autoReceiveIntro", label: "Receive heading", kind: "text" },
+          { key: "autoReceiveItems", label: "Receive list", kind: "lines" },
+        ]}
+      >
+        <div className="wrap">
+          <div className="service-detail reveal">
+            <EditableText
+              field="autoLabel"
+              defaultValue={d.autoLabel}
+              as="p"
+              className="eyebrow"
+            />
+            <EditableText
+              field="autoTitle"
+              defaultValue={d.autoTitle}
+              as="h2"
+              multiline
+              rich
+            />
+            <div className="service-detail-body">
+              <EditableText field="autoP1" defaultValue={d.autoP1} as="p" multiline rich />
+              <EditableText field="autoP2" defaultValue={d.autoP2} as="p" multiline rich />
+              <EditableText field="autoP3" defaultValue={d.autoP3} as="p" multiline rich />
+              <EditableText
+                field="autoServicesIntro"
+                defaultValue={d.autoServicesIntro}
+                as="h3"
+                className="content-subhead"
+              />
+              <EditableBulletList
+                field="autoServicesItems"
+                defaultValue={d.autoServicesItems}
+                splitLabels={false}
+              />
+              <EditableText
+                field="autoReceiveIntro"
+                defaultValue={d.autoReceiveIntro}
+                as="h3"
+                className="content-subhead"
+              />
+              <EditableBulletList
+                field="autoReceiveItems"
+                defaultValue={d.autoReceiveItems}
+                splitLabels={false}
+              />
+              <Link className="text-link" href="/contact">
+                Let&apos;s build your next AI solution <Arrow />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </EditableSection>
 
       <EditableCtaBand
         titleField="ctaTitle"

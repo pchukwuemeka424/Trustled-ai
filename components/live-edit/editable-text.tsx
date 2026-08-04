@@ -9,7 +9,10 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type FocusEvent as ReactFocusEvent,
 } from "react";
-import { ModernTextarea } from "@/components/modern-textarea";
+import {
+  SectionEditorModal,
+  type SectionEditorField,
+} from "@/components/live-edit/section-editor-modal";
 import { useLiveEdit, useOptionalLiveEdit } from "./live-edit-context";
 
 type EditableTextProps = {
@@ -17,11 +20,17 @@ type EditableTextProps = {
   defaultValue?: string;
   as?: ElementType;
   multiline?: boolean;
+  rich?: boolean;
   className?: string;
   style?: CSSProperties;
   placeholder?: string;
   ariaLabel?: string;
+  label?: string;
 };
+
+function looksLikeHtml(value: string) {
+  return /<\/?[a-z][\s\S]*>/i.test(value.trim());
+}
 
 /** Reveal animations start hidden; remounting in edit mode drops the `.in` class. */
 function withRevealVisible(className?: string) {
@@ -31,64 +40,193 @@ function withRevealVisible(className?: string) {
   return `${className} in`;
 }
 
+function HtmlOrText({
+  Tag,
+  text,
+  className,
+  style,
+  multiline,
+  placeholder,
+}: {
+  Tag: ElementType;
+  text: string;
+  className?: string;
+  style?: CSSProperties;
+  multiline?: boolean;
+  placeholder?: string;
+}) {
+  if (!text && placeholder) {
+    return (
+      <Tag className={className} style={style}>
+        <span style={{ color: "var(--muted)" }}>{placeholder}</span>
+      </Tag>
+    );
+  }
+
+  if (looksLikeHtml(text)) {
+    return (
+      <Tag
+        className={[className, "rich-content"].filter(Boolean).join(" ")}
+        style={style}
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
+    );
+  }
+
+  const readClassName = [className, multiline ? "whitespace-pre-line" : ""]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <Tag className={readClassName} style={style}>
+      {text}
+    </Tag>
+  );
+}
+
 export function EditableText({
   field,
   defaultValue = "",
   as: Tag = "span",
   multiline = false,
+  rich = false,
   className,
   style,
   placeholder,
   ariaLabel,
+  label,
 }: EditableTextProps) {
   const liveEdit = useOptionalLiveEdit();
   const isAdmin = liveEdit?.isAdmin ?? false;
   const isEditing = liveEdit?.isEditing ?? false;
-  const editable = isAdmin && isEditing;
   const text = liveEdit?.values[field] ?? defaultValue;
+  const useRichEditor = multiline || rich;
+  const [modalOpen, setModalOpen] = useState(false);
 
-  if (!editable) {
-    const readClassName = [className, multiline ? "whitespace-pre-line" : ""]
-      .filter(Boolean)
-      .join(" ");
-
+  if (!isAdmin) {
     return (
-      <Tag className={readClassName} style={style}>
-        {text || (placeholder ? <PlaceholderHint text={placeholder} /> : null)}
-      </Tag>
+      <HtmlOrText
+        Tag={Tag}
+        text={text}
+        className={className}
+        style={style}
+        multiline={multiline}
+        placeholder={placeholder}
+      />
+    );
+  }
+
+  const fieldDef: SectionEditorField = {
+    key: field,
+    label: label ?? ariaLabel ?? field,
+    kind: useRichEditor ? "html" : "text",
+    placeholder,
+  };
+
+  const Wrap: ElementType =
+    Tag === "span" || Tag === "a" ? "span" : "div";
+  const wrapClass = [
+    "editable-text-wrap",
+    Tag === "span" || Tag === "a" ? "editable-text-wrap--inline" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  function openModal() {
+    if (!liveEdit) return;
+    if (!liveEdit.isEditing) liveEdit.startEdit();
+    setModalOpen(true);
+  }
+
+  // When page edit mode is on, short fields stay inline; rich/multiline use modal.
+  if (!isEditing) {
+    return (
+      <>
+        <Wrap className={wrapClass}>
+          <HtmlOrText
+            Tag={Tag}
+            text={text}
+            className={className}
+            style={style}
+            multiline={multiline}
+            placeholder={placeholder}
+          />
+          {useRichEditor ? (
+            <button
+              type="button"
+              className="editable-field-edit-btn"
+              onClick={openModal}
+              aria-label={`Edit ${fieldDef.label}`}
+            >
+              Edit
+            </button>
+          ) : null}
+        </Wrap>
+        {useRichEditor ? (
+          <SectionEditorModal
+            open={modalOpen}
+            title={fieldDef.label}
+            fields={[fieldDef]}
+            values={liveEdit?.values ?? {}}
+            onClose={() => setModalOpen(false)}
+            onApply={(next) => {
+              liveEdit?.setField(field, next[field] ?? "");
+            }}
+          />
+        ) : null}
+      </>
     );
   }
 
   const editClassName = withRevealVisible(className);
 
-  return (
-    <>
-      {multiline ? (
-        <EditableTextarea
-          field={field}
-          initial={text}
-          className={editClassName}
-          style={style}
-          placeholder={placeholder}
+  if (useRichEditor) {
+    return (
+      <>
+        <Wrap className={`${wrapClass} editable-text-wrap--editing`}>
+          <HtmlOrText
+            Tag={Tag}
+            text={text}
+            className={editClassName}
+            style={style}
+            multiline={multiline}
+            placeholder={placeholder}
+          />
+          <button
+            type="button"
+            className="editable-field-edit-btn"
+            onClick={openModal}
+            aria-label={`Edit ${fieldDef.label}`}
+          >
+            Edit
+          </button>
+        </Wrap>
+        <SectionEditorModal
+          open={modalOpen}
+          title={fieldDef.label}
+          fields={[fieldDef]}
+          values={liveEdit?.values ?? {}}
+          onClose={() => setModalOpen(false)}
+          onApply={(next) => {
+            liveEdit?.setField(field, next[field] ?? "");
+          }}
         />
-      ) : (
-        <EditableSurface
-          Tag={Tag}
-          field={field}
-          multiline={multiline}
-          initial={text}
-          className={editClassName}
-          style={style}
-          placeholder={placeholder}
-          ariaLabel={ariaLabel}
-        />
-      )}
-    </>
-  );
-}
+      </>
+    );
+  }
 
-function PlaceholderHint({ text }: { text: string }) {
-  return <span style={{ color: "var(--muted)" }}>{text}</span>;
+  return (
+    <EditableSurface
+      Tag={Tag}
+      field={field}
+      multiline={false}
+      initial={text}
+      className={editClassName}
+      style={style}
+      placeholder={placeholder}
+      ariaLabel={ariaLabel}
+    />
+  );
 }
 
 type EditableSurfaceProps = {
@@ -166,14 +304,7 @@ const EditableSurface = forwardRef<HTMLElement, EditableSurfaceProps>(
         onKeyDown={handleKeyDown}
         onPaste={handlePaste}
         onClick={handleClick}
-        className={
-          [
-            className,
-            "live-edit-surface",
-          ]
-            .filter(Boolean)
-            .join(" ")
-        }
+        className={["live-edit-surface", className].filter(Boolean).join(" ")}
         style={style}
       >
         {snapshot}
@@ -181,66 +312,3 @@ const EditableSurface = forwardRef<HTMLElement, EditableSurfaceProps>(
     );
   },
 );
-
-type EditableTextareaProps = {
-  field: string;
-  initial: string;
-  className?: string;
-  style?: CSSProperties;
-  placeholder?: string;
-};
-
-function textToEditorHtml(value: string) {
-  const escaped = value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-  return escaped.replace(/\n/g, "<br>");
-}
-
-function editorHtmlToText(value: string) {
-  const withLineBreakHints = value
-    .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<\/(p|div|h1|h2|h3|h4|h5|h6|li|blockquote)>/gi, "\n");
-
-  const container = document.createElement("div");
-  container.innerHTML = withLineBreakHints;
-  return (container.textContent ?? "")
-    .replace(/\u00a0/g, " ")
-    .replace(/\r/g, "")
-    .replace(/\n{3,}/g, "\n\n");
-}
-
-function EditableTextarea({
-  field,
-  initial,
-  className,
-  style,
-  placeholder,
-}: EditableTextareaProps) {
-  const { setField } = useLiveEdit();
-  const [draftHtml, setDraftHtml] = useState(() => textToEditorHtml(initial));
-
-  return (
-    <div className={[className, "space-y-1"].filter(Boolean).join(" ")}>
-      <div className="rounded-t-md border border-b-0 border-stone-300 bg-stone-50 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-stone-500">
-        Rich text area
-      </div>
-      <div
-        className="overflow-hidden rounded-b-md border border-stone-300 bg-white"
-        style={style}
-      >
-        <ModernTextarea
-          value={draftHtml}
-          placeholder={placeholder}
-          rows={8}
-          onChange={(next) => {
-            const text = editorHtmlToText(next);
-            setDraftHtml(next);
-            setField(field, text);
-          }}
-        />
-      </div>
-    </div>
-  );
-}

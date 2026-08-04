@@ -3,18 +3,18 @@ import Link from "next/link";
 export function BrandMark() {
   return (
     <span className="brand-mark" aria-hidden="true">
-      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
         <path
-          d="M16 2 L28 7 V16 C28 23 22.5 28 16 30.5 C9.5 28 4 23 4 16 V7 Z"
+          d="M16 2.5 L27.5 7.2 V16.2 C27.5 22.8 22.2 27.6 16 29.8 C9.8 27.6 4.5 22.8 4.5 16.2 V7.2 Z"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.6"
+          strokeWidth="1.5"
         />
         <path
-          d="M10.5 16.2 L14.3 20 L21.5 12"
+          d="M10.8 16.3 L14.4 19.9 L21.4 12.4"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.8"
+          strokeWidth="1.7"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
