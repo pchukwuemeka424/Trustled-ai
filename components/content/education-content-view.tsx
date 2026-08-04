@@ -7,7 +7,7 @@ import { EditableCtaBand } from "@/components/editable-cta-band";
 import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { useOptionalLiveEdit } from "@/components/live-edit/live-edit-context";
-import { HeroBackdrop, SiteImage } from "@/components/site-image";
+import { HeroBackdrop } from "@/components/site-image";
 import { Arrow } from "@/components/ui";
 import { defaultPageContent } from "@/lib/page-content-schema";
 
@@ -207,58 +207,50 @@ export function EducationContentView() {
         ]}
       >
         <div className="wrap">
-          <div className="media-split reveal">
-            <figure className="media-figure">
-              <SiteImage
-                src="/images/training-ai.jpg"
-                alt="Professionals in an AI literacy training workshop"
-              />
-            </figure>
-            <div className="train-block">
+          <div className="train-block reveal">
+            <EditableText
+              field="litTag"
+              defaultValue={d.litTag}
+              as="p"
+              className="eyebrow"
+            />
+            <EditableText
+              field="litTitle"
+              defaultValue={d.litTitle}
+              as="h2"
+              multiline
+              rich
+            />
+            <div className="train-block-body">
+              <EditableText field="litP1" defaultValue={d.litP1} as="p" multiline rich />
+              <EditableText field="litP2" defaultValue={d.litP2} as="p" multiline rich />
+              <EditableText field="litP3" defaultValue={d.litP3} as="p" multiline rich />
               <EditableText
-                field="litTag"
-                defaultValue={d.litTag}
-                as="p"
-                className="eyebrow"
+                field="litTopicsIntro"
+                defaultValue={d.litTopicsIntro}
+                as="h3"
+                className="content-subhead"
+              />
+              <EditableBulletList
+                field="litTopicsItems"
+                defaultValue={d.litTopicsItems}
+                splitLabels={false}
               />
               <EditableText
-                field="litTitle"
-                defaultValue={d.litTitle}
-                as="h2"
-                multiline
-                rich
+                field="litAudienceIntro"
+                defaultValue={d.litAudienceIntro}
+                as="h3"
+                className="content-subhead"
               />
-              <div className="train-block-body">
-                <EditableText field="litP1" defaultValue={d.litP1} as="p" multiline rich />
-                <EditableText field="litP2" defaultValue={d.litP2} as="p" multiline rich />
-                <EditableText field="litP3" defaultValue={d.litP3} as="p" multiline rich />
-                <EditableText
-                  field="litTopicsIntro"
-                  defaultValue={d.litTopicsIntro}
-                  as="h3"
-                  className="content-subhead"
-                />
-                <EditableBulletList
-                  field="litTopicsItems"
-                  defaultValue={d.litTopicsItems}
-                  splitLabels={false}
-                />
-                <EditableText
-                  field="litAudienceIntro"
-                  defaultValue={d.litAudienceIntro}
-                  as="h3"
-                  className="content-subhead"
-                />
-                <EditableBulletList
-                  field="litAudienceItems"
-                  defaultValue={d.litAudienceItems}
-                  splitLabels={false}
-                />
-                <Link className="text-link" href="/contact">
-                  <EditableText field="litCta" defaultValue={d.litCta} as="span" />{" "}
-                  <Arrow />
-                </Link>
-              </div>
+              <EditableBulletList
+                field="litAudienceItems"
+                defaultValue={d.litAudienceItems}
+                splitLabels={false}
+              />
+              <Link className="text-link" href="/contact">
+                <EditableText field="litCta" defaultValue={d.litCta} as="span" />{" "}
+                <Arrow />
+              </Link>
             </div>
           </div>
         </div>
