@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Services",
   description:
     "AI Governance Advisory and AI Solutions & Automation Services that help organisations harness AI securely and meet regulatory obligations.",
+  alternates: {
+    canonical: "/services",
+  },
 };
 
 type ServicesPageProps = {

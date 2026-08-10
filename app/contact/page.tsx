@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Contact TrustLed AI. A 30-minute conversation will usually tell us both whether we can help.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 type ContactPageProps = {

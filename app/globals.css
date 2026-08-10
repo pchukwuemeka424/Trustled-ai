@@ -84,22 +84,15 @@ strong{font-weight:700;color:var(--ink)}
 
 /* Header — Wilcon three-tier layout */
 .site-header{
-  position:sticky;top:0;z-index:100;
+  position:relative;z-index:100;
   background:transparent;
   border-bottom:none;
   box-shadow:none;
 }
-.site-header.scrolled{
+/* Compact look without collapsing sticky height (avoids scroll thrash/flicker).
+   Topbar + brandbar leave the viewport naturally; only the nav bar sticks. */
+.site-header.scrolled .header-navbar{
   box-shadow:0 8px 28px rgba(4,14,38,.35);
-}
-.site-header.scrolled .header-topbar,
-.site-header.scrolled .header-brandbar{
-  display:none;
-}
-.site-header.menu-open .header-brandbar{display:block}
-.site-header.menu-open.scrolled .header-brandbar{
-  display:block;
-  border-bottom:none;
 }
 
 .header-topbar{
@@ -198,7 +191,7 @@ strong{font-weight:700;color:var(--ink)}
 /* Navigation bar */
 .header-navbar{
   background:var(--ink);
-  position:relative;z-index:110;
+  position:sticky;top:0;z-index:110;
 }
 .header-navbar-inner{display:flex;align-items:stretch;justify-content:stretch}
 .main-nav{display:flex;align-items:stretch;gap:0;width:100%}
@@ -1756,13 +1749,21 @@ section:not(.hero){padding:var(--section-y) 0}
 }
 @media(max-width:760px){
   .header-topbar-cta{display:none}
+  /* Logo + menu toggle stick; topbar scrolls away — no display:none height jump */
+  .header-brandbar{
+    position:sticky;top:0;z-index:110;
+  }
+  .site-header.scrolled .header-brandbar{
+    box-shadow:0 8px 28px rgba(4,14,38,.35);
+  }
+  .site-header.scrolled .header-navbar{box-shadow:none}
   .header-brandbar-inner{min-height:80px}
   .brand-logo{height:3.5rem;max-width:min(330px,80vw)}
   .brand-mark{width:60px;height:60px}
   .brand-mark svg{width:33px;height:33px}
   .brand-name{font-size:1.5rem}
   .brand-ai{font-size:0.935rem}
-  .header-navbar{background:transparent;min-height:0}
+  .header-navbar{position:static;background:transparent;min-height:0}
   .header-navbar-inner{padding:0}
   .nav-toggle{display:inline-flex}
   .nav-backdrop{
@@ -1783,7 +1784,7 @@ section:not(.hero){padding:var(--section-y) 0}
     max-height:min(78vh,640px);overflow:auto;
     width:auto;
   }
-  .site-header.scrolled .nav-panel{inset:72px var(--gap) auto}
+  .site-header.scrolled .nav-panel{inset:80px var(--gap) auto}
   .nav-panel.open{transform:none;opacity:1;pointer-events:auto}
   .nav-list{
     flex-direction:column;align-items:stretch;gap:.15rem;

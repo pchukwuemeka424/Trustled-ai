@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Solutions",
   description:
     "GARIL AI and ASAT — governed AI products that embed accountability, privacy, security and responsible AI into everyday work.",
+  alternates: {
+    canonical: "/solutions",
+  },
 };
 
 type SolutionsPageProps = {

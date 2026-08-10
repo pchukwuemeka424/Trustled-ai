@@ -7,6 +7,7 @@ import { SiteEffects } from "@/components/SiteEffects";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getSiteNav } from "@/lib/site-nav";
 import { getSiteSettings } from "@/lib/site-settings";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -16,13 +17,58 @@ const roboto = Roboto({
   display: "swap",
 });
 
+const siteUrl = getSiteUrl();
+const siteName = "TrustLed AI";
+const defaultTitle = "TrustLed AI — Adopt AI responsibly, and prove it";
+const defaultDescription =
+  "AI governance advisory, AI solutions and automation, and professional training that help organisations harness AI securely and meet regulatory obligations.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "TrustLed AI — Adopt AI responsibly, and prove it",
-    template: "%s — TrustLed AI",
+    default: defaultTitle,
+    template: `%s — ${siteName}`,
   },
-  description:
-    "AI governance assessment, shadow AI detection, and training for schools, universities, and regulated SMEs.",
+  description: defaultDescription,
+  applicationName: siteName,
+  authors: [{ name: "TrustLed AI Ltd" }],
+  creator: siteName,
+  publisher: "TrustLed AI Ltd",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    siteName,
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [
+      {
+        url: "/images/hero-ai.jpg",
+        alt: "TrustLed AI — govern, automate, and advance with responsible AI",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: ["/images/hero-ai.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
 };
 
 export const dynamic = "force-dynamic";

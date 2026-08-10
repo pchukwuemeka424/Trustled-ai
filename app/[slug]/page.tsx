@@ -24,9 +24,21 @@ export async function generateMetadata({
     : await getPublishedCustomPage(slug);
 
   if (!page) return {};
+
+  const description = page.heroLede.slice(0, 160);
+  const url = `/${page.slug}`;
+
   return {
     title: page.title,
-    description: page.heroLede.slice(0, 160),
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: page.title,
+      description,
+      url,
+    },
   };
 }
 

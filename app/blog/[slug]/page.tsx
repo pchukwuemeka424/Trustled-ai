@@ -24,12 +24,29 @@ export async function generateMetadata({
     return { title: "Article not found" };
   }
 
+  const url = `/blog/${post.slug}`;
+
   return {
     title: post.title,
     description: post.excerpt,
-    ...(post.imageUrl
-      ? { openGraph: { images: [{ url: post.imageUrl }] } }
-      : {}),
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      url,
+      publishedTime: post.publishedAt,
+      authors: post.author ? [post.author] : undefined,
+      ...(post.imageUrl ? { images: [{ url: post.imageUrl }] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      ...(post.imageUrl ? { images: [post.imageUrl] } : {}),
+    },
   };
 }
 

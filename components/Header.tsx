@@ -117,8 +117,28 @@ export function Header({
   }, [initialLogoUrl, initialLogoAlt]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
+    // Hysteresis: enter/leave at different thresholds so near-threshold
+    // scrolling does not thrash the scrolled class (shadow / mobile panel inset).
+    const ENTER = 48;
+    const LEAVE = 12;
+    let ticking = false;
+
+    const update = () => {
+      const y = window.scrollY;
+      setScrolled((prev) => {
+        if (prev) return y > LEAVE;
+        return y > ENTER;
+      });
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);

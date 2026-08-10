@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Training",
   description:
     "AI Literacy Workshops and the AI GRC Practitioner Training Programme for organisations and professionals building practical AI capability.",
+  alternates: {
+    canonical: "/education",
+  },
 };
 
 type EducationPageProps = {

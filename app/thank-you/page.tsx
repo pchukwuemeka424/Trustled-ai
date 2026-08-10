@@ -5,6 +5,10 @@ import { Arrow } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Thank you",
   description: "Your message has been received by TrustLed AI.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function ThankYouPage() {

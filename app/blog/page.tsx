@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Practical guidance on AI governance, shadow AI, and proportionate compliance for schools, universities, and regulated SMEs.",
+  alternates: {
+    canonical: "/blog",
+  },
 };
 
 type BlogPageProps = {

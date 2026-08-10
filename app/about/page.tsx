@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "TrustLed AI combines AI governance advisory, AI-powered software and automation, and professional training to help organisations adopt AI responsibly.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 type AboutPageProps = {

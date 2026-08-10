@@ -7,9 +7,14 @@ import { getHomeContent } from "@/lib/home-content";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "TrustLed AI — Adopt AI responsibly, and prove it",
+  title: {
+    absolute: "TrustLed AI — Adopt AI responsibly, and prove it",
+  },
   description:
-    "AI governance assessment, shadow AI detection, and training for schools, universities, and regulated SMEs.",
+    "AI governance advisory, AI solutions and automation, and professional training that help organisations harness AI securely and meet regulatory obligations.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 type HomePageProps = {
