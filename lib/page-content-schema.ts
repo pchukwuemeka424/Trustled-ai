@@ -127,6 +127,9 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
     garilHeadline: "Governed AI for Research, Instruction and Learning",
     garilIntro:
       "Universities are embracing AI at an unprecedented pace. Students use generative AI for assignments, researchers rely on AI to analyse information and generate content, while lecturers incorporate AI into teaching and assessment. Yet most institutions still lack a single environment where AI can be used with the governance, oversight and transparency expected in higher education.",
+    garilImageUrl: "/images/garil-ai-screenshot.png",
+    garilImageAlt:
+      "GARIL AI — governed AI for research, instruction and learning",
     garilBodyP1:
       "GARIL AI changes that.\n\nGARIL AI is a governed AI workspace designed specifically for universities. It gives institutions a secure environment where staff and students can use AI for research, teaching and learning while supporting institutional governance, academic integrity and responsible AI practices.",
     garilBodyP2:
@@ -142,6 +145,8 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
     asatHeadline: "Your AI Governance Control Centre",
     asatIntro:
       "AI is becoming part of every organisation, but governance is often scattered across spreadsheets, policies, emails and disconnected processes.\n\nASAT brings it all together.",
+    asatImageUrl: "/images/asat-ai.jpg",
+    asatImageAlt: "ASAT — AI governance control centre",
     asatBodyP1:
       "Built for organisations adopting AI, ASAT provides a central place to understand AI use, strengthen governance, manage documentation and maintain oversight as AI adoption grows.\n\nWhether you're introducing your first AI system or governing AI across multiple business functions, ASAT helps you establish the structure needed to support responsible AI adoption.",
     asatDetailTitle: "One Platform. Complete AI Governance.",
@@ -188,6 +193,9 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
       "The AI GRC Practitioner Training Programme was created to prepare professionals for the new reality of AI governance.\n\nBuilt around practical implementation rather than theory, the programme combines AI governance, international standards, emerging regulations and hands-on projects that reflect the work organisations are doing today.",
     grcP2:
       "You'll leave with more than knowledge. You'll graduate with a portfolio of governance artefacts that demonstrate your ability to apply AI Governance, Risk and Compliance in real-world environments.",
+    grcImageUrl: "/images/training-ai.jpg",
+    grcImageAlt:
+      "Professionals in a live AI GRC training session building practical governance skills",
     grcWhyTitle: "Why This Programme?",
     grcWhyBody:
       "Throughout this programme you'll create governance frameworks, AI inventories, risk registers, impact assessments and governance documentation that organisations use every day. Professional and Private participants also learn AI GRC Engineering, applying AI-assisted scripting and workflow automation to automate governance activities and reduce manual effort.",

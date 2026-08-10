@@ -5,6 +5,7 @@ import { Faq, homeFaqItems } from "@/components/Faq";
 import { Arrow } from "@/components/ui";
 import { HomeHero } from "@/components/hero-section";
 import { EditableCtaBand } from "@/components/editable-cta-band";
+import { EditableImage } from "@/components/live-edit/editable-image";
 import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { useOptionalLiveEdit } from "@/components/live-edit/live-edit-context";
@@ -129,17 +130,25 @@ export function HomeContentView() {
         ]}
       >
         <div className="wrap">
-          <div className="home-intro-grid reveal">
-            <div className="home-intro-aside">
+          <div className="media-split home-intro-split reveal">
+            <figure className="media-figure">
+              <EditableImage
+                srcField="introImageUrl"
+                altField="introImageAlt"
+                defaultSrc={d.introImageUrl}
+                defaultAlt={d.introImageAlt}
+                fill
+                sizes="(max-width: 920px) 100vw, 45vw"
+                uploadScope="home"
+              />
+            </figure>
+            <div className="home-intro-body">
               <EditableText
                 field="introEyebrow"
                 defaultValue={d.introEyebrow}
                 as="p"
                 className="eyebrow"
               />
-              <div className="home-intro-rule" aria-hidden />
-            </div>
-            <div className="home-intro-body">
               <EditableText
                 field="introP1"
                 defaultValue={d.introP1}
@@ -204,7 +213,7 @@ export function HomeContentView() {
             />
           </div>
 
-          <div className="what-we-do-stack">
+          <div className="what-we-do-grid">
             {OFFERINGS.map((offering, index) => (
               <article
                 key={offering.title}
@@ -385,52 +394,68 @@ export function HomeContentView() {
           { key: "stat3Src", label: "Stat 3 source", kind: "text" },
         ]}
       >
-        <div className="wrap">
-          <div className="home-section-head reveal">
-            <EditableText
-              field="statsEyebrow"
-              defaultValue={d.statsEyebrow}
-              as="p"
-              className="eyebrow"
+        <div className="wrap home-stats-inner">
+          <div className="home-stats-content">
+            <div className="home-stats-intro reveal">
+              <EditableText
+                field="statsEyebrow"
+                defaultValue={d.statsEyebrow}
+                as="p"
+                className="eyebrow"
+              />
+              <EditableText field="statsTitle" defaultValue={d.statsTitle} as="h2" />
+            </div>
+            <div className="home-stat-grid" role="list">
+              {(
+                [
+                  ["stat1Figure", "stat1Desc", "stat1Src"],
+                  ["stat2Figure", "stat2Desc", "stat2Src"],
+                  ["stat3Figure", "stat3Desc", "stat3Src"],
+                ] as const
+              ).map(([fig, desc, src], i) => (
+                <div
+                  key={fig}
+                  className="home-stat-card reveal"
+                  data-delay={i || undefined}
+                  role="listitem"
+                >
+                  <EditableText
+                    field={fig}
+                    defaultValue={d[fig]}
+                    as="span"
+                    className="home-stat-figure"
+                  />
+                  <div className="home-stat-copy">
+                    <EditableText
+                      field={desc}
+                      defaultValue={d[desc]}
+                      as="p"
+                      className="home-stat-desc"
+                      multiline
+                      rich
+                    />
+                    <EditableText
+                      field={src}
+                      defaultValue={d[src]}
+                      as="span"
+                      className="home-stat-src"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <figure className="home-stats-visual reveal">
+            <EditableImage
+              srcField="statsImageUrl"
+              altField="statsImageAlt"
+              defaultSrc={d.statsImageUrl}
+              defaultAlt={d.statsImageAlt}
+              fill
+              sizes="(max-width: 920px) 100vw, 42vw"
+              uploadScope="home"
             />
-            <EditableText field="statsTitle" defaultValue={d.statsTitle} as="h2" />
-          </div>
-          <div className="home-stat-grid">
-            {(
-              [
-                ["stat1Figure", "stat1Desc", "stat1Src"],
-                ["stat2Figure", "stat2Desc", "stat2Src"],
-                ["stat3Figure", "stat3Desc", "stat3Src"],
-              ] as const
-            ).map(([fig, desc, src], i) => (
-              <div
-                key={fig}
-                className="home-stat-card reveal"
-                data-delay={i || undefined}
-              >
-                <EditableText
-                  field={fig}
-                  defaultValue={d[fig]}
-                  as="span"
-                  className="home-stat-figure"
-                />
-                <EditableText
-                  field={desc}
-                  defaultValue={d[desc]}
-                  as="p"
-                  className="home-stat-desc"
-                  multiline
-                  rich
-                />
-                <EditableText
-                  field={src}
-                  defaultValue={d[src]}
-                  as="span"
-                  className="home-stat-src"
-                />
-              </div>
-            ))}
-          </div>
+          </figure>
         </div>
       </EditableSection>
 

@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Arrow } from "@/components/ui";
 import { EditableHeroBackground } from "@/components/live-edit/editable-hero-background";
 import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { useLiveEdit } from "@/components/live-edit/live-edit-context";
+
+const HERO_BG_VIDEO_SRC = "/videos/hero-bg.mp4";
+const HERO_BG_POSTER_SRC = "/videos/hero-bg-poster.jpg";
 
 type HomeHeroProps = {
   defaultTagline: string;
@@ -16,6 +19,62 @@ type HomeHeroProps = {
   defaultSecondaryCta: string;
   defaultBackgroundUrl?: string;
 };
+
+function HeroBgVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPlayback = () => {
+      if (mq.matches) {
+        video.pause();
+        video.currentTime = 0;
+        return;
+      }
+      void video.play().catch(() => {
+        /* Autoplay can be blocked; muted + playsInline covers most cases. */
+      });
+    };
+
+    syncPlayback();
+    mq.addEventListener("change", syncPlayback);
+    return () => mq.removeEventListener("change", syncPlayback);
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      className="hero-bg-video"
+      src={HERO_BG_VIDEO_SRC}
+      poster={HERO_BG_POSTER_SRC}
+      muted
+      loop
+      playsInline
+      autoPlay
+      preload="metadata"
+      aria-hidden
+    />
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg
+      className="hero-play-icon"
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      aria-hidden="true"
+      fill="none"
+    >
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M10 8.5v7l6-3.5-6-3.5z" fill="currentColor" />
+    </svg>
+  );
+}
 
 export function HomeHero({
   defaultTagline,
@@ -32,7 +91,7 @@ export function HomeHero({
   return (
     <EditableSection
       title="Hero"
-      className={`hero hero--home${hasBackground ? " hero--has-bg" : ""}`}
+      className={`hero hero--home hero--has-video${hasBackground ? " hero--has-bg" : ""}`}
       fields={[
         { key: "heroTagline", label: "Tagline", kind: "text" },
         { key: "heroHeadline", label: "Headline", kind: "text" },
@@ -42,13 +101,17 @@ export function HomeHero({
       ]}
     >
       <div className="hero-background" aria-hidden>
+        <HeroBgVideo />
+        <div
+          className="hero-bg-poster"
+          style={{ backgroundImage: `url("${HERO_BG_POSTER_SRC}")` }}
+        />
         {hasBackground ? (
           <div
             className="hero-bg-image"
             style={{ backgroundImage: `url("${backgroundUrl}")` }}
           />
         ) : null}
-        <div className="hero-overlay" />
       </div>
 
       <EditableHeroBackground
@@ -57,48 +120,51 @@ export function HomeHero({
       />
 
       <div className="wrap hero-inner">
-        <div className="hero-content">
-          <EditableText
-            field="heroTagline"
-            defaultValue={defaultTagline}
-            as="p"
-            className="hero-tagline reveal"
-            label="Tagline"
-          />
-          <EditableText
-            field="heroHeadline"
-            defaultValue={defaultHeadline}
-            as="h1"
-            className="reveal"
-            label="Headline"
-          />
-          <EditableText
-            field="heroLede"
-            defaultValue={defaultLede}
-            as="p"
-            className="lede reveal"
-            multiline
-            rich
-            label="Supporting text"
-          />
-          <div className="hero-actions reveal" data-delay="2">
-            <Link className="btn btn-on-ink" href="/contact">
-              <EditableText
-                field="heroPrimaryCta"
-                defaultValue={defaultPrimaryCta}
-                as="span"
-                label="Primary button"
-              />{" "}
-              <Arrow />
-            </Link>
-            <Link className="btn btn-ghost hero-btn-ghost" href="/services">
-              <EditableText
-                field="heroSecondaryCta"
-                defaultValue={defaultSecondaryCta}
-                as="span"
-                label="Secondary button"
-              />
-            </Link>
+        <div className="hero-layout">
+          <div className="hero-content">
+            <EditableText
+              field="heroTagline"
+              defaultValue={defaultTagline}
+              as="p"
+              className="hero-tagline"
+              label="Tagline"
+            />
+            <EditableText
+              field="heroHeadline"
+              defaultValue={defaultHeadline}
+              as="h1"
+              className="hero-headline"
+              label="Headline"
+            />
+            <EditableText
+              field="heroLede"
+              defaultValue={defaultLede}
+              as="p"
+              className="lede"
+              multiline
+              rich
+              label="Supporting text"
+            />
+            <div className="hero-actions">
+              <Link className="btn btn-on-ink" href="/contact">
+                <EditableText
+                  field="heroPrimaryCta"
+                  defaultValue={defaultPrimaryCta}
+                  as="span"
+                  label="Primary button"
+                />{" "}
+                <Arrow />
+              </Link>
+              <Link className="hero-secondary-cta" href="/services">
+                <PlayIcon />
+                <EditableText
+                  field="heroSecondaryCta"
+                  defaultValue={defaultSecondaryCta}
+                  as="span"
+                  label="Secondary button"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

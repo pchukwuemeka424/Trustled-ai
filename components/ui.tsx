@@ -26,7 +26,8 @@ export function BrandMark() {
 export function BrandText() {
   return (
     <span className="brand-text">
-      TrustLed<span className="brand-ai">AI</span>
+      <span className="brand-name">TrustLed</span>
+      <span className="brand-ai">AI</span>
     </span>
   );
 }

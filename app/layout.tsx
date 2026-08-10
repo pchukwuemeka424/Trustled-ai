@@ -1,4 +1,4 @@
-import { Fraunces, Spline_Sans } from "next/font/google";
+import { Roboto } from "next/font/google";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
@@ -9,15 +9,9 @@ import { getSiteNav } from "@/lib/site-nav";
 import { getSiteSettings } from "@/lib/site-settings";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const roboto = Roboto({
   subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const splineSans = Spline_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "700", "900"],
   variable: "--font-body",
   display: "swap",
 });
@@ -47,7 +41,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${fraunces.variable} ${splineSans.variable}`}
+      className={roboto.variable}
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>
@@ -59,6 +53,7 @@ export default async function RootLayout({
           initialLogoAlt={settings.logoAlt}
           isAdmin={isAdmin}
           navItems={navItems}
+          settings={settings}
         />
         <main id="main">{children}</main>
         <Footer settings={settings} />

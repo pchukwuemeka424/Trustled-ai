@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { EditableBulletList } from "@/components/editable-bullet-list";
+import { EditableImage } from "@/components/live-edit/editable-image";
 import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { Arrow } from "@/components/ui";
@@ -47,12 +48,14 @@ export function SolutionsContentView() {
 
       <EditableSection
         title="GARIL"
-        className="solution-block"
+        className="garil-section"
         id="garil"
         fields={[
           { key: "garilTag", label: "Tag", kind: "text" },
           { key: "garilHeadline", label: "Headline", kind: "html" },
           { key: "garilIntro", label: "Intro", kind: "html" },
+          { key: "garilImageUrl", label: "Hero image URL", kind: "text" },
+          { key: "garilImageAlt", label: "Hero image alt", kind: "text" },
           { key: "garilBodyP1", label: "Body paragraph 1", kind: "html" },
           { key: "garilBodyP2", label: "Body paragraph 2", kind: "html" },
           { key: "garilCapabilitiesIntro", label: "Capabilities heading", kind: "text" },
@@ -62,78 +65,105 @@ export function SolutionsContentView() {
           { key: "garilCtaButton", label: "CTA button", kind: "text" },
         ]}
       >
-        <div className="wrap">
-          <div className="solution-detail reveal">
-            <EditableText
-              field="garilTag"
-              defaultValue={d.garilTag}
-              as="p"
-              className="eyebrow"
-            />
-            <EditableText
-              field="garilHeadline"
-              defaultValue={d.garilHeadline}
-              as="h2"
-              multiline
-              rich
-            />
-            <div className="solution-detail-body">
+        <div className="wrap garil-inner">
+          <div className="garil-hero reveal">
+            <div className="garil-hero-copy">
+              <EditableText
+                field="garilTag"
+                defaultValue={d.garilTag}
+                as="p"
+                className="garil-hero-brand"
+              />
+              <EditableText
+                field="garilHeadline"
+                defaultValue={d.garilHeadline}
+                as="h2"
+                multiline
+                rich
+              />
               <EditableText
                 field="garilIntro"
                 defaultValue={d.garilIntro}
                 as="p"
+                className="garil-lede"
                 multiline
                 rich
               />
-              <EditableText
-                field="garilBodyP1"
-                defaultValue={d.garilBodyP1}
-                as="p"
-                multiline
-                rich
-              />
-              <EditableText
-                field="garilBodyP2"
-                defaultValue={d.garilBodyP2}
-                as="p"
-                multiline
-                rich
-              />
+              <div className="garil-hero-actions">
+                <a
+                  className="btn"
+                  href="https://garilai.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <EditableText
+                    field="garilCtaButton"
+                    defaultValue={d.garilCtaButton}
+                    as="span"
+                  />{" "}
+                  <Arrow />
+                </a>
+              </div>
+            </div>
+            <div className="garil-hero-visual">
+              <figure className="garil-hero-media">
+                <EditableImage
+                  srcField="garilImageUrl"
+                  altField="garilImageAlt"
+                  defaultSrc={d.garilImageUrl}
+                  defaultAlt={d.garilImageAlt}
+                  fill
+                  sizes="(max-width: 920px) 100vw, 55vw"
+                  uploadScope="solutions"
+                  priority
+                />
+              </figure>
+            </div>
+          </div>
+
+          <div className="garil-body reveal">
+            <EditableText
+              field="garilBodyP1"
+              defaultValue={d.garilBodyP1}
+              as="p"
+              multiline
+              rich
+            />
+            <EditableText
+              field="garilBodyP2"
+              defaultValue={d.garilBodyP2}
+              as="p"
+              multiline
+              rich
+            />
+          </div>
+
+          <div className="garil-split reveal">
+            <div className="garil-block">
               <EditableText
                 field="garilCapabilitiesIntro"
                 defaultValue={d.garilCapabilitiesIntro}
                 as="h3"
-                className="content-subhead"
               />
               <EditableBulletList
                 field="garilCapabilitiesItems"
                 defaultValue={d.garilCapabilitiesItems}
+                className="garil-capabilities"
                 splitLabels={false}
               />
+            </div>
+            <div className="garil-block">
               <EditableText
                 field="garilAudienceIntro"
                 defaultValue={d.garilAudienceIntro}
                 as="h3"
-                className="content-subhead"
               />
               <EditableBulletList
                 field="garilAudienceItems"
                 defaultValue={d.garilAudienceItems}
+                className="garil-audience"
                 splitLabels={false}
               />
-              <a
-                className="btn"
-                href="https://garilai.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <EditableText
-                  field="garilCtaButton"
-                  defaultValue={d.garilCtaButton}
-                  as="span"
-                />{" "}
-                <Arrow />
-              </a>
             </div>
           </div>
         </div>
@@ -141,12 +171,14 @@ export function SolutionsContentView() {
 
       <EditableSection
         title="ASAT"
-        className="solution-block section-paper-2"
+        className="asat-section solution-block section-paper-2"
         id="asat"
         fields={[
           { key: "asatTag", label: "Tag", kind: "text" },
           { key: "asatHeadline", label: "Headline", kind: "html" },
           { key: "asatIntro", label: "Intro", kind: "html" },
+          { key: "asatImageUrl", label: "Hero image URL", kind: "text" },
+          { key: "asatImageAlt", label: "Hero image alt", kind: "text" },
           { key: "asatBodyP1", label: "Body paragraph", kind: "html" },
           { key: "asatDetailTitle", label: "Detail heading", kind: "text" },
           { key: "asatDetailP1", label: "Detail body", kind: "html" },
@@ -160,26 +192,27 @@ export function SolutionsContentView() {
           { key: "asatCtaButton", label: "CTA button", kind: "text" },
         ]}
       >
-        <div className="wrap">
-          <div className="solution-detail reveal">
-            <EditableText
-              field="asatTag"
-              defaultValue={d.asatTag}
-              as="p"
-              className="eyebrow"
-            />
-            <EditableText
-              field="asatHeadline"
-              defaultValue={d.asatHeadline}
-              as="h2"
-              multiline
-              rich
-            />
-            <div className="solution-detail-body">
+        <div className="wrap asat-inner">
+          <div className="asat-hero reveal">
+            <div className="asat-hero-copy">
+              <EditableText
+                field="asatTag"
+                defaultValue={d.asatTag}
+                as="p"
+                className="asat-hero-brand"
+              />
+              <EditableText
+                field="asatHeadline"
+                defaultValue={d.asatHeadline}
+                as="h2"
+                multiline
+                rich
+              />
               <EditableText
                 field="asatIntro"
                 defaultValue={d.asatIntro}
                 as="p"
+                className="asat-lede"
                 multiline
                 rich
               />
@@ -187,14 +220,42 @@ export function SolutionsContentView() {
                 field="asatBodyP1"
                 defaultValue={d.asatBodyP1}
                 as="p"
+                className="asat-lede"
                 multiline
                 rich
               />
+              <div className="asat-hero-actions">
+                <Link className="btn" href="/contact">
+                  <EditableText
+                    field="asatCtaButton"
+                    defaultValue={d.asatCtaButton}
+                    as="span"
+                  />{" "}
+                  <Arrow />
+                </Link>
+              </div>
+            </div>
+            <div className="asat-hero-visual">
+              <figure className="asat-hero-media">
+                <EditableImage
+                  srcField="asatImageUrl"
+                  altField="asatImageAlt"
+                  defaultSrc={d.asatImageUrl}
+                  defaultAlt={d.asatImageAlt}
+                  fill
+                  sizes="(max-width: 920px) 100vw, 50vw"
+                  uploadScope="solutions"
+                />
+              </figure>
+            </div>
+          </div>
+
+          <div className="asat-split reveal">
+            <div className="asat-block">
               <EditableText
                 field="asatDetailTitle"
                 defaultValue={d.asatDetailTitle}
                 as="h3"
-                className="content-subhead"
               />
               <EditableText
                 field="asatDetailP1"
@@ -203,28 +264,34 @@ export function SolutionsContentView() {
                 multiline
                 rich
               />
+            </div>
+            <div className="asat-block">
               <EditableText
                 field="asatFeaturesIntro"
                 defaultValue={d.asatFeaturesIntro}
                 as="h3"
-                className="content-subhead"
               />
               <EditableText
                 field="asatFeaturesLead"
                 defaultValue={d.asatFeaturesLead}
                 as="p"
-                className="content-list-intro"
+                className="asat-features-lead"
               />
               <EditableBulletList
                 field="asatFeaturesItems"
                 defaultValue={d.asatFeaturesItems}
+                className="asat-features"
                 splitLabels={false}
               />
+            </div>
+          </div>
+
+          <div className="asat-split asat-split--support reveal">
+            <div className="asat-block">
               <EditableText
                 field="asatSupportTitle"
                 defaultValue={d.asatSupportTitle}
                 as="h3"
-                className="content-subhead"
               />
               <EditableText
                 field="asatSupportP1"
@@ -233,11 +300,12 @@ export function SolutionsContentView() {
                 multiline
                 rich
               />
+            </div>
+            <div className="asat-block">
               <EditableText
                 field="asatGrowthTitle"
                 defaultValue={d.asatGrowthTitle}
                 as="h3"
-                className="content-subhead"
               />
               <EditableText
                 field="asatGrowthP1"
@@ -246,14 +314,6 @@ export function SolutionsContentView() {
                 multiline
                 rich
               />
-              <Link className="btn" href="/contact">
-                <EditableText
-                  field="asatCtaButton"
-                  defaultValue={d.asatCtaButton}
-                  as="span"
-                />{" "}
-                <Arrow />
-              </Link>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { EditableBulletList } from "@/components/editable-bullet-list";
 import { EditableCtaBand } from "@/components/editable-cta-band";
+import { EditableImage } from "@/components/live-edit/editable-image";
 import { EditableSection } from "@/components/live-edit/editable-section";
 import { EditableText } from "@/components/live-edit/editable-text";
 import { useOptionalLiveEdit } from "@/components/live-edit/live-edit-context";
@@ -102,7 +103,6 @@ function ModuleList() {
   const liveEdit = useOptionalLiveEdit();
   const editing = Boolean(liveEdit?.isAdmin && liveEdit?.isEditing);
   const text = liveEdit?.values.grcModulesItems ?? d.grcModulesItems;
-  const [open, setOpen] = useState<number | null>(0);
 
   if (editing) {
     return (
@@ -120,35 +120,16 @@ function ModuleList() {
     .filter(Boolean);
 
   return (
-    <div className="train-accordion">
-      {modules.map((module, index) => {
-        const isOpen = open === index;
-        return (
-          <div
-            key={module}
-            className={`train-accordion-item${isOpen ? " open" : ""}`}
-          >
-            <button
-              type="button"
-              className="train-accordion-trigger"
-              aria-expanded={isOpen}
-              onClick={() => setOpen((current) => (current === index ? null : index))}
-            >
-              <span>{module}</span>
-              <span className="train-accordion-caret" aria-hidden />
-            </button>
-            {isOpen ? (
-              <div className="train-accordion-panel">
-                <p>
-                  Practical, applied learning with real-world artefacts as part of
-                  the AI GRC Practitioner Training Programme.
-                </p>
-              </div>
-            ) : null}
-          </div>
-        );
-      })}
-    </div>
+    <ol className="grc-modules">
+      {modules.map((module, index) => (
+        <li key={module}>
+          <span className="grc-modules-index" aria-hidden>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="grc-modules-label">{module}</span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -191,7 +172,7 @@ export function EducationContentView() {
 
       <EditableSection
         title="AI Literacy"
-        className="train-section"
+        className="train-section lit-section"
         id="literacy"
         fields={[
           { key: "litTag", label: "Tag", kind: "text" },
@@ -207,50 +188,58 @@ export function EducationContentView() {
         ]}
       >
         <div className="wrap">
-          <div className="train-block reveal">
-            <EditableText
-              field="litTag"
-              defaultValue={d.litTag}
-              as="p"
-              className="eyebrow"
-            />
-            <EditableText
-              field="litTitle"
-              defaultValue={d.litTitle}
-              as="h2"
-              multiline
-              rich
-            />
-            <div className="train-block-body">
-              <EditableText field="litP1" defaultValue={d.litP1} as="p" multiline rich />
-              <EditableText field="litP2" defaultValue={d.litP2} as="p" multiline rich />
-              <EditableText field="litP3" defaultValue={d.litP3} as="p" multiline rich />
+          <div className="lit-layout reveal">
+            <div className="lit-copy">
               <EditableText
-                field="litTopicsIntro"
-                defaultValue={d.litTopicsIntro}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableBulletList
-                field="litTopicsItems"
-                defaultValue={d.litTopicsItems}
-                splitLabels={false}
+                field="litTag"
+                defaultValue={d.litTag}
+                as="p"
+                className="eyebrow"
               />
               <EditableText
-                field="litAudienceIntro"
-                defaultValue={d.litAudienceIntro}
-                as="h3"
-                className="content-subhead"
+                field="litTitle"
+                defaultValue={d.litTitle}
+                as="h2"
+                multiline
+                rich
               />
-              <EditableBulletList
-                field="litAudienceItems"
-                defaultValue={d.litAudienceItems}
-                splitLabels={false}
-              />
-              <Link className="text-link" href="/contact">
-                <EditableText field="litCta" defaultValue={d.litCta} as="span" />{" "}
-                <Arrow />
-              </Link>
+              <div className="lit-copy-body">
+                <EditableText field="litP1" defaultValue={d.litP1} as="p" multiline rich />
+                <EditableText field="litP2" defaultValue={d.litP2} as="p" multiline rich />
+                <EditableText field="litP3" defaultValue={d.litP3} as="p" multiline rich />
+                <Link className="text-link" href="/contact">
+                  <EditableText field="litCta" defaultValue={d.litCta} as="span" />{" "}
+                  <Arrow />
+                </Link>
+              </div>
+            </div>
+            <div className="lit-details">
+              <div className="lit-block">
+                <EditableText
+                  field="litTopicsIntro"
+                  defaultValue={d.litTopicsIntro}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableBulletList
+                  field="litTopicsItems"
+                  defaultValue={d.litTopicsItems}
+                  splitLabels={false}
+                />
+              </div>
+              <div className="lit-block">
+                <EditableText
+                  field="litAudienceIntro"
+                  defaultValue={d.litAudienceIntro}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableBulletList
+                  field="litAudienceItems"
+                  defaultValue={d.litAudienceItems}
+                  splitLabels={false}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -258,13 +247,15 @@ export function EducationContentView() {
 
       <EditableSection
         title="AI GRC Programme"
-        className="train-section section-paper-2"
+        className="train-section grc-section"
         id="grc"
         fields={[
           { key: "grcTag", label: "Tag", kind: "text" },
           { key: "grcTitle", label: "Title", kind: "html" },
           { key: "grcP1", label: "Paragraph 1", kind: "html" },
           { key: "grcP2", label: "Paragraph 2", kind: "html" },
+          { key: "grcImageUrl", label: "Intro image URL", kind: "text" },
+          { key: "grcImageAlt", label: "Intro image alt", kind: "text" },
           { key: "grcWhyTitle", label: "Why heading", kind: "text" },
           { key: "grcWhyBody", label: "Why body", kind: "html" },
           { key: "grcLearnTitle", label: "Learn heading", kind: "text" },
@@ -315,124 +306,151 @@ export function EducationContentView() {
         ]}
       >
         <div className="wrap">
-          <div className="train-block reveal">
-            <EditableText
-              field="grcTag"
-              defaultValue={d.grcTag}
-              as="p"
-              className="eyebrow"
-            />
-            <EditableText
-              field="grcTitle"
-              defaultValue={d.grcTitle}
-              as="h2"
-              multiline
-              rich
-            />
-            <div className="train-block-body">
-              <EditableText field="grcP1" defaultValue={d.grcP1} as="p" multiline rich />
-              <EditableText field="grcP2" defaultValue={d.grcP2} as="p" multiline rich />
+          <div className="grc-inner">
+            <div className="grc-intro reveal">
+              <div className="grc-intro-copy">
+                <EditableText
+                  field="grcTag"
+                  defaultValue={d.grcTag}
+                  as="p"
+                  className="eyebrow"
+                />
+                <EditableText
+                  field="grcTitle"
+                  defaultValue={d.grcTitle}
+                  as="h2"
+                  multiline
+                  rich
+                />
+                <div className="grc-intro-body">
+                  <EditableText field="grcP1" defaultValue={d.grcP1} as="p" multiline rich />
+                  <EditableText field="grcP2" defaultValue={d.grcP2} as="p" multiline rich />
+                </div>
+              </div>
+              <figure className="grc-intro-media">
+                <EditableImage
+                  srcField="grcImageUrl"
+                  altField="grcImageAlt"
+                  defaultSrc={d.grcImageUrl}
+                  defaultAlt={d.grcImageAlt}
+                  fill
+                  sizes="(max-width: 920px) 100vw, 48vw"
+                  uploadScope="education"
+                />
+              </figure>
+            </div>
 
-              <EditableText
-                field="grcWhyTitle"
-                defaultValue={d.grcWhyTitle}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableText
-                field="grcWhyBody"
-                defaultValue={d.grcWhyBody}
-                as="p"
-                multiline
-                rich
-              />
+            <div className="grc-split grc-split--story reveal" data-delay="1">
+              <div className="grc-panel">
+                <EditableText
+                  field="grcWhyTitle"
+                  defaultValue={d.grcWhyTitle}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableText
+                  field="grcWhyBody"
+                  defaultValue={d.grcWhyBody}
+                  as="p"
+                  multiline
+                  rich
+                />
+              </div>
+              <div className="grc-panel">
+                <EditableText
+                  field="grcLearnTitle"
+                  defaultValue={d.grcLearnTitle}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableText
+                  field="grcLearnIntro"
+                  defaultValue={d.grcLearnIntro}
+                  as="p"
+                  multiline
+                  rich
+                />
+                <ModuleList />
+              </div>
+            </div>
 
-              <EditableText
-                field="grcLearnTitle"
-                defaultValue={d.grcLearnTitle}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableText
-                field="grcLearnIntro"
-                defaultValue={d.grcLearnIntro}
-                as="p"
-                multiline
-                rich
-              />
-              <ModuleList />
+            <div className="grc-split grc-split--outcomes reveal">
+              <div className="grc-panel">
+                <EditableText
+                  field="grcPortfolioTitle"
+                  defaultValue={d.grcPortfolioTitle}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableText
+                  field="grcPortfolioIntro"
+                  defaultValue={d.grcPortfolioIntro}
+                  as="p"
+                  multiline
+                  rich
+                />
+                <EditableBulletList
+                  field="grcPortfolioItems"
+                  defaultValue={d.grcPortfolioItems}
+                  splitLabels={false}
+                />
+                <EditableText
+                  field="grcPortfolioProIntro"
+                  defaultValue={d.grcPortfolioProIntro}
+                  as="p"
+                  className="content-list-intro"
+                  multiline
+                  rich
+                />
+                <EditableBulletList
+                  field="grcPortfolioProItems"
+                  defaultValue={d.grcPortfolioProItems}
+                  splitLabels={false}
+                />
+                <EditableText
+                  field="grcPortfolioClosing"
+                  defaultValue={d.grcPortfolioClosing}
+                  as="p"
+                  multiline
+                  rich
+                />
+              </div>
+              <div className="grc-panel grc-panel--audience">
+                <EditableText
+                  field="grcAudienceTitle"
+                  defaultValue={d.grcAudienceTitle}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableText
+                  field="grcAudienceIntro"
+                  defaultValue={d.grcAudienceIntro}
+                  as="p"
+                  multiline
+                  rich
+                />
+                <EditableBulletList
+                  field="grcAudienceItems"
+                  defaultValue={d.grcAudienceItems}
+                  splitLabels={false}
+                />
+                <EditableText
+                  field="grcAudienceNote"
+                  defaultValue={d.grcAudienceNote}
+                  as="p"
+                  className="train-note"
+                />
+              </div>
+            </div>
 
-              <EditableText
-                field="grcPortfolioTitle"
-                defaultValue={d.grcPortfolioTitle}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableText
-                field="grcPortfolioIntro"
-                defaultValue={d.grcPortfolioIntro}
-                as="p"
-                multiline
-                rich
-              />
-              <EditableBulletList
-                field="grcPortfolioItems"
-                defaultValue={d.grcPortfolioItems}
-                splitLabels={false}
-              />
-              <EditableText
-                field="grcPortfolioProIntro"
-                defaultValue={d.grcPortfolioProIntro}
-                as="p"
-                className="content-list-intro"
-                multiline
-                rich
-              />
-              <EditableBulletList
-                field="grcPortfolioProItems"
-                defaultValue={d.grcPortfolioProItems}
-                splitLabels={false}
-              />
-              <EditableText
-                field="grcPortfolioClosing"
-                defaultValue={d.grcPortfolioClosing}
-                as="p"
-                multiline
-                rich
-              />
-
-              <EditableText
-                field="grcAudienceTitle"
-                defaultValue={d.grcAudienceTitle}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableText
-                field="grcAudienceIntro"
-                defaultValue={d.grcAudienceIntro}
-                as="p"
-                multiline
-                rich
-              />
-              <EditableBulletList
-                field="grcAudienceItems"
-                defaultValue={d.grcAudienceItems}
-                splitLabels={false}
-              />
-              <EditableText
-                field="grcAudienceNote"
-                defaultValue={d.grcAudienceNote}
-                as="p"
-                className="train-note"
-              />
-
+            <div className="grc-structure reveal" data-delay="2">
               <EditableText
                 field="grcStructureTitle"
                 defaultValue={d.grcStructureTitle}
                 as="h3"
                 className="content-subhead"
               />
-              <div className="train-tier-grid">
+              <div className="train-tier-grid grc-tier-grid">
                 {TIER_FIELDS.map((tier) => (
                   <article
                     key={tier.name}
@@ -488,33 +506,38 @@ export function EducationContentView() {
                 multiline
                 rich
               />
+            </div>
 
-              <EditableText
-                field="grcDeliveryTitle"
-                defaultValue={d.grcDeliveryTitle}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableBulletList
-                field="grcDeliveryItems"
-                defaultValue={d.grcDeliveryItems}
-                splitLabels={false}
-              />
-
-              <EditableText
-                field="grcFaqTitle"
-                defaultValue={d.grcFaqTitle}
-                as="h3"
-                className="content-subhead"
-              />
-              <AccordionList
-                items={FAQ_FIELDS.map(([qField, aField]) => ({
-                  qField,
-                  aField,
-                  question: d[qField],
-                  answer: d[aField],
-                }))}
-              />
+            <div className="grc-split grc-split--close reveal">
+              <div className="grc-panel">
+                <EditableText
+                  field="grcDeliveryTitle"
+                  defaultValue={d.grcDeliveryTitle}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableBulletList
+                  field="grcDeliveryItems"
+                  defaultValue={d.grcDeliveryItems}
+                  splitLabels={false}
+                />
+              </div>
+              <div className="grc-panel">
+                <EditableText
+                  field="grcFaqTitle"
+                  defaultValue={d.grcFaqTitle}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <AccordionList
+                  items={FAQ_FIELDS.map(([qField, aField]) => ({
+                    qField,
+                    aField,
+                    question: d[qField],
+                    answer: d[aField],
+                  }))}
+                />
+              </div>
             </div>
           </div>
         </div>

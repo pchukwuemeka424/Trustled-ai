@@ -50,7 +50,7 @@ export function ServicesContentView() {
 
       <EditableSection
         title="AI Governance Advisory"
-        className="service-block"
+        className="service-block adv-section"
         id="advisory"
         fields={[
           { key: "advLabel", label: "Label", kind: "text" },
@@ -67,61 +67,69 @@ export function ServicesContentView() {
         ]}
       >
         <div className="wrap">
-          <div className="service-detail reveal">
-            <EditableText
-              field="advLabel"
-              defaultValue={d.advLabel}
-              as="p"
-              className="eyebrow"
-            />
-            <EditableText
-              field="advTitle"
-              defaultValue={d.advTitle}
-              as="h2"
-              multiline
-              rich
-            />
-            <div className="service-detail-body">
-              <EditableText field="advP1" defaultValue={d.advP1} as="p" multiline rich />
-              <EditableText field="advP2" defaultValue={d.advP2} as="p" multiline rich />
-              <EditableText field="advP3" defaultValue={d.advP3} as="p" multiline rich />
+          <div className="adv-layout reveal">
+            <div className="adv-copy">
               <EditableText
-                field="advFrameworksIntro"
-                defaultValue={d.advFrameworksIntro}
+                field="advLabel"
+                defaultValue={d.advLabel}
                 as="p"
-                className="content-list-intro"
+                className="eyebrow"
+              />
+              <EditableText
+                field="advTitle"
+                defaultValue={d.advTitle}
+                as="h2"
                 multiline
                 rich
               />
-              <EditableBulletList
-                field="advFrameworksItems"
-                defaultValue={d.advFrameworksItems}
-              />
-              <EditableText
-                field="advServicesIntro"
-                defaultValue={d.advServicesIntro}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableBulletList
-                field="advServicesItems"
-                defaultValue={d.advServicesItems}
-                splitLabels={false}
-              />
-              <EditableText
-                field="advReceiveIntro"
-                defaultValue={d.advReceiveIntro}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableBulletList
-                field="advReceiveItems"
-                defaultValue={d.advReceiveItems}
-                splitLabels={false}
-              />
-              <Link className="text-link" href="/contact">
-                Talk to us about your AI governance needs <Arrow />
-              </Link>
+              <div className="adv-copy-body">
+                <EditableText field="advP1" defaultValue={d.advP1} as="p" multiline rich />
+                <EditableText field="advP2" defaultValue={d.advP2} as="p" multiline rich />
+                <EditableText field="advP3" defaultValue={d.advP3} as="p" multiline rich />
+                <EditableText
+                  field="advFrameworksIntro"
+                  defaultValue={d.advFrameworksIntro}
+                  as="p"
+                  className="content-list-intro"
+                  multiline
+                  rich
+                />
+                <EditableBulletList
+                  field="advFrameworksItems"
+                  defaultValue={d.advFrameworksItems}
+                />
+                <Link className="text-link" href="/contact">
+                  Talk to us about your AI governance needs <Arrow />
+                </Link>
+              </div>
+            </div>
+            <div className="adv-details">
+              <div className="adv-block">
+                <EditableText
+                  field="advServicesIntro"
+                  defaultValue={d.advServicesIntro}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableBulletList
+                  field="advServicesItems"
+                  defaultValue={d.advServicesItems}
+                  splitLabels={false}
+                />
+              </div>
+              <div className="adv-block">
+                <EditableText
+                  field="advReceiveIntro"
+                  defaultValue={d.advReceiveIntro}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableBulletList
+                  field="advReceiveItems"
+                  defaultValue={d.advReceiveItems}
+                  splitLabels={false}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -129,7 +137,7 @@ export function ServicesContentView() {
 
       <EditableSection
         title="AI Solutions & Automation"
-        className="service-block section-paper-2"
+        className="service-block auto-section section-paper-2"
         id="automation"
         fields={[
           { key: "autoLabel", label: "Label", kind: "text" },
@@ -144,49 +152,57 @@ export function ServicesContentView() {
         ]}
       >
         <div className="wrap">
-          <div className="service-detail reveal">
-            <EditableText
-              field="autoLabel"
-              defaultValue={d.autoLabel}
-              as="p"
-              className="eyebrow"
-            />
-            <EditableText
-              field="autoTitle"
-              defaultValue={d.autoTitle}
-              as="h2"
-              multiline
-              rich
-            />
-            <div className="service-detail-body">
-              <EditableText field="autoP1" defaultValue={d.autoP1} as="p" multiline rich />
-              <EditableText field="autoP2" defaultValue={d.autoP2} as="p" multiline rich />
-              <EditableText field="autoP3" defaultValue={d.autoP3} as="p" multiline rich />
+          <div className="auto-layout reveal">
+            <div className="auto-copy">
               <EditableText
-                field="autoServicesIntro"
-                defaultValue={d.autoServicesIntro}
-                as="h3"
-                className="content-subhead"
-              />
-              <EditableBulletList
-                field="autoServicesItems"
-                defaultValue={d.autoServicesItems}
-                splitLabels={false}
+                field="autoLabel"
+                defaultValue={d.autoLabel}
+                as="p"
+                className="eyebrow"
               />
               <EditableText
-                field="autoReceiveIntro"
-                defaultValue={d.autoReceiveIntro}
-                as="h3"
-                className="content-subhead"
+                field="autoTitle"
+                defaultValue={d.autoTitle}
+                as="h2"
+                multiline
+                rich
               />
-              <EditableBulletList
-                field="autoReceiveItems"
-                defaultValue={d.autoReceiveItems}
-                splitLabels={false}
-              />
-              <Link className="text-link" href="/contact">
-                Let&apos;s build your next AI solution <Arrow />
-              </Link>
+              <div className="auto-copy-body">
+                <EditableText field="autoP1" defaultValue={d.autoP1} as="p" multiline rich />
+                <EditableText field="autoP2" defaultValue={d.autoP2} as="p" multiline rich />
+                <EditableText field="autoP3" defaultValue={d.autoP3} as="p" multiline rich />
+                <Link className="text-link" href="/contact">
+                  Let&apos;s build your next AI solution <Arrow />
+                </Link>
+              </div>
+            </div>
+            <div className="auto-details">
+              <div className="auto-block">
+                <EditableText
+                  field="autoServicesIntro"
+                  defaultValue={d.autoServicesIntro}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableBulletList
+                  field="autoServicesItems"
+                  defaultValue={d.autoServicesItems}
+                  splitLabels={false}
+                />
+              </div>
+              <div className="auto-block">
+                <EditableText
+                  field="autoReceiveIntro"
+                  defaultValue={d.autoReceiveIntro}
+                  as="h3"
+                  className="content-subhead"
+                />
+                <EditableBulletList
+                  field="autoReceiveItems"
+                  defaultValue={d.autoReceiveItems}
+                  splitLabels={false}
+                />
+              </div>
             </div>
           </div>
         </div>

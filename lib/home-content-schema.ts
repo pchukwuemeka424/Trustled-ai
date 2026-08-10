@@ -7,8 +7,11 @@ export const defaultHomeContent: HomeContent = {
     "AI governance advisory, AI solutions and automation services, and professional training that help organisations harness AI securely, meet regulatory obligations and build lasting capability.",
   heroPrimaryCta: "Start a conversation",
   heroSecondaryCta: "Explore our services",
-  heroBackgroundUrl: "/images/hero-ai.jpg",
+  heroBackgroundUrl: "",
   introEyebrow: "Why this matters now",
+  introImageUrl: "/images/why-matters-now.png",
+  introImageAlt:
+    "Voxel-style human face assembling from blue and white digital cubes against a dark background",
   introP1:
     "AI is already reshaping how organisations work, make decisions and deliver services. The organisations that succeed are not the ones that adopt the most tools — they are the ones that govern AI properly, build solutions people trust, and equip their people with lasting capability.",
   introP2:
@@ -61,6 +64,9 @@ export const defaultHomeContent: HomeContent = {
   flowOutput4: "Lasting organisational trust",
   statsEyebrow: "The state of play",
   statsTitle: "Most organisations are adopting AI faster than they can govern it.",
+  statsImageUrl: "/images/state-of-play.png",
+  statsImageAlt:
+    "Chrome humanoid robot in a thinking pose, representing strategic reflection on AI",
   stat1Figure: "31%",
   stat1Desc: "of UK organisations have no AI governance policy in place.",
   stat1Src: "CyXcel / Censuswide, 2025",
