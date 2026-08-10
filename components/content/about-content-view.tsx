@@ -60,8 +60,8 @@ export function AboutContentView() {
           <div className="media-split reveal">
             <figure className="media-figure">
               <SiteImage
-                src="/images/hero-ai.jpg"
-                alt="Abstract visualisation of responsible AI systems and networks"
+                src="/images/about-us.jpg"
+                alt="Futuristic silhouette with digital data overlays representing AI and people"
               />
             </figure>
             <div className="about-story-body">

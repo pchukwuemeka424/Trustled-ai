@@ -17,6 +17,7 @@ export type SiteNav = SiteNavItem[];
 
 export const defaultSiteNav: SiteNav = [
   { id: "home", href: "/", label: "Home" },
+  { id: "about", href: "/about", label: "About Us" },
   {
     id: "services",
     href: "/services",
@@ -70,7 +71,7 @@ export const defaultSiteNav: SiteNav = [
       },
     ],
   },
-  { id: "about", href: "/about", label: "About" },
+  { id: "contact", href: "/contact", label: "Contact Us" },
 ];
 
 export function createNavId(prefix = "nav") {

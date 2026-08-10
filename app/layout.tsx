@@ -99,7 +99,6 @@ export default async function RootLayout({
           initialLogoAlt={settings.logoAlt}
           isAdmin={isAdmin}
           navItems={navItems}
-          settings={settings}
         />
         <main id="main">{children}</main>
         <Footer settings={settings} />

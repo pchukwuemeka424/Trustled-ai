@@ -141,8 +141,7 @@ export function SiteNavEditor({ initialNav }: SiteNavEditorProps) {
         <div>
           <h2 className="eyebrow">Header navigation</h2>
           <p className="admin-help">
-            Reorder parents, add subpages, or adjust labels and URLs. Contact
-            stays as the header CTA.
+            Reorder parents, add subpages, or adjust labels and URLs.
           </p>
         </div>
         <button type="button" className="btn btn-sm" onClick={addParent}>
