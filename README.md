@@ -49,7 +49,11 @@ npm start
 
 ## Contact form
 
-Uses Netlify Forms. A static form definition lives in `public/forms/contact.html` so Netlify can detect fields at deploy time. Submissions appear in your Netlify dashboard under Forms; enable email notifications in Site settings → Forms → Notifications to forward to hello@trustledai.com.
+Uses [Resend](https://resend.com) via `POST /api/contact`. Set these environment variables:
+
+- `RESEND_API_KEY` — Resend API key
+- `CONTACT_TO_EMAIL` — inbox for submissions (default `hello@trustledai.com`)
+- `CONTACT_FROM_EMAIL` — verified sender, e.g. `TrustLed AI <hello@trustledai.com>` (defaults to Resend’s onboarding address until your domain is verified)
 
 ## Project structure
 
@@ -59,5 +63,5 @@ components/    Header, Footer, FAQ, contact form, live-edit, content views
 lib/           Admin auth, MongoDB content store, schemas
 app/api/       Admin APIs for saving page content
 legacy/        Original self-contained HTML site
-public/        Static assets and Netlify form definition
+public/        Static assets
 ```

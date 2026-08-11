@@ -3,7 +3,7 @@ import {
   defaultSiteSettings,
   type SiteSettings,
 } from "@/lib/site-settings-schema";
-import { BrandText } from "./ui";
+import { BrandMark, BrandText } from "./ui";
 
 type FooterProps = {
   settings: SiteSettings;
@@ -21,6 +21,8 @@ function FooterLink({ href, label }: { href: string; label: string }) {
 
 export function Footer({ settings }: FooterProps) {
   const content = { ...defaultSiteSettings, ...settings };
+  const logoUrl = content.logoUrl?.trim() ?? "";
+  const logoAlt = content.logoAlt?.trim() || "TrustLed AI";
   const columns = [
     {
       heading: content.footerServicesHeading,
@@ -47,20 +49,38 @@ export function Footer({ settings }: FooterProps) {
         [content.footerContact3Href, content.footerContact3Label],
       ],
     },
-  ];
+  ]
+    .map((column) => ({
+      ...column,
+      links: column.links.filter(([, label]) => Boolean(label?.trim())),
+    }))
+    .filter((column) => column.links.length > 0);
 
   return (
     <footer className="site-footer">
+      <div className="footer-glow" aria-hidden="true" />
       <div className="wrap footer-inner">
         <div className="footer-brand">
-          <Link className="brand brand-footer" href="/">
-            <BrandText />
+          <Link
+            className={`brand brand-footer${logoUrl ? " brand-footer--logo" : ""}`}
+            href="/"
+            aria-label={logoAlt}
+          >
+            {logoUrl ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img src={logoUrl} alt={logoAlt} className="footer-logo" />
+            ) : (
+              <>
+                <BrandMark />
+                <BrandText />
+              </>
+            )}
           </Link>
           <p className="footer-line">{content.footerTagline}</p>
           <p className="footer-reg">{content.footerRegistration}</p>
-          <p className="footer-disclaimer">{content.footerDisclaimer}</p>
         </div>
-        <div className="footer-cols">
+
+        <nav className="footer-cols" aria-label="Footer">
           {columns.map((column) => (
             <div className="footer-col" key={column.heading}>
               <h4>{column.heading}</h4>
@@ -73,10 +93,17 @@ export function Footer({ settings }: FooterProps) {
               </ul>
             </div>
           ))}
-        </div>
+        </nav>
       </div>
-      <div className="wrap footer-bottom">
-        <p>{content.footerCopyright}</p>
+
+      <div className="wrap footer-legal">
+        <p className="footer-disclaimer">{content.footerDisclaimer}</p>
+      </div>
+
+      <div className="footer-bottom">
+        <div className="wrap footer-bottom-inner">
+          <p>{content.footerCopyright}</p>
+        </div>
       </div>
     </footer>
   );

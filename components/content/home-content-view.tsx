@@ -130,15 +130,15 @@ export function HomeContentView() {
         ]}
       >
         <div className="wrap">
-          <div className="media-split home-intro-split reveal">
-            <figure className="media-figure">
+          <div className="home-intro-split">
+            <figure className="home-intro-visual reveal">
               <EditableImage
                 srcField="introImageUrl"
                 altField="introImageAlt"
                 defaultSrc={d.introImageUrl}
                 defaultAlt={d.introImageAlt}
                 fill
-                sizes="(max-width: 920px) 100vw, 45vw"
+                sizes="(max-width: 920px) 100vw, 46vw"
                 uploadScope="home"
               />
             </figure>
@@ -147,13 +147,13 @@ export function HomeContentView() {
                 field="introEyebrow"
                 defaultValue={d.introEyebrow}
                 as="p"
-                className="eyebrow"
+                className="eyebrow home-intro-eyebrow reveal"
               />
               <EditableText
                 field="introP1"
                 defaultValue={d.introP1}
                 as="p"
-                className="home-intro-lead"
+                className="home-intro-lead reveal"
                 multiline
                 rich
               />
@@ -161,6 +161,7 @@ export function HomeContentView() {
                 field="introP2"
                 defaultValue={d.introP2}
                 as="p"
+                className="home-intro-support reveal"
                 multiline
                 rich
               />
@@ -168,7 +169,7 @@ export function HomeContentView() {
                 field="introClosing"
                 defaultValue={d.introClosing}
                 as="p"
-                className="home-intro-closing"
+                className="home-intro-closing reveal"
               />
             </div>
           </div>

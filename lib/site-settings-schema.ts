@@ -5,7 +5,7 @@ export const defaultSiteSettings: SiteSettings = {
   logoAlt: "TrustLed AI",
   footerTagline: "Govern. Automate. Advance.",
   footerRegistration:
-    "TrustLed AI Ltd is registered in England and Wales. Liverpool, United Kingdom.",
+    "TrustLed AI Ltd is registered in England and Wales and Nigeria",
   footerDisclaimer:
     "TrustLed AI is an advisory firm and does not provide legal advice.",
   footerServicesHeading: "Services",
@@ -27,10 +27,10 @@ export const defaultSiteSettings: SiteSettings = {
   footerContactHeading: "Contact",
   footerContact1Label: "hello@trustledai.com",
   footerContact1Href: "mailto:hello@trustledai.com",
-  footerContact2Label: "partner@trustledai.com",
-  footerContact2Href: "mailto:partner@trustledai.com",
-  footerContact3Label: "Start a conversation",
-  footerContact3Href: "/contact",
+  footerContact2Label: "",
+  footerContact2Href: "",
+  footerContact3Label: "",
+  footerContact3Href: "",
   footerCopyright: "\u00a9 2026 TrustLed AI Ltd. All rights reserved.",
 };
 
