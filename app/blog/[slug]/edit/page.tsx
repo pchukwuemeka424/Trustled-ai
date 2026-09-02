@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { BlogPostForm } from "@/components/admin/blog-post-form";
 import { BlogManageToolbar } from "@/components/blog/blog-manage-toolbar";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { isBlogEditorAuthenticated } from "@/lib/admin-auth";
 import { getBlogPostBySlug } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
@@ -12,9 +12,9 @@ type EditBlogPostPageProps = {
 };
 
 export default async function BlogEditPage({ params }: EditBlogPostPageProps) {
-  const isAdmin = await isAdminAuthenticated();
+  const canManage = await isBlogEditorAuthenticated();
 
-  if (!isAdmin) {
+  if (!canManage) {
     const { slug } = await params;
     redirect(`/admin/login?next=${encodeURIComponent(`/blog/${slug}/edit`)}`);
   }

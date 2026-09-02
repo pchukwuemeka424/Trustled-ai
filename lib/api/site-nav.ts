@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/api/admin";
+import { requireSiteAdmin } from "@/lib/api/admin";
 import { getSiteNav, updateSiteNav } from "@/lib/site-nav";
 import { isValidSiteNav } from "@/lib/site-nav-schema";
 
@@ -16,7 +16,7 @@ export async function getSiteNavResponse() {
 }
 
 export async function updateSiteNavResponse(request: Request) {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireSiteAdmin();
   if (unauthorized) return unauthorized;
 
   try {

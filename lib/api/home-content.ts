@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/api/admin";
+import { requireSiteAdmin } from "@/lib/api/admin";
 import { getHomeContent, updateHomeContent } from "@/lib/home-content";
 import {
   getHomeContentFieldKeys,
@@ -24,7 +24,7 @@ export async function getHomeContentResponse() {
 }
 
 export async function updateHomeContentResponse(request: Request) {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireSiteAdmin();
   if (unauthorized) return unauthorized;
 
   try {

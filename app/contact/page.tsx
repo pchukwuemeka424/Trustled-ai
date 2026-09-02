@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ContactContentView } from "@/components/content/contact-content-view";
 import { LiveEditShell } from "@/components/live-edit/live-edit-shell";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { isSiteAdminAuthenticated } from "@/lib/admin-auth";
 import { getPageContent } from "@/lib/page-content";
 
 export const dynamic = "force-dynamic";
@@ -23,7 +23,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
   const params = await searchParams;
   const [content, isAdmin] = await Promise.all([
     getPageContent("contact"),
-    isAdminAuthenticated(),
+    isSiteAdminAuthenticated(),
   ]);
 
   return (

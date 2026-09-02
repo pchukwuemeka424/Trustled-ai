@@ -3,17 +3,30 @@
 import { FormEvent, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/container";
+import { isEditorAllowedAdminPath } from "@/lib/admin-roles";
 
-function safeNextPath(value: string | null) {
+function safeNextPath(value: string | null, fallback = "/admin") {
   if (!value || !value.startsWith("/") || value.startsWith("//")) {
-    return "/admin";
+    return fallback;
   }
   return value;
 }
 
+function resolvePostLoginPath(
+  requested: string | null,
+  role: string | undefined,
+  fallback: string,
+) {
+  const next = safeNextPath(requested, fallback);
+  if (role === "editor" && next.startsWith("/admin") && !isEditorAllowedAdminPath(next)) {
+    return "/admin/blog";
+  }
+  return next;
+}
+
 export function AdminLoginForm() {
   const searchParams = useSearchParams();
-  const nextPath = safeNextPath(searchParams.get("next"));
+  const requestedNext = searchParams.get("next");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,7 +51,17 @@ export function AdminLoginForm() {
         throw new Error("invalid");
       }
 
-      window.location.assign(nextPath);
+      const data = (await response.json().catch(() => ({}))) as {
+        redirectTo?: string;
+        role?: string;
+      };
+
+      const fallback =
+        data.redirectTo ??
+        (data.role === "editor" ? "/admin/blog" : "/admin");
+      window.location.assign(
+        resolvePostLoginPath(requestedNext, data.role, fallback),
+      );
     } catch {
       setError("Invalid login details.");
     } finally {
@@ -51,7 +74,7 @@ export function AdminLoginForm() {
       <Container>
         <div style={{ maxWidth: "28rem", margin: "0 auto" }}>
           <div className="form-card">
-            <p className="eyebrow">Admin</p>
+            <p className="eyebrow">CMS</p>
             <h1 style={{ marginTop: "0.5rem", fontSize: "clamp(1.75rem, 2.5vw, 2.1rem)" }}>
               Sign in
             </h1>
@@ -59,7 +82,7 @@ export function AdminLoginForm() {
               className="lede"
               style={{ marginTop: "0.75rem", fontSize: "1rem", marginBottom: "1.75rem" }}
             >
-              Sign in to manage site pages and blog articles.
+              Admins manage the full site. Editors create and edit blog articles.
             </p>
 
             <form onSubmit={handleSubmit}>

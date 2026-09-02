@@ -71,6 +71,18 @@ export const defaultSiteNav: SiteNav = [
       },
     ],
   },
+  {
+    id: "insight",
+    href: "/blog",
+    label: "Insight",
+    children: [
+      {
+        id: "insight-blog",
+        href: "/blog",
+        label: "Blog",
+      },
+    ],
+  },
   { id: "contact", href: "/contact", label: "Contact Us" },
 ];
 

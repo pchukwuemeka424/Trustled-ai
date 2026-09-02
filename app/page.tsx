@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HomeContentView } from "@/components/content/home-content-view";
 import { LiveEditShell } from "@/components/live-edit/live-edit-shell";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { isSiteAdminAuthenticated } from "@/lib/admin-auth";
 import { getHomeContent } from "@/lib/home-content";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +25,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const [content, isAdmin] = await Promise.all([
     getHomeContent(),
-    isAdminAuthenticated(),
+    isSiteAdminAuthenticated(),
   ]);
 
   return (

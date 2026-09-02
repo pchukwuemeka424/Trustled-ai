@@ -11,9 +11,25 @@ import {
   getEnvAdminSessionSeed,
   getEnvAdminUsername,
 } from "@/lib/admin-credentials";
+import {
+  type AdminRole,
+  type AdminSession,
+  canManageBlog,
+  canManageSite,
+} from "@/lib/admin-roles";
+import {
+  SESSION_TTL_SECONDS,
+  createSignedAdminSessionToken,
+  verifySignedAdminSessionToken,
+} from "@/lib/admin-session";
+import {
+  findAdminUserByUsername,
+  verifyPassword,
+} from "@/lib/admin-users";
 import { getDatabase } from "@/lib/mongodb";
 
 export { ADMIN_COOKIE_NAME } from "@/lib/admin-credentials";
+export type { AdminRole, AdminSession } from "@/lib/admin-roles";
 
 type AdminCredentialsDoc = {
   _id: typeof ADMIN_CREDENTIALS_DOC_ID;
@@ -39,7 +55,9 @@ function getEnvAdminCredentialsWithHash(): AdminCredentials {
   };
 }
 
-function normalizeDoc(content?: AdminCredentialsDoc["content"]): AdminCredentials | null {
+function normalizeDoc(
+  content?: AdminCredentialsDoc["content"],
+): AdminCredentials | null {
   const username = content?.username?.trim();
   const password = content?.password;
 
@@ -55,7 +73,7 @@ function normalizeDoc(content?: AdminCredentialsDoc["content"]): AdminCredential
   };
 }
 
-async function getAdminCredentials(): Promise<AdminCredentials> {
+async function getLegacyAdminCredentials(): Promise<AdminCredentials> {
   try {
     const db = await getDatabase();
     const doc = await db
@@ -78,7 +96,7 @@ export function getAdminSessionCookieOptions() {
     sameSite: "lax" as const,
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: 60 * 60 * 8,
+    maxAge: SESSION_TTL_SECONDS,
   };
 }
 
@@ -93,26 +111,73 @@ export function clearAdminSessionCookie(response: NextResponse) {
   });
 }
 
-export async function validateAdminCredentials(username: string, password: string) {
-  const credentials = await getAdminCredentials();
+function passwordsMatch(provided: string, expected: string) {
+  const a = Buffer.from(provided);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length) {
+    return false;
+  }
+  return timingSafeEqual(a, b);
+}
+
+export type ValidatedAdminUser = {
+  username: string;
+  role: AdminRole;
+};
+
+export async function validateAdminCredentials(
+  username: string,
+  password: string,
+): Promise<ValidatedAdminUser | null> {
   const normalizedUsername = username.trim().toLowerCase();
+  if (!normalizedUsername || !password) {
+    return null;
+  }
 
-  return (
-    normalizedUsername === credentials.username.toLowerCase() &&
-    password === credentials.password
-  );
+  const envUsername = getEnvAdminUsername().toLowerCase();
+  const envPassword = getEnvAdminPassword();
+  if (
+    normalizedUsername === envUsername &&
+    passwordsMatch(password, envPassword)
+  ) {
+    return { username: envUsername, role: "admin" };
+  }
+
+  const legacy = await getLegacyAdminCredentials();
+  if (
+    normalizedUsername === legacy.username.toLowerCase() &&
+    passwordsMatch(password, legacy.password)
+  ) {
+    return { username: legacy.username.toLowerCase(), role: "admin" };
+  }
+
+  const managed = await findAdminUserByUsername(normalizedUsername);
+  if (!managed) {
+    return null;
+  }
+
+  if (!verifyPassword(password, managed.passwordHash)) {
+    return null;
+  }
+
+  return {
+    username: managed.username,
+    role: managed.role,
+  };
 }
 
-export async function createAdminSessionToken() {
-  const credentials = await getAdminCredentials();
-  return credentials.sessionHash;
+export async function createAdminSessionToken(user: ValidatedAdminUser) {
+  return createSignedAdminSessionToken({
+    username: user.username,
+    role: user.role,
+  });
 }
 
-export async function setAdminSession() {
+export async function setAdminSession(user: ValidatedAdminUser) {
   const cookieStore = await cookies();
   cookieStore.set(
     ADMIN_COOKIE_NAME,
-    await createAdminSessionToken(),
+    await createAdminSessionToken(user),
     getAdminSessionCookieOptions(),
   );
 }
@@ -133,27 +198,61 @@ function matchesSessionToken(current: string, expected: string) {
   return timingSafeEqual(currentBuffer, expectedBuffer);
 }
 
-async function getValidSessionTokens() {
+async function getLegacyValidSessionTokens() {
   const tokens = new Set<string>([
     getEnvSessionHash(),
     ...getConfiguredSessionHashOverrides(),
-    (await getAdminCredentials()).sessionHash,
+    (await getLegacyAdminCredentials()).sessionHash,
   ]);
 
   return [...tokens];
 }
 
-export async function isAdminAuthenticated() {
-  const cookieStore = await cookies();
-  const current = cookieStore.get(ADMIN_COOKIE_NAME)?.value ?? "";
-
-  for (const token of await getValidSessionTokens()) {
-    if (matchesSessionToken(current, token)) {
-      return true;
+async function resolveLegacySession(
+  token: string,
+): Promise<AdminSession | null> {
+  for (const expected of await getLegacyValidSessionTokens()) {
+    if (matchesSessionToken(token, expected)) {
+      return {
+        username: getEnvAdminUsername().toLowerCase(),
+        role: "admin",
+        exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS,
+      };
     }
   }
+  return null;
+}
 
-  return false;
+export async function getAdminSession(): Promise<AdminSession | null> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(ADMIN_COOKIE_NAME)?.value ?? "";
+  if (!token) {
+    return null;
+  }
+
+  const signed = await verifySignedAdminSessionToken(token);
+  if (signed) {
+    return signed;
+  }
+
+  return resolveLegacySession(token);
+}
+
+/** Any signed-in CMS user (admin or editor). */
+export async function isAdminAuthenticated() {
+  return (await getAdminSession()) !== null;
+}
+
+/** Main admin only — site CMS and user management. */
+export async function isSiteAdminAuthenticated() {
+  const session = await getAdminSession();
+  return canManageSite(session?.role);
+}
+
+/** Admin or editor — blog create / edit / read. */
+export async function isBlogEditorAuthenticated() {
+  const session = await getAdminSession();
+  return canManageBlog(session?.role);
 }
 
 export { getEnvAdminSessionSeed };

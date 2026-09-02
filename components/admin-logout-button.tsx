@@ -2,7 +2,13 @@
 
 import { useRouter } from "next/navigation";
 
-export function AdminLogoutButton() {
+type AdminLogoutButtonProps = {
+  className?: string;
+};
+
+export function AdminLogoutButton({
+  className = "btn btn-ghost",
+}: AdminLogoutButtonProps) {
   const router = useRouter();
 
   async function onLogout() {
@@ -12,12 +18,7 @@ export function AdminLogoutButton() {
   }
 
   return (
-    <button
-      type="button"
-      onClick={onLogout}
-      className="btn btn-ghost"
-      style={{ height: "2.5rem" }}
-    >
+    <button type="button" onClick={onLogout} className={className}>
       Logout
     </button>
   );

@@ -1,41 +1,38 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
-import { AdminLogoutButton } from "@/components/admin-logout-button";
+import { redirect } from "next/navigation";
+import { AdminAppFrame } from "@/components/admin/admin-app-frame";
+import { getAdminSession } from "@/lib/admin-auth";
 
 type AdminShellProps = {
   eyebrow?: string;
   title: string;
   description?: string;
   actions?: ReactNode;
+  dashboardHref?: string;
   children: ReactNode;
 };
 
-export function AdminShell({
-  eyebrow = "Admin",
+export async function AdminShell({
   title,
   description,
   actions,
   children,
 }: AdminShellProps) {
+  const session = await getAdminSession();
+
+  if (!session) {
+    redirect("/admin/login");
+  }
+
   return (
-    <section className="admin-shell">
-      <div className="wrap">
-        <div className="admin-shell-header">
-          <div className="admin-shell-intro">
-            <p className="eyebrow">{eyebrow}</p>
-            <h1>{title}</h1>
-            {description ? <p className="lede">{description}</p> : null}
-          </div>
-          <div className="admin-shell-actions">
-            {actions}
-            <Link href="/admin" className="btn btn-sm btn-ghost">
-              Dashboard
-            </Link>
-            <AdminLogoutButton />
-          </div>
-        </div>
-        {children}
-      </div>
-    </section>
+    <AdminAppFrame
+      role={session.role}
+      username={session.username}
+      title={title}
+      description={description}
+      actions={actions}
+    >
+      {children}
+    </AdminAppFrame>
   );
 }

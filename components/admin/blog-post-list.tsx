@@ -20,9 +20,15 @@ type BlogPostListProps = {
   posts: AdminBlogPostSummary[];
   /** Base path for edit links, e.g. `/blog` or `/admin/blog` */
   editBasePath?: string;
+  /** Admins can delete; editors have create / edit / read only */
+  canDelete?: boolean;
 };
 
-export function BlogPostList({ posts, editBasePath = "/admin/blog" }: BlogPostListProps) {
+export function BlogPostList({
+  posts,
+  editBasePath = "/admin/blog",
+  canDelete = true,
+}: BlogPostListProps) {
   const router = useRouter();
   const [deletingSlug, setDeletingSlug] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -101,14 +107,16 @@ export function BlogPostList({ posts, editBasePath = "/admin/blog" }: BlogPostLi
                     View
                   </Link>
                 ) : null}
-                <button
-                  type="button"
-                  className="blog-admin-delete"
-                  disabled={deletingSlug === post.slug}
-                  onClick={() => handleDelete(post.slug, post.title)}
-                >
-                  {deletingSlug === post.slug ? "Deleting…" : "Delete"}
-                </button>
+                {canDelete ? (
+                  <button
+                    type="button"
+                    className="blog-admin-delete"
+                    disabled={deletingSlug === post.slug}
+                    onClick={() => handleDelete(post.slug, post.title)}
+                  >
+                    {deletingSlug === post.slug ? "Deleting…" : "Delete"}
+                  </button>
+                ) : null}
               </div>
             </div>
           </li>

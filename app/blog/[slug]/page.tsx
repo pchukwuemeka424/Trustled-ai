@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BlogArticleSidebar } from "@/components/blog/blog-article-sidebar";
 import { BlogManageToolbar } from "@/components/blog/blog-manage-toolbar";
 import { BlogFeaturedImage } from "@/components/blog/blog-post-card";
 import { BlogPostBody } from "@/components/blog/blog-post-body";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getBlogPostBySlug, getPublishedBlogPostBySlug } from "@/lib/blog";
+import { isBlogEditorAuthenticated } from "@/lib/admin-auth";
+import {
+  getBlogPostBySlug,
+  getPublishedBlogPostBySlug,
+  listPublishedBlogPosts,
+} from "@/lib/blog";
 import { formatBlogDate } from "@/lib/blog-schema";
 
 export const dynamic = "force-dynamic";
@@ -52,8 +57,8 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const isAdmin = await isAdminAuthenticated();
-  const post = isAdmin
+  const canManage = await isBlogEditorAuthenticated();
+  const post = canManage
     ? await getBlogPostBySlug(slug)
     : await getPublishedBlogPostBySlug(slug);
 
@@ -62,53 +67,76 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const isDraft = post.status === "draft";
+  const recentPosts = (await listPublishedBlogPosts())
+    .filter((item) => item.slug !== post.slug)
+    .slice(0, 4)
+    .map((item) => ({
+      slug: item.slug,
+      title: item.title,
+      publishedAt: item.publishedAt,
+      imageUrl: item.imageUrl,
+    }));
 
   return (
     <>
-      <BlogManageToolbar isAdmin={isAdmin} isManaging={false} />
+      <BlogManageToolbar isAdmin={canManage} isManaging={false} />
 
-      <section className="hero hero--page">
-        <div className="wrap hero-inner">
-          <p className="hero-tagline">Blog</p>
-          {isDraft && isAdmin ? (
-            <p className="blog-draft-banner">Draft — only visible to admins</p>
-          ) : null}
-          <h1>{post.title}</h1>
-          <p className="blog-meta blog-meta--hero">
-            <time dateTime={post.publishedAt}>{formatBlogDate(post.publishedAt)}</time>
-            <span aria-hidden="true"> · </span>
-            <span>{post.author}</span>
-          </p>
-          {isAdmin ? (
-            <p style={{ marginTop: "1rem" }}>
-              <Link
-                className="text-link"
-                href={`/blog/${encodeURIComponent(post.slug)}/edit`}
-              >
-                Edit article
-              </Link>
+      <article className="blog-article-page">
+        <header className="blog-article-header">
+          <div className="wrap">
+            <nav className="blog-breadcrumb" aria-label="Breadcrumb">
+              <Link href="/blog">Blog</Link>
+              <span aria-hidden="true">/</span>
+              <span aria-current="page">{post.title}</span>
+            </nav>
+
+            {isDraft && canManage ? (
+              <p className="blog-draft-banner">Draft — only visible to editors</p>
+            ) : null}
+
+            <p className="blog-article-label">Insight</p>
+            <h1 className="blog-article-title">{post.title}</h1>
+
+            <p className="blog-meta blog-meta--article">
+              <time dateTime={post.publishedAt}>
+                {formatBlogDate(post.publishedAt)}
+              </time>
+              <span aria-hidden="true"> · </span>
+              <span>{post.author}</span>
             </p>
-          ) : null}
-        </div>
-      </section>
 
-      <section>
-        <div className="wrap">
+            {post.excerpt ? (
+              <p className="blog-article-excerpt">{post.excerpt}</p>
+            ) : null}
+
+            {canManage ? (
+              <p className="blog-article-admin">
+                <Link
+                  className="text-link"
+                  href={`/blog/${encodeURIComponent(post.slug)}/edit`}
+                >
+                  Edit article
+                </Link>
+              </p>
+            ) : null}
+          </div>
+        </header>
+
+        <div className="wrap blog-article-shell">
           <div className="blog-article-layout">
-            <BlogFeaturedImage
-              imageUrl={post.imageUrl}
-              title={post.title}
-              className="blog-article-image"
-            />
-            <BlogPostBody content={post.content} />
-            <p className="blog-back">
-              <Link className="text-link" href="/blog">
-                Back to blog <span className="arrow" aria-hidden="true">→</span>
-              </Link>
-            </p>
+            <div className="blog-article-main">
+              <BlogFeaturedImage
+                imageUrl={post.imageUrl}
+                title={post.title}
+                className="blog-article-image"
+              />
+              <BlogPostBody content={post.content} />
+            </div>
+
+            <BlogArticleSidebar recentPosts={recentPosts} />
           </div>
         </div>
-      </section>
+      </article>
     </>
   );
 }

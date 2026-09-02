@@ -3,7 +3,8 @@ import Link from "next/link";
 import { BlogPostList } from "@/components/admin/blog-post-list";
 import { BlogManageToolbar } from "@/components/blog/blog-manage-toolbar";
 import { BlogPostCardContent } from "@/components/blog/blog-post-card";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { getAdminSession } from "@/lib/admin-auth";
+import { canDeleteBlog, canManageBlog } from "@/lib/admin-roles";
 import { blogPostSummary, listAllBlogPosts, listPublishedBlogPosts } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +12,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Practical guidance on AI governance, shadow AI, and proportionate compliance for schools, universities, and regulated SMEs.",
+    "Articles and updates from TrustLed on AI governance, responsible adoption, and practical guidance for organisations.",
   alternates: {
     canonical: "/blog",
   },
@@ -23,26 +24,27 @@ type BlogPageProps = {
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const params = await searchParams;
-  const isAdmin = await isAdminAuthenticated();
-  const isManaging = isAdmin && params.edit === "1";
+  const session = await getAdminSession();
+  const canManage = canManageBlog(session?.role);
+  const isManaging = canManage && params.edit === "1";
   const posts = isManaging
     ? await listAllBlogPosts()
     : await listPublishedBlogPosts();
 
   return (
     <>
-      <BlogManageToolbar isAdmin={isAdmin} isManaging={isManaging} />
+      <BlogManageToolbar isAdmin={canManage} isManaging={isManaging} />
 
-      <section className="hero hero--page">
+      <section className="hero hero--blog">
         <div className="wrap hero-inner">
-          <p className="hero-tagline">Blog</p>
-          <h1>
-            {isManaging ? "Manage blog articles" : "Practical AI governance insight."}
-          </h1>
+          <p className="hero-tagline">Insight</p>
+          <h1>{isManaging ? "Manage blog" : "Blog"}</h1>
           <p className="lede">
             {isManaging
-              ? "Create, edit, publish, or delete articles shown on the public blog."
-              : "Short articles on shadow AI, regulatory readiness, and building governance that works in real organisations."}
+              ? canDeleteBlog(session?.role)
+                ? "Create, edit, publish, or delete articles."
+                : "Create, edit, and read articles."
+              : "Articles and updates from TrustLed."}
           </p>
         </div>
       </section>
@@ -62,6 +64,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               <BlogPostList
                 posts={posts.map(blogPostSummary)}
                 editBasePath="/blog"
+                canDelete={canDeleteBlog(session?.role)}
               />
             </>
           ) : posts.length === 0 ? (

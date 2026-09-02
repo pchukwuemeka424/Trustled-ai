@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CustomPageView } from "@/components/content/custom-page-view";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { isSiteAdminAuthenticated } from "@/lib/admin-auth";
 import {
   getCustomPage,
   getPublishedCustomPage,
@@ -18,7 +18,7 @@ export async function generateMetadata({
   const { slug } = await params;
   if (RESERVED_PAGE_SLUGS.has(slug)) return {};
 
-  const isAdmin = await isAdminAuthenticated();
+  const isAdmin = await isSiteAdminAuthenticated();
   const page = isAdmin
     ? await getCustomPage(slug)
     : await getPublishedCustomPage(slug);
@@ -49,7 +49,7 @@ export default async function DynamicCustomPage({ params }: PageProps) {
     notFound();
   }
 
-  const isAdmin = await isAdminAuthenticated();
+  const isAdmin = await isSiteAdminAuthenticated();
   const page = isAdmin
     ? await getCustomPage(slug)
     : await getPublishedCustomPage(slug);

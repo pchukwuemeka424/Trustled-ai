@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/api/admin";
+import { requireSiteAdmin } from "@/lib/api/admin";
 import { getSiteSettings, updateSiteSettings } from "@/lib/site-settings";
 import {
   getSiteSettingsFieldKeys,
@@ -28,7 +28,7 @@ export async function getSiteSettingsResponse() {
 }
 
 export async function updateSiteSettingsResponse(request: Request) {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireSiteAdmin();
   if (unauthorized) return unauthorized;
 
   try {

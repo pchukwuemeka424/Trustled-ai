@@ -2,14 +2,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { BlogPostForm } from "@/components/admin/blog-post-form";
 import { BlogManageToolbar } from "@/components/blog/blog-manage-toolbar";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { isBlogEditorAuthenticated } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function BlogNewPage() {
-  const isAdmin = await isAdminAuthenticated();
+  const canManage = await isBlogEditorAuthenticated();
 
-  if (!isAdmin) {
+  if (!canManage) {
     redirect("/admin/login?next=/blog/new");
   }
 

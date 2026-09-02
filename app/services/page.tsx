@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ServicesContentView } from "@/components/content/services-content-view";
 import { LiveEditShell } from "@/components/live-edit/live-edit-shell";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { isSiteAdminAuthenticated } from "@/lib/admin-auth";
 import { getPageContent } from "@/lib/page-content";
 
 export const dynamic = "force-dynamic";
@@ -23,7 +23,7 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
   const params = await searchParams;
   const [content, isAdmin] = await Promise.all([
     getPageContent("services"),
-    isAdminAuthenticated(),
+    isSiteAdminAuthenticated(),
   ]);
 
   return (

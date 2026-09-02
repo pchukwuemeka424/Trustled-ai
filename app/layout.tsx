@@ -1,10 +1,11 @@
 import { Roboto } from "next/font/google";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { SiteEffects } from "@/components/SiteEffects";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { isSiteAdminAuthenticated } from "@/lib/admin-auth";
 import { getSiteNav } from "@/lib/site-nav";
 import { getSiteSettings } from "@/lib/site-settings";
 import { getSiteUrl } from "@/lib/site-url";
@@ -78,10 +79,30 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = (await headers()).get("x-pathname") ?? "";
+  const isAdminApp = pathname.startsWith("/admin");
+
+  if (isAdminApp) {
+    return (
+      <html
+        lang="en-GB"
+        className={roboto.variable}
+        suppressHydrationWarning
+      >
+        <body className="admin-body" suppressHydrationWarning>
+          <Link className="skip-link" href="#main">
+            Skip to content
+          </Link>
+          <main id="main">{children}</main>
+        </body>
+      </html>
+    );
+  }
+
   const [settings, navItems, isAdmin] = await Promise.all([
     getSiteSettings(),
     getSiteNav(),
-    isAdminAuthenticated(),
+    isSiteAdminAuthenticated(),
   ]);
 
   return (

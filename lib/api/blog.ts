@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/api/admin";
+import {
+  requireBlogAccess,
+  requireBlogDeleteAccess,
+} from "@/lib/api/admin";
 import {
   createBlogPost,
   deleteBlogPost,
@@ -10,26 +13,32 @@ import {
 import { isValidBlogPostPayload, normalizeBlogPost } from "@/lib/blog-schema";
 
 export async function listBlogPostsResponse() {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireBlogAccess();
   if (unauthorized) return unauthorized;
 
   try {
     const posts = await listAllBlogPosts();
     return NextResponse.json({ posts });
   } catch {
-    return NextResponse.json({ error: "Failed to load blog posts" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to load blog posts" },
+      { status: 500 },
+    );
   }
 }
 
 export async function createBlogPostResponse(request: Request) {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireBlogAccess();
   if (unauthorized) return unauthorized;
 
   try {
     const body = await request.json();
 
     if (!isValidBlogPostPayload(body)) {
-      return NextResponse.json({ error: "Invalid blog post payload" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid blog post payload" },
+        { status: 400 },
+      );
     }
 
     const post = await createBlogPost(normalizeBlogPost(body));
@@ -42,12 +51,15 @@ export async function createBlogPostResponse(request: Request) {
       return NextResponse.json({ error: message }, { status: 409 });
     }
 
-    return NextResponse.json({ error: "Failed to create blog post" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to create blog post" },
+      { status: 500 },
+    );
   }
 }
 
 export async function getBlogPostResponse(slug: string) {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireBlogAccess();
   if (unauthorized) return unauthorized;
 
   try {
@@ -59,19 +71,25 @@ export async function getBlogPostResponse(slug: string) {
 
     return NextResponse.json({ post });
   } catch {
-    return NextResponse.json({ error: "Failed to load blog post" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to load blog post" },
+      { status: 500 },
+    );
   }
 }
 
 export async function updateBlogPostResponse(slug: string, request: Request) {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireBlogAccess();
   if (unauthorized) return unauthorized;
 
   try {
     const body = await request.json();
 
     if (!isValidBlogPostPayload(body)) {
-      return NextResponse.json({ error: "Invalid blog post payload" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid blog post payload" },
+        { status: 400 },
+      );
     }
 
     const post = await updateBlogPost(slug, normalizeBlogPost(body));
@@ -89,12 +107,15 @@ export async function updateBlogPostResponse(slug: string, request: Request) {
       return NextResponse.json({ error: message }, { status: 409 });
     }
 
-    return NextResponse.json({ error: "Failed to update blog post" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to update blog post" },
+      { status: 500 },
+    );
   }
 }
 
 export async function deleteBlogPostResponse(slug: string) {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireBlogDeleteAccess();
   if (unauthorized) return unauthorized;
 
   try {
@@ -106,6 +127,9 @@ export async function deleteBlogPostResponse(slug: string) {
 
     return NextResponse.json({ ok: true });
   } catch {
-    return NextResponse.json({ error: "Failed to delete blog post" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to delete blog post" },
+      { status: 500 },
+    );
   }
 }

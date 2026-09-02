@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/api/admin";
+import { requireSiteAdmin } from "@/lib/api/admin";
 import {
   getPageContentFieldKeys,
   type ManagedPage,
@@ -24,7 +24,7 @@ export async function getPageContentResponse(page: ManagedPage) {
 }
 
 export async function updatePageContentResponse(page: ManagedPage, request: Request) {
-  const unauthorized = await requireAdmin();
+  const unauthorized = await requireSiteAdmin();
   if (unauthorized) return unauthorized;
 
   try {
