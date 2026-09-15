@@ -167,7 +167,7 @@ export function EditableText({
             open={modalOpen}
             title={fieldDef.label}
             fields={[fieldDef]}
-            values={liveEdit?.values ?? {}}
+            values={{ [field]: text }}
             onClose={() => setModalOpen(false)}
             onApply={(next) => {
               liveEdit?.setField(field, next[field] ?? "");
@@ -205,7 +205,7 @@ export function EditableText({
           open={modalOpen}
           title={fieldDef.label}
           fields={[fieldDef]}
-          values={liveEdit?.values ?? {}}
+          values={{ [field]: text }}
           onClose={() => setModalOpen(false)}
           onApply={(next) => {
             liveEdit?.setField(field, next[field] ?? "");

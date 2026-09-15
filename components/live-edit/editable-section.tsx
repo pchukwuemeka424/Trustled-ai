@@ -53,6 +53,14 @@ export function EditableSection({
     [liveEdit?.values],
   );
 
+  const modalValues = useMemo(() => {
+    const next: Record<string, string> = {};
+    for (const field of fields) {
+      next[field.key] = liveEdit?.values[field.key] ?? "";
+    }
+    return next;
+  }, [fields, liveEdit?.values]);
+
   function openEditor() {
     if (!liveEdit) return;
     if (!liveEdit.isEditing) liveEdit.startEdit();
@@ -163,7 +171,7 @@ export function EditableSection({
           open={open}
           title={title}
           fields={fields}
-          values={liveEdit?.values ?? {}}
+          values={modalValues}
           onClose={() => setOpen(false)}
           onApply={applyChanges}
         />

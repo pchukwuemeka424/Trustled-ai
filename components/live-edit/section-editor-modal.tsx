@@ -22,6 +22,21 @@ type SectionEditorModalProps = {
   onApply: (next: Record<string, string>) => void;
 };
 
+function buildDraft(
+  fields: SectionEditorField[],
+  values: Record<string, string>,
+): Record<string, string> {
+  const next: Record<string, string> = {};
+  for (const field of fields) {
+    const raw = values[field.key] ?? "";
+    next[field.key] =
+      field.kind === "html" || field.kind === "multiline"
+        ? plainTextToEditorHtml(raw)
+        : raw;
+  }
+  return next;
+}
+
 export function SectionEditorModal({
   open,
   title,
@@ -31,20 +46,22 @@ export function SectionEditorModal({
   onApply,
 }: SectionEditorModalProps) {
   const titleId = useId();
-  const [draft, setDraft] = useState<Record<string, string>>({});
+  const [wasOpen, setWasOpen] = useState(open);
+  const [editorSession, setEditorSession] = useState(0);
+  const [draft, setDraft] = useState<Record<string, string>>(() =>
+    open ? buildDraft(fields, values) : {},
+  );
 
-  useEffect(() => {
-    if (!open) return;
-    const next: Record<string, string> = {};
-    for (const field of fields) {
-      const raw = values[field.key] ?? "";
-      next[field.key] =
-        field.kind === "html" || field.kind === "multiline"
-          ? plainTextToEditorHtml(raw)
-          : raw;
+  // Prefill only when the modal opens — not on every parent re-render
+  // from inline `fields={[...]}` arrays.
+  // https://react.dev/reference/react/useState#storing-information-from-previous-renders
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) {
+      setDraft(buildDraft(fields, values));
+      setEditorSession((session) => session + 1);
     }
-    setDraft(next);
-  }, [open, fields, values]);
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -103,6 +120,7 @@ export function SectionEditorModal({
                 </label>
                 {kind === "html" || kind === "multiline" ? (
                   <RichTextEditor
+                    key={`${editorSession}-${field.key}`}
                     value={draft[field.key] ?? ""}
                     onChange={(html) =>
                       setDraft((prev) => ({ ...prev, [field.key]: html }))
