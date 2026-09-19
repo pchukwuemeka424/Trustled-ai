@@ -3,6 +3,7 @@
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -62,6 +63,18 @@ export function LiveEditProvider({
     setSavedContent(initialContent);
     setValues((prev) => (isEditing ? prev : initialContent));
   }, [initialContent, isEditing]);
+
+  // Keep scroll-reveal content visible while the CMS chrome is active.
+  // React re-renders can strip the `.in` class SiteEffects adds, leaving
+  // blank white sections with only Edit / Insert column controls.
+  // useLayoutEffect runs before paint so the first admin frame is not blank.
+  useLayoutEffect(() => {
+    if (!isAdmin) return;
+    document.documentElement.setAttribute("data-live-edit-admin", "true");
+    return () => {
+      document.documentElement.removeAttribute("data-live-edit-admin");
+    };
+  }, [isAdmin]);
 
   const isDirty = useMemo(
     () => !isShallowEqual(values, savedContent),

@@ -2176,6 +2176,7 @@ section.home-intro{
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 
 /* Live edit (admin) */
+html[data-live-edit-admin] .reveal{opacity:1;transform:none}
 .reveal.live-edit-surface{opacity:1;transform:none}
 .live-edit-surface:focus{outline:2px dashed var(--teal);outline-offset:2px}
 [data-live-edit-field]:empty::before{content:attr(data-placeholder);color:var(--muted);opacity:.7}
