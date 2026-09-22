@@ -12,6 +12,7 @@ import {
 import { useRouter } from "next/navigation";
 import { LiveEditContext, type LiveEditStatus } from "./live-edit-context";
 import { LiveEditToolbar } from "./live-edit-toolbar";
+import { PageSectionsHost } from "./page-sections";
 
 type LiveEditProviderProps = {
   page: string;
@@ -175,6 +176,7 @@ export function LiveEditProvider({
   return (
     <LiveEditContext.Provider value={contextValue}>
       {children}
+      <PageSectionsHost />
       {isAdmin ? <LiveEditToolbar /> : null}
     </LiveEditContext.Provider>
   );

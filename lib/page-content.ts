@@ -5,9 +5,19 @@ import {
   type ManagedPage,
   type PageContent,
 } from "@/lib/page-content-schema";
+import {
+  EXTRA_SECTIONS_KEY,
+  HIDDEN_SECTIONS_KEY,
+} from "@/lib/page-sections";
 import { SECTION_LAYOUTS_KEY } from "@/lib/section-layouts";
 
 const PAGE_CONTENT_PREFIX = "page:";
+
+const META_KEYS = new Set([
+  SECTION_LAYOUTS_KEY,
+  HIDDEN_SECTIONS_KEY,
+  EXTRA_SECTIONS_KEY,
+]);
 
 type PageContentDoc = {
   _id: string;
@@ -26,18 +36,22 @@ function normalizePageContent(
   const merged: Record<string, string> = {
     ...defaultPageContent[page],
     [SECTION_LAYOUTS_KEY]: "{}",
+    [HIDDEN_SECTIONS_KEY]: "[]",
+    [EXTRA_SECTIONS_KEY]: "[]",
   };
   if (content) {
     for (const key of Object.keys(merged)) {
-      if (key === SECTION_LAYOUTS_KEY) continue;
+      if (META_KEYS.has(key)) continue;
       const value = content[key];
       if (typeof value === "string") {
         merged[key] = value;
       }
     }
-    const layouts = content[SECTION_LAYOUTS_KEY];
-    if (typeof layouts === "string" && layouts.trim()) {
-      merged[SECTION_LAYOUTS_KEY] = layouts;
+    for (const key of META_KEYS) {
+      const value = content[key];
+      if (typeof value === "string" && value.trim()) {
+        merged[key] = value;
+      }
     }
   }
   return merged;

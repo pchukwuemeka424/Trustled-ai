@@ -4,6 +4,7 @@ export { EditableLink } from "./editable-link";
 export { EditableImage } from "./editable-image";
 export { EditableSection } from "./editable-section";
 export { SectionColumns } from "./section-columns";
+export { PageSectionsHost, ExtraSectionsAfter } from "./page-sections";
 export {
   LiveEditContext,
   useLiveEdit,

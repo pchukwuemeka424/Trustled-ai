@@ -291,8 +291,7 @@ export function isManagedPage(value: string): value is ManagedPage {
 
 export function getPageContentFieldKeys(page: ManagedPage): string[] {
   const keys = Object.keys(defaultPageContent[page]);
-  if (!keys.includes("_sectionLayouts")) {
-    return [...keys, "_sectionLayouts"];
-  }
-  return keys;
+  const metaKeys = ["_sectionLayouts", "_hiddenSections", "_extraSections"];
+  const missing = metaKeys.filter((key) => !keys.includes(key));
+  return missing.length ? [...keys, ...missing] : keys;
 }

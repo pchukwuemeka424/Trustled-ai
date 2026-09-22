@@ -101,6 +101,8 @@ export const defaultHomeContent: HomeContent = {
   ctaDescription:
     "A 30-minute conversation, no pitch deck. We will tell you whether we can help.",
   _sectionLayouts: "{}",
+  _hiddenSections: "[]",
+  _extraSections: "[]",
 };
 
 export function getHomeContentFieldKeys(): string[] {

@@ -12,6 +12,12 @@ import {
   SectionEditorModal,
   type SectionEditorField,
 } from "@/components/live-edit/section-editor-modal";
+import {
+  ExtraSectionsAfter,
+  insertExtraAfter,
+  useExtras,
+  useHiddenSections,
+} from "@/components/live-edit/page-sections";
 import { useOptionalLiveEdit } from "@/components/live-edit/live-edit-context";
 import {
   createEmptyColumnBlock,
@@ -43,10 +49,14 @@ export function EditableSection({
   ...rest
 }: EditableSectionProps) {
   const liveEdit = useOptionalLiveEdit();
+  const { hidden, setHidden } = useHiddenSections();
+  const { extras, setExtras } = useExtras();
   const [open, setOpen] = useState(false);
   const [columnPickerOpen, setColumnPickerOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const showEditUi = Boolean(liveEdit?.isAdmin);
   const resolvedKey = sectionKey || sectionKeyFromTitle(title);
+  const isHidden = hidden.includes(resolvedKey);
 
   const layouts = useMemo(
     () => parseSectionLayouts(liveEdit?.values[SECTION_LAYOUTS_KEY] ?? "{}"),
@@ -90,6 +100,49 @@ export function EditableSection({
     setColumnPickerOpen(false);
   }
 
+  function handleDelete() {
+    if (!liveEdit) return;
+    if (!liveEdit.isEditing) liveEdit.startEdit();
+    if (!confirmDelete) {
+      setConfirmDelete(true);
+      window.setTimeout(() => setConfirmDelete(false), 4000);
+      return;
+    }
+    setConfirmDelete(false);
+    setHidden([...hidden, resolvedKey]);
+  }
+
+  function handleAddBelow() {
+    if (!liveEdit) return;
+    if (!liveEdit.isEditing) liveEdit.startEdit();
+    setExtras(insertExtraAfter(extras, resolvedKey));
+  }
+
+  if (isHidden) {
+    if (!showEditUi) {
+      return <ExtraSectionsAfter afterKey={resolvedKey} />;
+    }
+    return (
+      <>
+        <div className="wrap page-section-hidden-strip">
+          <span>
+            Hidden section: <strong>{title}</strong>
+          </span>
+          <button
+            type="button"
+            className="btn btn-sm"
+            onClick={() => {
+              setHidden(hidden.filter((key) => key !== resolvedKey));
+            }}
+          >
+            Restore
+          </button>
+        </div>
+        <ExtraSectionsAfter afterKey={resolvedKey} />
+      </>
+    );
+  }
+
   return (
     <>
       <Tag
@@ -118,6 +171,20 @@ export function EditableSection({
                 }}
               >
                 Insert column
+              </button>
+              <button
+                type="button"
+                className="editable-section-edit-btn editable-section-edit-btn--ghost"
+                onClick={handleAddBelow}
+              >
+                Add section
+              </button>
+              <button
+                type="button"
+                className="editable-section-edit-btn editable-section-edit-btn--danger"
+                onClick={handleDelete}
+              >
+                {confirmDelete ? "Confirm delete" : "Delete"}
               </button>
             </div>
           </div>
@@ -165,6 +232,8 @@ export function EditableSection({
         {children}
         <SectionColumns sectionKey={resolvedKey} />
       </Tag>
+
+      <ExtraSectionsAfter afterKey={resolvedKey} />
 
       {showEditUi ? (
         <SectionEditorModal
