@@ -3,15 +3,36 @@ import { AboutContentView } from "@/components/content/about-content-view";
 import { LiveEditShell } from "@/components/live-edit/live-edit-shell";
 import { isSiteAdminAuthenticated } from "@/lib/admin-auth";
 import { getPageContent } from "@/lib/page-content";
+import { aboutPageJsonLd } from "@/lib/seo-json-ld";
+import { teamMemberNamesForSeo, teamMembers } from "@/lib/team-members";
 
 export const dynamic = "force-dynamic";
 
+const teamSeoLine = teamMembers
+  .map((member) => `${member.name}, ${member.role}`)
+  .join("; ");
+
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "TrustLed AI combines AI governance advisory, AI-powered software and automation, and professional training to help organisations adopt AI responsibly.",
+  description: `Meet the TrustLed AI team — ${teamSeoLine}. AI governance advisory, AI-powered software and automation, and professional training for responsible AI adoption.`,
+  keywords: [
+    "TrustLed AI",
+    ...teamMembers.map((member) => member.name),
+    "AI Governance",
+    "AI Engineering",
+    "Research & Scientific Advisory",
+  ],
+  authors: [
+    { name: "TrustLed AI Ltd" },
+    ...teamMembers.map((member) => ({ name: member.name })),
+  ],
   alternates: {
     canonical: "/about",
+  },
+  openGraph: {
+    title: "About TrustLed AI",
+    description: `Leadership: ${teamMemberNamesForSeo()}. Governing AI. Building what's next.`,
+    url: "/about",
   },
 };
 
@@ -25,6 +46,7 @@ export default async function AboutPage({ searchParams }: AboutPageProps) {
     getPageContent("about"),
     isSiteAdminAuthenticated(),
   ]);
+  const jsonLd = aboutPageJsonLd();
 
   return (
     <LiveEditShell
@@ -33,6 +55,10 @@ export default async function AboutPage({ searchParams }: AboutPageProps) {
       initialContent={content}
       startEditing={isAdmin && params.edit === "1"}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <AboutContentView />
     </LiveEditShell>
   );

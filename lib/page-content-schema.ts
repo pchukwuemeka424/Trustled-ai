@@ -1,3 +1,5 @@
+import { teamMembers } from "@/lib/team-members";
+
 export const managedPages = [
   "about",
   "services",
@@ -55,18 +57,15 @@ export const defaultPageContent: Record<ManagedPage, PageContent> = {
     leadershipTitle: "The people behind the work.",
     leadershipLede:
       "Practitioners actively working in AI governance and AI engineering.",
-    team1Name: "Franklin Okeke",
-    team1Role: "Founder & AI Governance Lead",
-    team1Bio:
-      "CISA and ISO/IEC 42001 Lead Auditor. MSc in Cybersecurity and Human Factors. Technology writer with 400+ published articles across the trade press on AI governance and cybersecurity.",
-    team2Name: "Prince C.",
-    team2Role: "Co-founder & Engineering Lead",
-    team2Bio:
-      "Engineering lead behind TrustLed AI's tooling and secure deployments, with a background building ISO 27001 and GDPR risk frameworks.",
-    team3Name: "Dr Arome Solomon Odiba",
-    team3Role: "Research & Scientific Partner",
-    team3Bio:
-      "Research and scientific partner supporting TrustLed AI's evidence-led approach to responsible AI.",
+    team1Name: teamMembers[0].name,
+    team1Role: teamMembers[0].role,
+    team1Bio: teamMembers[0].bio ?? "",
+    team2Name: teamMembers[1].name,
+    team2Role: teamMembers[1].role,
+    team2Bio: teamMembers[1].bio ?? "",
+    team3Name: teamMembers[2].name,
+    team3Role: teamMembers[2].role,
+    team3Bio: teamMembers[2].bio ?? "",
     visionEyebrow: "Our vision",
     visionTitle:
       "We believe the future of AI belongs to organisations that embed governance into the way AI is designed, deployed and managed—not as an afterthought, but as a foundation for innovation.",

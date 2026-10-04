@@ -14,7 +14,8 @@ const STATIC_ROUTES: Array<{
   { path: "/services", changeFrequency: "monthly", priority: 0.9 },
   { path: "/solutions", changeFrequency: "monthly", priority: 0.9 },
   { path: "/education", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/about", changeFrequency: "monthly", priority: 0.8 },
+  // About page includes leadership profiles used in Organization/Person JSON-LD
+  { path: "/about", changeFrequency: "monthly", priority: 0.85 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.8 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
 ];

@@ -8,7 +8,9 @@ import { SiteEffects } from "@/components/SiteEffects";
 import { isSiteAdminAuthenticated } from "@/lib/admin-auth";
 import { getSiteNav } from "@/lib/site-nav";
 import { getSiteSettings } from "@/lib/site-settings";
+import { organizationJsonLd } from "@/lib/seo-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
+import { teamMembers } from "@/lib/team-members";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -32,9 +34,19 @@ export const metadata: Metadata = {
   },
   description: defaultDescription,
   applicationName: siteName,
-  authors: [{ name: "TrustLed AI Ltd" }],
+  authors: [
+    { name: "TrustLed AI Ltd" },
+    ...teamMembers.map((member) => ({ name: member.name })),
+  ],
   creator: siteName,
   publisher: "TrustLed AI Ltd",
+  keywords: [
+    "TrustLed AI",
+    "AI governance",
+    "AI GRC",
+    "responsible AI",
+    ...teamMembers.map((member) => member.name),
+  ],
   formatDetection: {
     email: false,
     address: false,
@@ -104,6 +116,7 @@ export default async function RootLayout({
     getSiteNav(),
     isSiteAdminAuthenticated(),
   ]);
+  const orgJsonLd = organizationJsonLd();
 
   return (
     <html
@@ -112,6 +125,10 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <Link className="skip-link" href="#main">
           Skip to content
         </Link>
